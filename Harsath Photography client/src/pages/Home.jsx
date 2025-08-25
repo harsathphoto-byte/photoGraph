@@ -1,17 +1,9 @@
 import Hero from '../components/Hero'
-import FeaturedSection from '../components/FeaturedSection'
-import Gallery from '../components/Gallery'
-import Services from '../components/Services'
-import Contact from '../components/Contact'
 
-const Home = () => {
+const Home = ({ setCurrentPage }) => {
   return (
     <div>
-      <Hero />
-      <FeaturedSection />
-      <Gallery />
-      <Services />
-      <Contact />
+      <Hero setCurrentPage={setCurrentPage} />
     </div>
   )
 }

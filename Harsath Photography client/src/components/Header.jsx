@@ -1,16 +1,25 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react"
+import { HiHome } from "@react-icons/all-files/hi/HiHome"
+import { HiUser } from "@react-icons/all-files/hi/HiUser"
+import { HiCamera } from "@react-icons/all-files/hi/HiCamera"
+import { HiLightningBolt } from "@react-icons/all-files/hi/HiLightningBolt"
+import { HiMail } from "@react-icons/all-files/hi/HiMail"
+import { HiPhone } from "@react-icons/all-files/hi/HiPhone"
+import { HiMenu } from "@react-icons/all-files/hi/HiMenu"
+import { HiX } from "@react-icons/all-files/hi/HiX"
+import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 
 const Header = ({ currentPage, setCurrentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
-  // Navigation items array to avoid duplication
+  // Navigation items array with React Icons
   const navigationItems = [
-    { key: 'home', label: 'Home', icon: '🏠' },
-    { key: 'about', label: 'About', icon: '👤' },
-    { key: 'gallery', label: 'Gallery', icon: '📸' },
-    { key: 'services', label: 'Services', icon: '⚡' },
-    { key: 'contact', label: 'Contact', icon: '📧' }
+    { key: 'home', label: 'Home', icon: HiHome },
+    { key: 'about', label: 'About', icon: HiUser },
+    { key: 'gallery', label: 'Gallery', icon: HiCamera },
+    { key: 'services', label: 'Services', icon: HiLightningBolt },
+    { key: 'contact', label: 'Contact', icon: HiMail }
   ]
 
   useEffect(() => {
@@ -32,138 +41,168 @@ const Header = ({ currentPage, setCurrentPage }) => {
       isScrolled ? 'bg-[#D6A33E]/95 backdrop-blur-sm' : 'bg-[#D6A33E]'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
-          {/* Logo Section */}
+        <div className="flex items-center justify-between h-14 md:h-16">
+          {/* Logo Section - Optimized */}
           <div 
-            className="flex items-center space-x-4 cursor-pointer group flex-shrink-0" 
+            className="flex items-center space-x-3 cursor-pointer group flex-shrink-0" 
             onClick={() => handleNavClick('home')}
           >
-            <div className="w-10 h-10 md:w-12 md:h-12 bg-[#111111] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-              <span className="text-[#D6A33E] font-bold text-xl md:text-2xl">HP</span>
+            <div className="w-9 h-9 md:w-10 md:h-10 bg-[#111111] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
+              <span className="text-[#D6A33E] font-bold text-lg md:text-xl">HP</span>
             </div>
             <div className="hidden sm:block">
-              <div className="text-[#111111] font-bold text-xl md:text-2xl tracking-wide">PHOTOGRAPHY</div>
-              <div className="text-[#111111] text-xs md:text-sm opacity-80 -mt-1">Every picture tells a story</div>
+              <div className="text-[#111111] font-bold text-lg md:text-xl tracking-wide">PHOTOGRAPHY</div>
+              <div className="text-[#111111] text-xs opacity-75 -mt-0.5">Capturing moments</div>
             </div>
             <div className="sm:hidden">
-              <span className="text-[#111111] font-bold text-lg">PHOTOGRAPHY</span>
+              <span className="text-[#111111] font-bold text-base">PHOTOGRAPHY</span>
             </div>
           </div>
           
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-2">
-            {navigationItems.map((item) => (
-              <button 
-                key={item.key}
-                onClick={() => handleNavClick(item.key)} 
-                className={`px-6 py-3 mx-1 rounded-lg text-sm font-semibold transition-all duration-300 relative ${
-                  currentPage === item.key 
-                    ? 'text-[#D6A33E] bg-[#111111] shadow-lg transform scale-105' 
-                    : 'text-[#111111] hover:bg-[#111111]/15 hover:text-[#111111] hover:scale-105'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+          {/* Desktop Navigation - Professional & Compact */}
+          <nav className="hidden lg:flex items-center space-x-1">
+            {navigationItems.map((item) => {
+              const IconComponent = item.icon
+              return (
+                <button 
+                  key={item.key}
+                  onClick={() => handleNavClick(item.key)} 
+                  className={`group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
+                    currentPage === item.key 
+                      ? 'text-[#D6A33E] bg-[#111111] shadow-md' 
+                      : 'text-[#111111] hover:bg-[#111111]/10 hover:scale-105'
+                  }`}
+                >
+                  <IconComponent className="w-4 h-4" />
+                  <span>{item.label}</span>
+                  
+                  {/* Active indicator */}
+                  {currentPage === item.key && (
+                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-[#D6A33E] rounded-full"></div>
+                  )}
+                </button>
+              )
+            })}
           </nav>
 
-          {/* Tablet Navigation */}
+          {/* Tablet Navigation - Compact */}
           <nav className="hidden md:flex lg:hidden items-center space-x-1">
-            {navigationItems.map((item) => (
-              <button 
-                key={item.key}
-                onClick={() => handleNavClick(item.key)} 
-                className={`px-3 py-2 rounded-md text-xs font-semibold transition-all duration-300 ${
-                  currentPage === item.key 
-                    ? 'text-[#D6A33E] bg-[#111111] shadow-md' 
-                    : 'text-[#111111] hover:bg-[#111111]/15 hover:text-[#111111]'
-                }`}
-              >
-                {item.label}
-              </button>
-            ))}
+            {navigationItems.map((item) => {
+              const IconComponent = item.icon
+              return (
+                <button 
+                  key={item.key}
+                  onClick={() => handleNavClick(item.key)} 
+                  className={`group relative px-3 py-2 rounded-md text-xs font-medium transition-all duration-200 flex items-center space-x-1 ${
+                    currentPage === item.key 
+                      ? 'text-[#D6A33E] bg-[#111111] shadow-sm' 
+                      : 'text-[#111111] hover:bg-[#111111]/10'
+                  }`}
+                >
+                  <IconComponent className="w-3.5 h-3.5" />
+                  <span className="hidden sm:inline">{item.label}</span>
+                  
+                  {/* Active indicator dot */}
+                  {currentPage === item.key && (
+                    <div className="w-1.5 h-1.5 bg-[#D6A33E] rounded-full animate-pulse"></div>
+                  )}
+                </button>
+              )
+            })}
           </nav>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button - Compact */}
           <div className="flex items-center md:hidden">
             <button 
-              className="text-[#111111] hover:bg-[#111111]/10 p-2 rounded-lg transition-colors duration-300"
+              className={`relative p-2 rounded-lg transition-all duration-200 ${
+                isMenuOpen 
+                  ? 'bg-[#111111] text-[#D6A33E]' 
+                  : 'text-[#111111] hover:bg-[#111111]/10'
+              }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
-              <svg 
-                className={`w-6 h-6 transition-transform duration-300 ${isMenuOpen ? 'rotate-90' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
-              >
-                {isMenuOpen ? (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                ) : (
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                )}
-              </svg>
+              {isMenuOpen ? (
+                <HiX className="w-5 h-5" />
+              ) : (
+                <HiMenu className="w-5 h-5" />
+              )}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation Dropdown */}
-        <div className={`md:hidden transition-all duration-300 ease-in-out ${
+        {/* Mobile Navigation Popup - Professional & Compact */}
+        <div className={`md:hidden absolute right-4 top-full mt-1 w-56 bg-[#111111] rounded-lg shadow-xl border border-[#D6A33E]/20 overflow-hidden transform transition-all duration-200 origin-top-right z-50 ${
           isMenuOpen 
-            ? 'max-h-80 opacity-100 pb-4' 
-            : 'max-h-0 opacity-0 overflow-hidden'
+            ? 'scale-100 opacity-100 translate-y-0' 
+            : 'scale-95 opacity-0 -translate-y-1 pointer-events-none'
         }`}>
-          <div className="border-t border-[#111111]/20 pt-4">
-            <nav className="flex flex-col space-y-2">
-              {navigationItems.map((item) => (
+          {/* Popup Arrow */}
+          <div className="absolute -top-1 right-5 w-3 h-3 bg-[#111111] border-l border-t border-[#D6A33E]/20 transform rotate-45"></div>
+          
+          <div className="py-1">
+            {/* Navigation Items */}
+            {navigationItems.map((item, index) => {
+              const IconComponent = item.icon
+              return (
                 <button 
                   key={item.key}
                   onClick={() => handleNavClick(item.key)} 
-                  className={`flex items-center space-x-3 w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
+                  className={`w-full flex items-center space-x-2.5 px-3 py-2.5 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 group ${
                     currentPage === item.key 
-                      ? 'text-[#D6A33E] bg-[#111111] shadow-lg transform scale-105' 
-                      : 'text-[#111111] hover:bg-[#111111]/10 hover:text-[#111111]/90 hover:translate-x-2'
+                      ? 'bg-[#D6A33E]/15 text-[#D6A33E] border-r-2 border-[#D6A33E]' 
+                      : 'text-white hover:text-[#D6A33E]'
                   }`}
                 >
-                  <span className="text-lg">{item.icon}</span>
-                  <span>{item.label}</span>
+                  {/* Icon Container */}
+                  <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-all duration-150 ${
+                    currentPage === item.key 
+                      ? 'bg-[#D6A33E] text-[#111111]' 
+                      : 'bg-[#D6A33E]/20 text-[#D6A33E] group-hover:bg-[#D6A33E] group-hover:text-[#111111]'
+                  }`}>
+                    <IconComponent className="w-4 h-4" />
+                  </div>
+                  
+                  {/* Text */}
+                  <span className="font-medium text-sm">{item.label}</span>
+                  
+                  {/* Active Indicator */}
                   {currentPage === item.key && (
-                    <div className="ml-auto w-2 h-2 bg-[#D6A33E] rounded-full"></div>
+                    <div className="ml-auto">
+                      <div className="w-1.5 h-1.5 bg-[#D6A33E] rounded-full"></div>
+                    </div>
                   )}
                 </button>
-              ))}
-            </nav>
+              )
+            })}
             
-            {/* Mobile Contact Info */}
-            <div className="mt-6 pt-4 border-t border-[#111111]/20">
-              <div className="flex items-center justify-center space-x-6">
+            {/* Divider */}
+            <div className="my-1 mx-3 border-t border-[#D6A33E]/20"></div>
+            
+            {/* Quick Actions */}
+            <div className="px-3 py-2">
+              <p className="text-[#D6A33E] text-xs font-medium mb-2">Quick Contact</p>
+              <div className="flex space-x-1.5">
                 <a 
                   href="tel:+91XXXXXXXXX" 
-                  className="text-[#111111] hover:bg-[#111111]/10 p-2 rounded-lg transition-colors"
+                  className="flex-1 flex items-center justify-center p-2 bg-[#D6A33E]/10 rounded-md text-[#D6A33E] hover:bg-[#D6A33E] hover:text-[#111111] transition-all duration-150 group"
                   aria-label="Call us"
                 >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                  </svg>
+                  <HiPhone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                 </a>
                 <a 
                   href="mailto:hello@harsathphotography.com" 
-                  className="text-[#111111] hover:bg-[#111111]/10 p-2 rounded-lg transition-colors"
+                  className="flex-1 flex items-center justify-center p-2 bg-[#D6A33E]/10 rounded-md text-[#D6A33E] hover:bg-[#D6A33E] hover:text-[#111111] transition-all duration-150 group"
                   aria-label="Email us"
                 >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                  </svg>
+                  <HiMail className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                 </a>
                 <a 
                   href="#" 
-                  className="text-[#111111] hover:bg-[#111111]/10 p-2 rounded-lg transition-colors"
+                  className="flex-1 flex items-center justify-center p-2 bg-[#D6A33E]/10 rounded-md text-[#D6A33E] hover:bg-[#D6A33E] hover:text-[#111111] transition-all duration-150 group"
                   aria-label="Follow on Instagram"
                 >
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                  </svg>
+                  <FaInstagram className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                 </a>
               </div>
             </div>
