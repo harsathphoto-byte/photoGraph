@@ -38,65 +38,72 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="relative bg-gradient-to-b from-[#111111] to-[#0a0a0a] border-t border-[#D6A33E]/20">
+    <footer className="relative bg-gradient-to-b from-black to-black/95 border-t border-[#D6A33E]/10">
       
       {/* Back to Top Button */}
       <button
         onClick={scrollToTop}
-        className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#D6A33E] text-[#111111] w-12 h-12 rounded-full flex items-center justify-center hover:bg-[#c1922f] hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-[#D6A33E]/30 z-10"
+        className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass-golden w-14 h-14 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-500 shadow-xl z-10"
       >
-        <HiArrowUp className="w-5 h-5" />
+        <HiArrowUp className="w-6 h-6 text-black" />
       </button>
 
-      <div className="px-4 py-16">
+      <div className="px-4 py-20">
         <div className="max-w-7xl mx-auto">
           
           {/* Main Footer Content */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
             
             {/* Brand Section */}
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-3 mb-6">
-                <div className="w-12 h-12 bg-[#D6A33E] rounded-xl flex items-center justify-center">
-                  <span className="text-[#111111] font-bold text-xl">HP</span>
+              <div className="flex items-center space-x-4 mb-8">
+                <div className="w-16 h-16 glass-golden rounded-full flex items-center justify-center">
+                  <span className="text-black font-light text-2xl tracking-wider">HP</span>
                 </div>
                 <div>
-                  <span className="text-[#D6A33E] font-bold text-2xl">HARSATH</span>
-                  <span className="text-white font-bold text-2xl ml-2">PHOTOGRAPHY</span>
+                  <div className="text-white font-light text-3xl tracking-wider">HARSATH</div>
+                  <div className="text-[#D6A33E] font-light text-lg tracking-wider -mt-1">PHOTOGRAPHY</div>
                 </div>
               </div>
               
-              <p className="text-gray-300 text-lg leading-relaxed mb-6 max-w-md">
+              <p className="text-gray-300 font-light text-lg leading-relaxed mb-8 max-w-lg tracking-wide">
                 Capturing life's most precious moments with artistic excellence and professional dedication. 
                 Creating <span className="text-[#D6A33E]">timeless memories</span> that last forever.
               </p>
               
               {/* Contact Info */}
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3 text-gray-300 hover:text-[#D6A33E] transition-colors">
-                  <HiPhone className="w-5 h-5 text-[#D6A33E]" />
-                  <span>+91 XXXXX XXXXX</span>
+              <div className="space-y-4">
+                <div className="flex items-center space-x-4 text-gray-300 hover:text-[#D6A33E] transition-colors duration-500 group">
+                  <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
+                    <HiPhone className="w-5 h-5" />
+                  </div>
+                  <span className="font-light tracking-wide">+91 XXXXX XXXXX</span>
                 </div>
-                <div className="flex items-center space-x-3 text-gray-300 hover:text-[#D6A33E] transition-colors">
-                  <HiMail className="w-5 h-5 text-[#D6A33E]" />
-                  <span>hello@harsathphotography.com</span>
+                <div className="flex items-center space-x-4 text-gray-300 hover:text-[#D6A33E] transition-colors duration-500 group">
+                  <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
+                    <HiMail className="w-5 h-5" />
+                  </div>
+                  <span className="font-light tracking-wide">hello@harsathphotography.com</span>
                 </div>
-                <div className="flex items-center space-x-3 text-gray-300 hover:text-[#D6A33E] transition-colors">
-                  <HiLocationMarker className="w-5 h-5 text-[#D6A33E]" />
-                  <span>Chennai, Tamil Nadu, India</span>
+                <div className="flex items-center space-x-4 text-gray-300 hover:text-[#D6A33E] transition-colors duration-500 group">
+                  <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
+                    <HiLocationMarker className="w-5 h-5" />
+                  </div>
+                  <span className="font-light tracking-wide">Chennai, Tamil Nadu, India</span>
                 </div>
               </div>
             </div>
             
             {/* Quick Links */}
             <div>
-              <h3 className="text-[#D6A33E] font-bold text-xl mb-6">Quick Links</h3>
-              <ul className="space-y-3">
+              <h3 className="text-[#D6A33E] font-light text-2xl tracking-wider mb-8">Navigation</h3>
+              <div className="w-12 h-px bg-[#D6A33E] mb-6"></div>
+              <ul className="space-y-4">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
                     <a 
                       href={link.href} 
-                      className="text-gray-300 hover:text-[#D6A33E] transition-colors duration-300 hover:translate-x-1 transform inline-block"
+                      className="text-gray-300 hover:text-[#D6A33E] transition-all duration-500 hover:translate-x-2 transform inline-block font-light tracking-wide hover-lift"
                     >
                       {link.name}
                     </a>
@@ -107,10 +114,11 @@ const Footer = () => {
             
             {/* Services */}
             <div>
-              <h3 className="text-[#D6A33E] font-bold text-xl mb-6">Our Services</h3>
-              <ul className="space-y-3">
+              <h3 className="text-[#D6A33E] font-light text-2xl tracking-wider mb-8">Services</h3>
+              <div className="w-12 h-px bg-[#D6A33E] mb-6"></div>
+              <ul className="space-y-4">
                 {services.map((service, index) => (
-                  <li key={index} className="text-gray-300 hover:text-[#D6A33E] transition-colors duration-300 text-sm">
+                  <li key={index} className="text-gray-300 hover:text-[#D6A33E] transition-colors duration-500 font-light tracking-wide">
                     {service}
                   </li>
                 ))}
@@ -119,12 +127,12 @@ const Footer = () => {
           </div>
           
           {/* Social Media & Newsletter */}
-          <div className="border-t border-[#D6A33E]/20 pt-8 mb-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="border-t border-[#D6A33E]/10 pt-12 mb-12">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-12">
               
               {/* Social Media */}
               <div>
-                <h4 className="text-white font-semibold mb-4 text-center md:text-left">Follow Our Journey</h4>
+                <h4 className="text-white font-light text-xl tracking-wider mb-6 text-center md:text-left">Follow Our Journey</h4>
                 <div className="flex justify-center md:justify-start space-x-4">
                   {socialLinks.map((social, index) => {
                     const IconComponent = social.icon
@@ -132,10 +140,10 @@ const Footer = () => {
                       <a
                         key={index}
                         href={social.href}
-                        className={`w-12 h-12 bg-[#1a1a1a] border border-[#D6A33E]/30 rounded-xl flex items-center justify-center text-gray-300 hover:bg-[#D6A33E] hover:text-[#111111] hover:border-[#D6A33E] transition-all duration-300 hover:scale-110 ${social.color}`}
+                        className="w-14 h-14 glass-dark rounded-full flex items-center justify-center text-gray-300 hover:glass-golden hover:text-black hover:scale-110 transition-all duration-500 hover-lift"
                         aria-label={social.name}
                       >
-                        <IconComponent className="w-5 h-5" />
+                        <IconComponent className="w-6 h-6" />
                       </a>
                     )
                   })}
@@ -144,14 +152,14 @@ const Footer = () => {
               
               {/* Newsletter */}
               <div className="text-center md:text-right">
-                <h4 className="text-white font-semibold mb-4">Stay Updated</h4>
+                <h4 className="text-white font-light text-xl tracking-wider mb-6">Stay Updated</h4>
                 <div className="flex max-w-sm mx-auto md:mx-0">
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="flex-1 px-4 py-3 bg-[#1a1a1a] border border-[#D6A33E]/30 rounded-l-lg text-white placeholder-gray-400 focus:border-[#D6A33E] focus:outline-none"
+                    className="flex-1 px-6 py-4 glass-dark border border-[#D6A33E]/20 rounded-l-full text-white placeholder-gray-400 focus:border-[#D6A33E] focus:outline-none font-light tracking-wide"
                   />
-                  <button className="bg-[#D6A33E] text-[#111111] px-6 py-3 rounded-r-lg font-semibold hover:bg-[#c1922f] transition-colors">
+                  <button className="glass-golden px-8 py-4 rounded-r-full font-light tracking-wider hover:scale-105 transition-all duration-500">
                     Subscribe
                   </button>
                 </div>
@@ -160,21 +168,21 @@ const Footer = () => {
           </div>
           
           {/* Bottom Bar */}
-          <div className="border-t border-[#D6A33E]/20 pt-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="flex items-center space-x-2 text-gray-300">
+          <div className="border-t border-[#D6A33E]/10 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+              <div className="flex items-center space-x-2 text-gray-300 font-light tracking-wide">
                 <span>© 2025 Harsath Photography. All rights reserved.</span>
               </div>
               
-              <div className="flex items-center space-x-6 text-sm text-gray-400">
-                <a href="#" className="hover:text-[#D6A33E] transition-colors">Privacy Policy</a>
-                <a href="#" className="hover:text-[#D6A33E] transition-colors">Terms of Service</a>
-                <a href="#" className="hover:text-[#D6A33E] transition-colors">Cookie Policy</a>
+              <div className="flex items-center space-x-8 text-gray-400 font-light tracking-wide">
+                <a href="#" className="hover:text-[#D6A33E] transition-colors duration-500">Privacy Policy</a>
+                <a href="#" className="hover:text-[#D6A33E] transition-colors duration-500">Terms of Service</a>
+                <a href="#" className="hover:text-[#D6A33E] transition-colors duration-500">Cookie Policy</a>
               </div>
               
-              <div className="flex items-center space-x-2 text-gray-300">
+              <div className="flex items-center space-x-2 text-gray-300 font-light tracking-wide">
                 <span>Made with</span>
-                <HiHeart className="w-4 h-4 text-[#D6A33E] animate-pulse" />
+                <HiHeart className="w-5 h-5 text-[#D6A33E] animate-pulse" />
                 <span>in India</span>
               </div>
             </div>
@@ -182,10 +190,11 @@ const Footer = () => {
         </div>
       </div>
       
-      {/* Background Pattern */}
+      {/* Background Elements */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-[#D6A33E] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-[#D6A33E] rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-20 w-40 h-40 bg-[#D6A33E] rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-48 h-48 bg-[#D6A33E] rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-[#D6A33E] rounded-full blur-3xl"></div>
       </div>
     </footer>
   )

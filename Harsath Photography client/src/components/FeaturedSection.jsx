@@ -14,7 +14,7 @@ const FeaturedSection = () => {
       type: 'photo',
       title: 'Romantic Beach Wedding',
       category: 'Wedding Photography',
-      image: '/api/placeholder/600/400',
+      image: 'https://picsum.photos/600/400?random=70',
       views: '2.5K',
       likes: '489',
       rating: 4.9
@@ -24,7 +24,7 @@ const FeaturedSection = () => {
       type: 'video',
       title: 'Cinematic Wedding Highlights',
       category: 'Wedding Videography',
-      image: '/api/placeholder/600/400',
+      image: 'https://picsum.photos/600/400?random=71',
       views: '8.2K',
       likes: '1.2K',
       rating: 5.0,
@@ -35,7 +35,7 @@ const FeaturedSection = () => {
       type: 'photo',
       title: 'Corporate Brand Shoot',
       category: 'Commercial Photography',
-      image: '/api/placeholder/600/400',
+      image: 'https://picsum.photos/600/400?random=72',
       views: '1.8K',
       likes: '324',
       rating: 4.8
@@ -43,11 +43,11 @@ const FeaturedSection = () => {
   ]
 
   return (
-    <section className="px-4 py-16 md:py-20 bg-gradient-to-b from-[#0a0a0a] to-[#111111]">
+    <section className="px-4 py-16 md:py-20 bg-gradient-to-b from-[#0a0a0a] to-[#111111] perspective-container">
       <div className="max-w-7xl mx-auto">
         
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 animate-fadeInUp3D">
           <div className="inline-block">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#D6A33E] mb-4 relative">
               Featured Work
@@ -67,7 +67,7 @@ const FeaturedSection = () => {
             onMouseLeave={() => setIsHovered(false)}
           >
             <img 
-              src="/api/placeholder/1200/700" 
+              src="https://picsum.photos/1200/700?random=73" 
               alt="Featured Photography Work" 
               className="w-full h-72 md:h-96 lg:h-[600px] object-cover group-hover:scale-105 transition-transform duration-700"
             />

@@ -1,21 +1,102 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { HiEye } from "@react-icons/all-files/hi/HiEye"
 import { HiHeart } from "@react-icons/all-files/hi/HiHeart"
-import { HiArrowRight } from "@react-icons/all-files/hi/HiArrowRight"
+import { HiPlay } from "@react-icons/all-files/hi/HiPlay"
 
 const Gallery = () => {
-  const [hoveredId, setHoveredId] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const gridRef = useRef(null)
+  const [columnCount, setColumnCount] = useState(4)
 
-  const galleryImages = [
-    { id: 1, category: 'Wedding', src: '/api/placeholder/400/400', title: 'Romantic Wedding', likes: 124 },
-    { id: 2, category: 'Portrait', src: '/api/placeholder/400/500', title: 'Professional Portrait', likes: 89 },
-    { id: 3, category: 'Event', src: '/api/placeholder/500/400', title: 'Corporate Event', likes: 156 },
-    { id: 4, category: 'Fashion', src: '/api/placeholder/400/600', title: 'Fashion Shoot', likes: 203 },
-    { id: 5, category: 'Nature', src: '/api/placeholder/600/400', title: 'Landscape Beauty', likes: 178 },
-    { id: 6, category: 'Commercial', src: '/api/placeholder/400/400', title: 'Brand Campaign', likes: 145 },
-    { id: 7, category: 'Wedding', src: '/api/placeholder/500/600', title: 'Destination Wedding', likes: 267 },
-    { id: 8, category: 'Portrait', src: '/api/placeholder/400/500', title: 'Creative Portrait', likes: 98 },
+  // Masonry layout function matching reference style
+  const createMasonryLayout = () => {
+    const grid = gridRef.current
+    if (!grid) return
+
+    const items = grid.querySelectorAll('.masonry-item')
+    const gap = 12 // Smaller gap like in reference
+    const containerWidth = grid.offsetWidth
+    const columns = columnCount
+    const columnWidth = (containerWidth - gap * (columns - 1)) / columns
+    
+    // Initialize column heights
+    const columnHeights = new Array(columns).fill(0)
+    
+    items.forEach((item, index) => {
+      // Find the shortest column
+      const shortestColumnIndex = columnHeights.indexOf(Math.min(...columnHeights))
+      
+      // Position the item
+      const x = shortestColumnIndex * (columnWidth + gap)
+      const y = columnHeights[shortestColumnIndex]
+      
+      item.style.position = 'absolute'
+      item.style.left = `${x}px`
+      item.style.top = `${y}px`
+      item.style.width = `${columnWidth}px`
+      
+      // Update column height
+      columnHeights[shortestColumnIndex] += item.offsetHeight + gap
+    })
+    
+    // Set container height
+    grid.style.height = `${Math.max(...columnHeights)}px`
+  }
+
+  // Update column count based on screen size to match reference
+  useEffect(() => {
+    const updateColumnCount = () => {
+      const width = window.innerWidth
+      if (width < 640) setColumnCount(2)      // 2 columns on mobile
+      else if (width < 768) setColumnCount(3) // 3 columns on tablet
+      else if (width < 1024) setColumnCount(4) // 4 columns on laptop
+      else if (width < 1280) setColumnCount(5) // 5 columns on desktop
+      else setColumnCount(6)                   // 6 columns on large screens
+    }
+
+    updateColumnCount()
+    window.addEventListener('resize', updateColumnCount)
+    return () => window.removeEventListener('resize', updateColumnCount)
+  }, [])
+
+  // Create masonry layout when images load or category changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      createMasonryLayout()
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [selectedCategory, columnCount])
+
+  // Handle image load
+  const handleImageLoad = () => {
+    createMasonryLayout()
+  }
+
+    const galleryImages = [
+    { id: 1, category: 'Wedding', url: 'https://picsum.photos/400/600?random=101', title: 'Wedding Ceremony', views: '2.1k', likes: 234, type: 'photo' },
+    { id: 2, category: 'Portrait', url: 'https://picsum.photos/400/320?random=102', title: 'Studio Portrait', views: '1.8k', likes: 189, type: 'photo' },
+    { id: 3, category: 'Event', url: 'https://picsum.photos/400/500?random=103', title: 'Corporate Event', views: '1.2k', likes: 156, type: 'photo' },
+    { id: 4, category: 'Fashion', url: 'https://picsum.photos/400/680?random=104', title: 'Fashion Shoot', views: '3.4k', likes: 298, type: 'photo' },
+    { id: 5, category: 'Nature', url: 'https://picsum.photos/400/420?random=105', title: 'Landscape Beauty', views: '2.7k', likes: 178, type: 'photo' },
+    { id: 6, category: 'Commercial', url: 'https://picsum.photos/400/550?random=106', title: 'Brand Campaign', views: '1.5k', likes: 145, type: 'photo' },
+    { id: 7, category: 'Wedding', url: 'https://picsum.photos/400/720?random=107', title: 'Destination Wedding', views: '4.1k', likes: 267, type: 'photo' },
+    { id: 8, category: 'Portrait', url: 'https://picsum.photos/400/380?random=108', title: 'Creative Portrait', views: '987', likes: 98, type: 'photo' },
+    { id: 9, category: 'Event', url: 'https://picsum.photos/400/480?random=109', title: 'Birthday Party', views: '756', likes: 67, type: 'photo' },
+    { id: 10, category: 'Fashion', url: 'https://picsum.photos/400/620?random=110', title: 'Editorial Shoot', views: '2.3k', likes: 189, type: 'photo' },
+    { id: 11, category: 'Nature', url: 'https://picsum.photos/400/360?random=111', title: 'Mountain Vista', views: '3.1k', likes: 234, type: 'photo' },
+    { id: 12, category: 'Commercial', url: 'https://picsum.photos/400/580?random=112', title: 'Product Launch', views: '1.8k', likes: 156, type: 'photo' },
+    { id: 13, category: 'Wedding', url: 'https://picsum.photos/400/450?random=113', title: 'Beach Wedding', views: '2.9k', likes: 145, type: 'photo' },
+    { id: 14, category: 'Portrait', url: 'https://picsum.photos/400/520?random=114', title: 'Business Headshot', views: '1.1k', likes: 78, type: 'photo' },
+    { id: 15, category: 'Event', url: 'https://picsum.photos/400/640?random=115', title: 'Conference', views: '1.4k', likes: 92, type: 'photo' },
+    { id: 16, category: 'Fashion', url: 'https://picsum.photos/400/400?random=116', title: 'Street Fashion', views: '2.2k', likes: 156, type: 'photo' },
+    { id: 17, category: 'Nature', url: 'https://picsum.photos/400/700?random=117', title: 'Sunset Landscape', views: '3.8k', likes: 198, type: 'photo' },
+    { id: 18, category: 'Commercial', url: 'https://picsum.photos/400/340?random=118', title: 'Restaurant Shoot', views: '1.7k', likes: 123, type: 'photo' },
+    { id: 19, category: 'Wedding', url: 'https://picsum.photos/400/560?random=119', title: 'Garden Wedding', views: '2.5k', likes: 189, type: 'photo' },
+    { id: 20, category: 'Portrait', url: 'https://picsum.photos/400/480?random=120', title: 'Family Portrait', views: '1.3k', likes: 145, type: 'photo' },
+    { id: 21, category: 'Nature', url: 'https://picsum.photos/400/380?random=121', title: 'Forest Path', views: '2.8k', likes: 201, type: 'photo' },
+    { id: 22, category: 'Fashion', url: 'https://picsum.photos/400/660?random=122', title: 'Runway Show', views: '3.2k', likes: 267, type: 'photo' },
+    { id: 23, category: 'Event', url: 'https://picsum.photos/400/420?random=123', title: 'Music Festival', views: '1.9k', likes: 134, type: 'photo' },
+    { id: 24, category: 'Commercial', url: 'https://picsum.photos/400/540?random=124', title: 'Tech Conference', views: '1.6k', likes: 98, type: 'photo' },
   ]
 
   const categories = ['All', 'Wedding', 'Portrait', 'Event', 'Fashion', 'Nature', 'Commercial']
@@ -25,32 +106,29 @@ const Gallery = () => {
     : galleryImages.filter(img => img.category === selectedCategory)
 
   return (
-    <section id="gallery" className="px-4 py-16 md:py-20 bg-gradient-to-b from-[#111111] to-[#0a0a0a]">
-      <div className="max-w-7xl mx-auto">
+    <section id="gallery" className="py-16 lg:py-24 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="inline-block">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#D6A33E] mb-4 relative">
-              Portfolio Gallery
-              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#D6A33E] to-transparent"></div>
-            </h2>
-          </div>
-          <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mt-6">
-            Explore my diverse portfolio showcasing different photography styles and capturing life's most beautiful moments
+        {/* Minimal Header */}
+        <div className="text-center mb-12">
+          <h2 className="text-3xl lg:text-4xl font-light tracking-wider text-gray-900 mb-4">
+            Gallery
+          </h2>
+          <p className="text-gray-600 font-light tracking-wide">
+            Explore our curated collection
           </p>
         </div>
 
-        {/* Category Filter */}
+        {/* Clean Category Filter */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-3 rounded-full font-medium transition-all duration-300 ${
+              className={`px-6 py-2 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
                 selectedCategory === category
-                  ? 'bg-[#D6A33E] text-[#111111] shadow-lg shadow-[#D6A33E]/30 scale-105'
-                  : 'bg-[#1a1a1a] text-gray-300 border border-[#D6A33E]/30 hover:bg-[#D6A33E]/10 hover:text-[#D6A33E] hover:border-[#D6A33E]'
+                  ? 'bg-gray-900 text-white'
+                  : 'bg-white text-gray-700 hover:bg-gray-100 border border-gray-200'
               }`}
             >
               {category}
@@ -58,74 +136,54 @@ const Gallery = () => {
           ))}
         </div>
         
-        {/* Gallery Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-16">
-          {filteredImages.map((image, index) => (
-            <div 
-              key={image.id} 
-              className={`group cursor-pointer transition-all duration-500 ${
-                index % 7 === 0 ? 'md:col-span-2 md:row-span-2' : ''
-              }`}
-              onMouseEnter={() => setHoveredId(image.id)}
-              onMouseLeave={() => setHoveredId(null)}
-              style={{ animationDelay: `${index * 100}ms` }}
+        {/* Clean Masonry Layout - Reference Style */}
+        <div 
+          ref={gridRef}
+          className="relative w-full"
+          style={{ position: 'relative' }}
+        >
+          {filteredImages.map((image) => (
+            <div
+              key={image.id}
+              className="masonry-item group cursor-pointer relative overflow-hidden rounded-lg transition-all duration-300"
             >
-              <div className="relative overflow-hidden rounded-2xl bg-[#1a1a1a] border border-[#D6A33E]/20 aspect-square group-hover:border-[#D6A33E] transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-[#D6A33E]/20">
-                <img 
-                  src={image.src} 
-                  alt={image.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                
-                {/* Overlay */}
-                <div className={`absolute inset-0 bg-gradient-to-t from-[#111111]/90 via-[#111111]/50 to-transparent transition-all duration-500 ${
-                  hoveredId === image.id ? 'opacity-100' : 'opacity-0'
-                }`}>
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="bg-[#D6A33E] text-[#111111] px-3 py-1 rounded-full text-sm font-medium">
-                        {image.category}
-                      </span>
-                      <div className="flex items-center space-x-1 text-[#D6A33E]">
+              <img 
+                src={image.url} 
+                alt={image.title}
+                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-[1.02] rounded-lg"
+                onLoad={handleImageLoad}
+                loading="lazy"
+              />
+              
+              {/* Minimal Hover Overlay - Only on Hover */}
+              <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg">
+                <div className="absolute bottom-4 left-4 right-4">
+                  <div className="flex items-center justify-between text-white">
+                    <div>
+                      <p className="text-sm font-medium mb-1">{image.title}</p>
+                      <p className="text-xs text-gray-300">{image.category}</p>
+                    </div>
+                    <div className="flex items-center space-x-3 text-xs">
+                      <div className="flex items-center space-x-1">
                         <HiHeart className="w-4 h-4" />
-                        <span className="text-sm">{image.likes}</span>
+                        <span>{image.likes}</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <HiEye className="w-4 h-4" />
+                        <span>{image.views}</span>
                       </div>
                     </div>
-                    <h3 className="text-white font-semibold text-lg mb-3">{image.title}</h3>
-                    <div className="flex items-center space-x-4">
-                      <button className="flex items-center space-x-2 bg-[#D6A33E] text-[#111111] px-4 py-2 rounded-full font-medium hover:bg-[#c1922f] transition-colors">
-                        <HiEye className="w-4 h-4" />
-                        <span>View</span>
-                      </button>
-                      <button className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors">
-                        <HiHeart className="w-4 h-4" />
-                      </button>
-                    </div>
                   </div>
-                </div>
-
-                {/* Category Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className="bg-[#111111]/80 backdrop-blur-sm text-[#D6A33E] px-3 py-1 rounded-full text-sm font-medium border border-[#D6A33E]/30">
-                    {image.category}
-                  </span>
                 </div>
               </div>
             </div>
           ))}
         </div>
         
-        {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] rounded-3xl p-8 md:p-12 border border-[#D6A33E]/20">
-          <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
-            See More Amazing Work
-          </h3>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Discover hundreds of stunning photographs in my complete portfolio gallery
-          </p>
-          <button className="group bg-[#D6A33E] text-[#111111] px-8 md:px-12 py-4 rounded-full font-semibold text-lg hover:bg-[#c1922f] hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-[#D6A33E]/30 flex items-center space-x-2 mx-auto">
-            <span>View Full Gallery</span>
-            <HiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+        {/* Load More Button */}
+        <div className="text-center mt-16">
+          <button className="bg-gray-900 text-white px-8 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors duration-300">
+            Load More
           </button>
         </div>
       </div>

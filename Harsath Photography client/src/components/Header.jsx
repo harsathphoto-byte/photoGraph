@@ -37,40 +37,42 @@ const Header = ({ currentPage, setCurrentPage }) => {
   }
 
   return (
-    <header className={`bg-[#D6A33E] shadow-lg sticky top-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-[#D6A33E]/95 backdrop-blur-sm' : 'bg-[#D6A33E]'
+    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      isScrolled 
+        ? 'h-20 glass-dark backdrop-blur-md border-b border-[#D6A33E]/20 shadow-2xl' 
+        : 'h-24 bg-gradient-to-b from-black/50 to-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14 md:h-16">
-          {/* Logo Section - Optimized */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
+        <div className="flex items-center justify-between h-full py-2">
+          {/* Enhanced Logo Section */}
           <div 
             className="flex items-center space-x-3 cursor-pointer group flex-shrink-0" 
             onClick={() => handleNavClick('home')}
           >
-            <div className="w-9 h-9 md:w-10 md:h-10 bg-[#111111] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
-              <span className="text-[#D6A33E] font-bold text-lg md:text-xl">HP</span>
+            <div className="relative">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 glass-golden rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
+                <span className="text-black font-bold text-lg sm:text-xl tracking-wider">HP</span>
+              </div>
+              <div className="absolute inset-0 rounded-full border border-[#D6A33E]/40 group-hover:border-[#D6A33E]/80 transition-colors duration-500"></div>
             </div>
             <div className="hidden sm:block">
-              <div className="text-[#111111] font-bold text-lg md:text-xl tracking-wide">PHOTOGRAPHY</div>
-              <div className="text-[#111111] text-xs opacity-75 -mt-0.5">Capturing moments</div>
-            </div>
-            <div className="sm:hidden">
-              <span className="text-[#111111] font-bold text-base">PHOTOGRAPHY</span>
+              <div className="text-white font-semibold text-lg sm:text-xl tracking-wide">HARSATH</div>
+              <div className="text-[#D6A33E] font-medium text-xs sm:text-sm tracking-wider -mt-0.5">PHOTOGRAPHY</div>
             </div>
           </div>
           
-          {/* Desktop Navigation - Professional & Compact */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          {/* Desktop Navigation - Sleek & Modern */}
+          <nav className="hidden lg:flex items-center space-x-8">
             {navigationItems.map((item) => {
               const IconComponent = item.icon
               return (
                 <button 
                   key={item.key}
                   onClick={() => handleNavClick(item.key)} 
-                  className={`group relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 flex items-center space-x-2 ${
+                  className={`group relative px-4 py-2 rounded-lg font-medium text-sm tracking-wide transition-all duration-300 flex items-center space-x-2 ${
                     currentPage === item.key 
-                      ? 'text-[#D6A33E] bg-[#111111] shadow-md' 
-                      : 'text-[#111111] hover:bg-[#111111]/10 hover:scale-105'
+                      ? 'text-[#D6A33E] bg-[#D6A33E]/10 border border-[#D6A33E]/30' 
+                      : 'text-white/90 hover:text-[#D6A33E] hover:bg-white/5'
                   }`}
                 >
                   <IconComponent className="w-4 h-4" />
@@ -78,54 +80,51 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   
                   {/* Active indicator */}
                   {currentPage === item.key && (
-                    <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-0.5 bg-[#D6A33E] rounded-full"></div>
+                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#D6A33E] rounded-full"></div>
                   )}
                 </button>
               )
             })}
           </nav>
 
-          {/* Tablet Navigation - Compact */}
-          <nav className="hidden md:flex lg:hidden items-center space-x-1">
+          {/* Tablet Navigation - Compact & Clean */}
+          <nav className="hidden md:flex lg:hidden items-center space-x-6">
             {navigationItems.map((item) => {
               const IconComponent = item.icon
               return (
                 <button 
                   key={item.key}
                   onClick={() => handleNavClick(item.key)} 
-                  className={`group relative px-3 py-2 rounded-md text-xs font-medium transition-all duration-200 flex items-center space-x-1 ${
+                  className={`group relative p-2 rounded-lg transition-all duration-300 ${
                     currentPage === item.key 
-                      ? 'text-[#D6A33E] bg-[#111111] shadow-sm' 
-                      : 'text-[#111111] hover:bg-[#111111]/10'
+                      ? 'text-[#D6A33E] bg-[#D6A33E]/10' 
+                      : 'text-white/80 hover:text-[#D6A33E] hover:bg-white/5'
                   }`}
                 >
-                  <IconComponent className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">{item.label}</span>
-                  
-                  {/* Active indicator dot */}
+                  <IconComponent className="w-5 h-5" />
                   {currentPage === item.key && (
-                    <div className="w-1.5 h-1.5 bg-[#D6A33E] rounded-full animate-pulse"></div>
+                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#D6A33E] rounded-full"></div>
                   )}
                 </button>
               )
             })}
           </nav>
 
-          {/* Mobile Menu Button - Compact */}
+          {/* Mobile Menu Button - Enhanced */}
           <div className="flex items-center md:hidden">
             <button 
-              className={`relative p-2 rounded-lg transition-all duration-200 ${
+              className={`relative p-3 rounded-lg transition-all duration-300 ${
                 isMenuOpen 
-                  ? 'bg-[#111111] text-[#D6A33E]' 
-                  : 'text-[#111111] hover:bg-[#111111]/10'
+                  ? 'bg-[#D6A33E] text-black' 
+                  : 'text-white hover:bg-white/10 hover:text-[#D6A33E]'
               }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
-                <HiX className="w-5 h-5" />
+                <HiX className="w-6 h-6" />
               ) : (
-                <HiMenu className="w-5 h-5" />
+                <HiMenu className="w-6 h-6" />
               )}
             </button>
           </div>
