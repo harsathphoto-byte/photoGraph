@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <div className="bg-animated page-bg-about relative px-4 py-12 md:py-16 lg:py-20 min-h-screen perspective-container">
+    <div className="bg-animated page-bg-about relative px-4 pt-32 lg:pt-40 pb-12 md:pb-16 lg:pb-20 min-h-screen perspective-container">
       {/* Enhanced Glowing Background Effects */}
       <div className="bg-glow" style={{ top: '15%', left: '10%', animationDelay: '0s' }}></div>
       <div className="bg-glow-large" style={{ top: '50%', right: '5%', animationDelay: '3s' }}></div>

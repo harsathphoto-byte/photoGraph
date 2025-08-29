@@ -43,10 +43,10 @@ const Header = ({ currentPage, setCurrentPage }) => {
         : 'h-24 bg-gradient-to-b from-black/50 to-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="flex items-center justify-between h-full py-2">
+        <div className="flex items-center justify-between h-full py-2 gap-8">
           {/* Enhanced Logo Section */}
           <div 
-            className="flex items-center space-x-3 cursor-pointer group flex-shrink-0" 
+            className="flex items-center space-x-3 cursor-pointer group flex-shrink-0 min-w-fit" 
             onClick={() => handleNavClick('home')}
           >
             <div className="relative">
@@ -62,7 +62,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
           </div>
           
           {/* Desktop Navigation - Sleek & Modern */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-8 ml-auto">
             {navigationItems.map((item) => {
               const IconComponent = item.icon
               return (

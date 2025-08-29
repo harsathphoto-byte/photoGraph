@@ -6,7 +6,7 @@ const Home = ({ setCurrentPage }) => {
       {/* Enhanced Floating particles */}
       <div className="floating-particles">
         {[...Array(12)].map((_, i) => (
-          <div key={i} className="particle"></div>
+          <div key={i} className="particle" style={{ animationDelay: `${i * 2.1}s` }}></div>
         ))}
       </div>
       
@@ -17,10 +17,10 @@ const Home = ({ setCurrentPage }) => {
       <div className="bg-orb-glow" style={{ top: '60%', left: '20%', animationDelay: '1s' }}></div>
       <div className="bg-orb-glow" style={{ bottom: '30%', right: '25%', animationDelay: '3s' }}></div>
 
-      {/* Sprinkle Effects */}
+      {/* Random Sprinkle Effects */}
       <div className="sprinkles">
-        {[...Array(20)].map((_, i) => (
-          <div key={i} className="sprinkle" style={{ left: `${(i * 5) % 100}%`, animationDelay: `${i * 0.4}s` }}></div>
+        {[...Array(25)].map((_, i) => (
+          <div key={i} className="sprinkle" style={{ left: `${(i * 3.7) % 100}%`, animationDelay: `${i * 0.3}s` }}></div>
         ))}
       </div>
       

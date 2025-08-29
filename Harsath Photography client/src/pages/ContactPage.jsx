@@ -62,7 +62,7 @@ const ContactPage = () => {
       {/* Content Wrapper */}
       <div className="relative z-10">
       {/* Hero Section */}
-      <section className="relative py-24 lg:py-32">
+      <section className="relative pt-32 lg:pt-40 pb-24 lg:pb-32">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-black to-amber-900/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 text-center">
           <h1 className="text-5xl lg:text-7xl font-light tracking-wider text-white mb-6">

@@ -76,7 +76,7 @@ const ServicesPage = () => {
       {/* Content Wrapper */}
       <div className="relative z-10">
         {/* Hero Section */}
-        <section className="relative py-24 lg:py-32">
+        <section className="relative pt-32 lg:pt-40 pb-24 lg:pb-32">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-black to-amber-900/20"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-fadeInUp3D">

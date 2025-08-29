@@ -271,7 +271,32 @@ const Hero = ({ setCurrentPage }) => {
   return (
     <>
       {/* Clean Layout - Removing Duplicate Header */}
-      <section className="bg-[#111111] min-h-screen px-4 sm:px-6 lg:px-12 xl:px-16 pb-6 pt-20">
+      <section className="bg-[#111111] min-h-screen px-4 sm:px-6 lg:px-12 xl:px-16 pb-6 pt-32 lg:pt-40 relative">
+        
+        {/* Hero Sparkle Effects */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-10">
+          {/* Enhanced Random Sprinkles */}
+          <div className="sprinkles">
+            {[...Array(30)].map((_, i) => (
+              <div key={i} className="sprinkle" style={{ 
+                left: `${(i * 2.8) % 100}%`, 
+                animationDelay: `${i * 0.2}s`,
+                top: `${Math.random() * 100}%`
+              }}></div>
+            ))}
+          </div>
+          
+          {/* Enhanced Floating Particles */}
+          <div className="floating-particles">
+            {[...Array(15)].map((_, i) => (
+              <div key={i} className="particle" style={{ 
+                animationDelay: `${i * 1.8}s`,
+                left: `${5 + (i * 6) % 90}%`,
+                top: `${10 + (i * 5) % 80}%`
+              }}></div>
+            ))}
+          </div>
+        </div>
         
         {/* Professional Hero Section - Enhanced Layout */}
         <div className="text-center mb-16 lg:mb-20 max-w-6xl mx-auto animate-fadeInUp3D">
@@ -309,7 +334,7 @@ const Hero = ({ setCurrentPage }) => {
         </div>
 
         {/* Clean Video Section */}
-        <div className="mb-10 max-w-7xl mx-auto animate-fadeInUp3D animate-delay-200">
+        <div className="mb-10 max-w-5xl mx-auto animate-fadeInUp3D animate-delay-200">
           <div className="relative">
             {/* Video container with clean styling */}
             <div className="relative rounded-2xl overflow-hidden shadow-xl">
@@ -328,7 +353,17 @@ const Hero = ({ setCurrentPage }) => {
           
           {/* Centered Explore Button */}
           <div className="text-center mt-8">
-            <button className="bg-[#D6A33E] text-[#111111] px-12 py-4 lg:px-16 lg:py-5 rounded-full font-light text-lg lg:text-xl flex items-center space-x-3 mx-auto hover:bg-[#c1922f] transition-all duration-300 shadow-lg">
+            <button 
+              onClick={() => {
+                setCurrentPage('gallery')
+                // Set a flag to show videos section
+                setTimeout(() => {
+                  const event = new CustomEvent('setGallerySection', { detail: 'videos' })
+                  window.dispatchEvent(event)
+                }, 100)
+              }}
+              className="bg-[#D6A33E] text-[#111111] px-12 py-4 lg:px-16 lg:py-5 rounded-full font-light text-lg lg:text-xl flex items-center space-x-3 mx-auto hover:bg-[#c1922f] transition-all duration-300 shadow-lg"
+            >
               <HiPhotograph className="w-6 h-6 lg:w-7 lg:h-7" />
               <span>Explore Photography</span>
             </button>
@@ -336,8 +371,20 @@ const Hero = ({ setCurrentPage }) => {
         </div>
 
         {/* Categories Section - Full Width */}
-        <div className="glass-dark rounded-3xl p-8 lg:p-12 border border-[#D6A33E]/30 shadow-2xl max-w-7xl mx-auto mb-12 animate-fadeInUp3D animate-delay-300">
-          <h4 className="text-[#D6A33E] text-2xl lg:text-3xl xl:text-4xl font-bold mb-8 text-center animate-slideIn3D">Categories</h4>
+        <div className="glass-dark rounded-3xl p-8 lg:p-12 border border-[#D6A33E]/30 shadow-2xl max-w-7xl mx-auto mb-12 animate-fadeInUp3D animate-delay-300 relative">
+          {/* Categories Sparkle Effects */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-10 rounded-3xl">
+            <div className="sprinkles">
+              {[...Array(20)].map((_, i) => (
+                <div key={i} className="sprinkle" style={{ 
+                  left: `${(i * 4.5) % 100}%`, 
+                  animationDelay: `${i * 0.25}s`
+                }}></div>
+              ))}
+            </div>
+          </div>
+          
+          <h4 className="text-[#D6A33E] text-2xl lg:text-3xl xl:text-4xl font-bold mb-8 text-center animate-slideIn3D relative z-20">Categories</h4>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
             {[
               { name: 'Wedding', path: '/gallery?category=wedding' },
@@ -371,7 +418,14 @@ const Hero = ({ setCurrentPage }) => {
           <div className="text-center mt-10">
             <button 
               className="bg-[#D6A33E] text-[#111111] px-10 py-4 lg:px-14 lg:py-5 rounded-full font-bold text-lg lg:text-xl hover:bg-[#c1922f] transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-[#D6A33E]/40 border-2 border-[#D6A33E]/50 hover-lift animate-pulse3D"
-              onClick={() => handleCategoryClick('/gallery')}
+              onClick={() => {
+                setCurrentPage('gallery')
+                // Set a flag to show photos section
+                setTimeout(() => {
+                  const event = new CustomEvent('setGallerySection', { detail: 'photos' })
+                  window.dispatchEvent(event)
+                }, 100)
+              }}
             >
               More →
             </button>
@@ -379,8 +433,28 @@ const Hero = ({ setCurrentPage }) => {
         </div>
 
         {/* Professional Achievements Section */}
-        <div className="bg-[#111111] rounded-2xl p-8 lg:p-12 shadow-lg max-w-7xl mx-auto mb-12 animate-fadeInUp3D animate-delay-500">
-          <div className="text-center mb-12">
+        <div className="bg-[#111111] rounded-2xl p-8 lg:p-12 shadow-lg max-w-7xl mx-auto mb-12 animate-fadeInUp3D animate-delay-500 relative">
+          {/* Achievements Sparkle Effects */}
+          <div className="absolute inset-0 overflow-hidden pointer-events-none z-10 rounded-2xl">
+            <div className="sprinkles">
+              {[...Array(15)].map((_, i) => (
+                <div key={i} className="sprinkle" style={{ 
+                  left: `${(i * 6.2) % 100}%`, 
+                  animationDelay: `${i * 0.35}s`
+                }}></div>
+              ))}
+            </div>
+            <div className="floating-particles">
+              {[...Array(8)].map((_, i) => (
+                <div key={i} className="particle" style={{ 
+                  animationDelay: `${i * 2.5}s`,
+                  left: `${10 + (i * 10) % 80}%`
+                }}></div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="text-center mb-12 relative z-20">
             <h4 className="text-3xl lg:text-4xl xl:text-5xl font-light text-[#D6A33E] mb-6 tracking-wider">OUR ACHIEVEMENTS</h4>
             <div className="w-24 h-0.5 bg-[#D6A33E] mx-auto"></div>
           </div>

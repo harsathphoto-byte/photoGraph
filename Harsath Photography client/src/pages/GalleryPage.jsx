@@ -1,8 +1,12 @@
 import { useState, useEffect, useRef } from 'react'
 import { HiEye } from "@react-icons/all-files/hi/HiEye"
 import { HiHeart } from "@react-icons/all-files/hi/HiHeart"
+import { HiPlay } from "@react-icons/all-files/hi/HiPlay"
+import { HiPhotograph } from "@react-icons/all-files/hi/HiPhotograph"
+import { HiDesktopComputer } from "@react-icons/all-files/hi/HiDesktopComputer"
 
 const GalleryPage = () => {
+  const [activeSection, setActiveSection] = useState('photos')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const gridRef = useRef(null)
   const [columnCount, setColumnCount] = useState(4)
@@ -66,12 +70,38 @@ const GalleryPage = () => {
     return () => clearTimeout(timer)
   }, [selectedCategory, columnCount])
 
+  // Listen for gallery section change from homepage
+  useEffect(() => {
+    const handleSectionChange = (event) => {
+      if (event.detail === 'videos') {
+        setActiveSection('videos')
+        setSelectedCategory('All') // Reset category filter
+        // Scroll to top of the page
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      } else if (event.detail === 'photos') {
+        setActiveSection('photos')
+        setSelectedCategory('All') // Reset category filter
+        // Scroll to top of the page
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+      }
+    }
+
+    window.addEventListener('setGallerySection', handleSectionChange)
+
+    return () => {
+      window.removeEventListener('setGallerySection', handleSectionChange)
+    }
+  }, [])
+
+  // Scroll to top when component mounts
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [])
+
   // Handle image load
   const handleImageLoad = () => {
     createMasonryLayout()
   }
-  
-  const categories = ['All', 'Wedding', 'Portrait', 'Event', 'Fashion', 'Nature', 'Commercial']
   
   const galleryImages = [
     { id: 1, category: 'Wedding', url: 'https://picsum.photos/400/600?random=201', title: 'Beautiful Wedding Ceremony', views: '3.2k', likes: 456 },
@@ -106,12 +136,40 @@ const GalleryPage = () => {
     { id: 30, category: 'Commercial', url: 'https://picsum.photos/400/460?random=230', title: 'Product Launch', views: '2.1k', likes: 167 },
   ]
 
-  const filteredImages = selectedCategory === 'All' 
-    ? galleryImages 
-    : galleryImages.filter(image => image.category === selectedCategory)
+  // Videos data
+  const galleryVideos = [
+    { id: 1, thumbnail: 'https://picsum.photos/400/300?random=301', title: 'Wedding Highlights', category: 'Wedding', duration: '3:45', likes: 456, views: '2.3k' },
+    { id: 2, thumbnail: 'https://picsum.photos/400/300?random=302', title: 'Engagement Story', category: 'Engagement', duration: '2:30', likes: 324, views: '1.8k' },
+    { id: 3, thumbnail: 'https://picsum.photos/400/300?random=303', title: 'Event Coverage', category: 'Event', duration: '5:20', likes: 287, views: '1.5k' },
+    { id: 4, thumbnail: 'https://picsum.photos/400/300?random=304', title: 'Fashion Film', category: 'Fashion', duration: '1:45', likes: 398, views: '2.1k' },
+    { id: 5, thumbnail: 'https://picsum.photos/400/300?random=305', title: 'Baby Moments', category: 'Baby', duration: '2:15', likes: 234, views: '1.2k' },
+    { id: 6, thumbnail: 'https://picsum.photos/400/300?random=306', title: 'Corporate Video', category: 'Corporate', duration: '4:10', likes: 156, views: '890' },
+    { id: 7, thumbnail: 'https://picsum.photos/400/300?random=307', title: 'Pre Wedding', category: 'Wedding', duration: '3:20', likes: 512, views: '2.8k' },
+    { id: 8, thumbnail: 'https://picsum.photos/400/300?random=308', title: 'Portrait Session', category: 'Portrait', duration: '2:45', likes: 289, views: '1.6k' },
+    { id: 9, thumbnail: 'https://picsum.photos/400/300?random=309', title: 'Nature Documentary', category: 'Nature', duration: '6:30', likes: 445, views: '3.2k' },
+    { id: 10, thumbnail: 'https://picsum.photos/400/300?random=310', title: 'Commercial Shoot', category: 'Commercial', duration: '3:15', likes: 198, views: '1.1k' },
+    { id: 11, thumbnail: 'https://picsum.photos/400/300?random=311', title: 'Reception Highlights', category: 'Wedding', duration: '4:25', likes: 634, views: '3.5k' },
+    { id: 12, thumbnail: 'https://picsum.photos/400/300?random=312', title: 'Maternity Story', category: 'Maternity', duration: '2:50', likes: 356, views: '1.9k' }
+  ]
+
+  // Categories for each section
+  const photoCategories = ['All', 'Wedding', 'Portrait', 'Event', 'Fashion', 'Nature', 'Commercial']
+  const videoCategories = ['All', 'Wedding', 'Engagement', 'Event', 'Fashion', 'Baby', 'Corporate', 'Portrait', 'Nature', 'Maternity']
+
+  const categories = activeSection === 'photos' ? photoCategories : videoCategories
+
+  // Handle video click
+  const handleVideoClick = (video) => {
+    // For now, we'll log the video details
+    // This can be replaced with modal opening, external link, or custom video page
+    console.log('Playing video:', video.title)
+    // Example: window.open(video.videoUrl, '_blank') for external links
+    // Or: setSelectedVideo(video) for modal
+    alert(`Playing: ${video.title}\nDuration: ${video.duration}\nCategory: ${video.category}`)
+  }
 
   return (
-    <div className="bg-animated page-bg-gallery relative px-4 py-12 md:py-16 lg:py-20 min-h-screen">
+    <div className="bg-animated page-bg-gallery relative px-4 pt-32 lg:pt-40 pb-12 md:pb-16 lg:pb-20 min-h-screen">
       {/* Enhanced Glowing Background Effects */}
       <div className="bg-glow" style={{ top: '20%', left: '15%', animationDelay: '0s' }}></div>
       <div className="bg-glow-large" style={{ bottom: '25%', right: '10%', animationDelay: '2s' }}></div>
@@ -147,9 +205,40 @@ const GalleryPage = () => {
           </p>
         </div>
 
+        {/* Section Toggle Buttons */}
+        <div className="flex justify-center mb-12">
+          <div className="flex bg-gray-800 p-1 rounded-lg border border-gray-700">
+            <button
+              onClick={() => setActiveSection('photos')}
+              className={`flex items-center px-6 py-3 rounded-md font-medium transition-all duration-300 ${
+                activeSection === 'photos'
+                  ? 'bg-[#D6A33E] text-[#111111]'
+                  : 'text-gray-300 hover:text-[#D6A33E]'
+              }`}
+            >
+              <HiPhotograph className="w-5 h-5 mr-2" />
+              Photos
+            </button>
+            <button
+              onClick={() => setActiveSection('videos')}
+              className={`flex items-center px-6 py-3 rounded-md font-medium transition-all duration-300 ${
+                activeSection === 'videos'
+                  ? 'bg-[#D6A33E] text-[#111111]'
+                  : 'text-gray-300 hover:text-[#D6A33E]'
+              }`}
+            >
+              <HiDesktopComputer className="w-5 h-5 mr-2" />
+              Videos
+            </button>
+          </div>
+        </div>
+
+        {/* Photos Section */}
+        {activeSection === 'photos' && (
+        <div>
         {/* Dark Theme Category Filter */}
         <div className="flex flex-wrap justify-center gap-3 mb-12">
-          {categories.map((category) => (
+          {photoCategories.map((category) => (
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
@@ -170,7 +259,7 @@ const GalleryPage = () => {
           className="relative w-full"
           style={{ position: 'relative' }}
         >
-          {filteredImages.map((image) => (
+          {(selectedCategory === 'All' ? galleryImages : galleryImages.filter(img => img.category === selectedCategory)).map((image) => (
             <div
               key={image.id}
               className="masonry-item group cursor-pointer relative overflow-hidden rounded-lg transition-all duration-300"
@@ -214,6 +303,85 @@ const GalleryPage = () => {
             Load More
           </button>
         </div>
+        </div>
+        )}
+
+        {/* Videos Section */}
+        {activeSection === 'videos' && (
+        <div>
+        {/* Video Category Filter */}
+        <div className="flex flex-wrap justify-center gap-3 mb-12">
+          {videoCategories.map((category) => (
+            <button
+              key={category}
+              onClick={() => setSelectedCategory(category)}
+              className={`px-6 py-2 rounded-full text-sm font-medium tracking-wide transition-all duration-300 ${
+                selectedCategory === category
+                  ? 'bg-[#D6A33E] text-[#111111]'
+                  : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-700'
+              }`}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+
+        {/* Video Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {(selectedCategory === 'All' ? galleryVideos : galleryVideos.filter(video => video.category === selectedCategory)).map((video) => (
+            <div
+              key={video.id}
+              onClick={() => handleVideoClick(video)}
+              className="group cursor-pointer relative overflow-hidden rounded-lg bg-gray-800 border border-gray-700 hover:border-[#D6A33E] transition-all duration-300"
+            >
+              {/* Video Thumbnail */}
+              <div className="relative aspect-video overflow-hidden">
+                <img 
+                  src={video.thumbnail} 
+                  alt={video.title}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                
+                {/* Play Button Overlay */}
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                  <div className="w-16 h-16 bg-[#D6A33E] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                    <HiPlay className="w-8 h-8 text-[#111111] ml-1" />
+                  </div>
+                </div>
+                
+                {/* Duration Badge */}
+                <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
+                  {video.duration}
+                </div>
+              </div>
+              
+              {/* Video Info */}
+              <div className="p-4">
+                <h3 className="text-white font-medium mb-2 line-clamp-2">{video.title}</h3>
+                <p className="text-[#D6A33E] text-sm mb-3">{video.category}</p>
+                <div className="flex items-center justify-between text-xs text-gray-400">
+                  <div className="flex items-center space-x-1">
+                    <HiHeart className="w-4 h-4 text-[#D6A33E]" />
+                    <span>{video.likes}</span>
+                  </div>
+                  <div className="flex items-center space-x-1">
+                    <HiEye className="w-4 h-4 text-[#D6A33E]" />
+                    <span>{video.views}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Video Load More Button */}
+        <div className="text-center mt-16">
+          <button className="bg-transparent border border-[#D6A33E] text-[#D6A33E] px-8 py-3 rounded-lg font-medium hover:bg-[#D6A33E] hover:text-[#111111] transition-colors duration-300">
+            Load More Videos
+          </button>
+        </div>
+        </div>
+        )}
 
         {/* Dark Theme Call to Action */}
         <div className="text-center mt-16 p-8 border border-[#D6A33E] rounded-lg bg-[#111111]">
