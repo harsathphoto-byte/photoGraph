@@ -16,6 +16,8 @@ import About from './pages/About'
 import GalleryPage from './pages/GalleryPage'
 import ServicesPage from './pages/ServicesPage'
 import ContactPage from './pages/ContactPage'
+import LoginPage from './pages/LoginPage'
+import RegisterPage from './pages/RegisterPage'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
@@ -54,6 +56,10 @@ function App() {
         return <ServicesPage />
       case 'contact':
         return <ContactPage />
+      case 'login':
+        return <LoginPage setCurrentPage={setCurrentPage} />
+      case 'register':
+        return <RegisterPage setCurrentPage={setCurrentPage} />
       default:
         return <Home setCurrentPage={setCurrentPage} />
     }

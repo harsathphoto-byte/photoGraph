@@ -11,15 +11,12 @@ import { HiPlus } from "@react-icons/all-files/hi/HiPlus"
 import { HiLogout } from "@react-icons/all-files/hi/HiLogout"
 import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 import { useAuth } from '../context/AuthContext'
-import AuthModal from './AuthModal'
 import PhotoUpload from './PhotoUpload'
 
 const Header = ({ currentPage, setCurrentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [showAuthModal, setShowAuthModal] = useState(false)
   const [showUploadModal, setShowUploadModal] = useState(false)
-  const [authMode, setAuthMode] = useState('login')
   
   const { user, logout, isAuthenticated } = useAuth()
 
@@ -47,8 +44,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
   }
 
   const handleAuthClick = (mode) => {
-    setAuthMode(mode)
-    setShowAuthModal(true)
+    setCurrentPage(mode)
     setIsMenuOpen(false)
   }
 
@@ -344,13 +340,6 @@ const Header = ({ currentPage, setCurrentPage }) => {
           </div>
         </div>
       </div>
-      
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={showAuthModal}
-        onClose={() => setShowAuthModal(false)}
-        initialMode={authMode}
-      />
       
       {/* Photo Upload Modal */}
       <PhotoUpload

@@ -175,15 +175,15 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
+      <div className="bg-black rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-amber-400">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b">
-          <h2 className="text-2xl font-bold text-gray-900">Upload Photo</h2>
+        <div className="flex justify-between items-center p-6 border-b border-amber-400">
+          <h2 className="text-2xl font-bold text-amber-400">Upload Photo</h2>
           <button
             onClick={handleClose}
             disabled={isUploading}
-            className="text-gray-400 hover:text-gray-600 text-2xl disabled:cursor-not-allowed"
+            className="text-amber-400 hover:text-amber-300 text-2xl disabled:cursor-not-allowed transition-colors"
           >
             ×
           </button>
@@ -194,11 +194,11 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
           <form onSubmit={handleSubmit(handleUpload)} className="space-y-6">
             {/* File Upload Area */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-amber-400 mb-2">
                 Photo
               </label>
               <div
-                className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors cursor-pointer"
+                className="border-2 border-dashed border-amber-600 rounded-lg p-6 text-center hover:border-amber-400 transition-colors cursor-pointer bg-gray-900"
                 onDrop={handleDrop}
                 onDragOver={handleDragOver}
                 onClick={() => fileInputRef.current?.click()}
@@ -208,9 +208,9 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                     <img
                       src={preview}
                       alt="Preview"
-                      className="mx-auto max-h-48 rounded-lg"
+                      className="mx-auto max-h-48 rounded-lg shadow-lg border border-amber-600"
                     />
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-300">
                       {selectedFile?.name}
                     </p>
                     <button
@@ -223,15 +223,15 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                           fileInputRef.current.value = '';
                         }
                       }}
-                      className="text-red-600 hover:text-red-800 text-sm"
+                      className="text-red-400 hover:text-red-300 text-sm transition-colors"
                     >
                       Remove
                     </button>
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    <div className="text-gray-400 text-4xl">📷</div>
-                    <p className="text-gray-600">
+                    <div className="text-amber-400 text-4xl">�</div>
+                    <p className="text-gray-300">
                       Click to select or drag and drop your photo here
                     </p>
                     <p className="text-sm text-gray-500">
@@ -252,13 +252,13 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
             {/* Upload Progress */}
             {isUploading && (
               <div className="space-y-2">
-                <div className="flex justify-between text-sm text-gray-600">
+                <div className="flex justify-between text-sm text-gray-300">
                   <span>Uploading...</span>
                   <span>{uploadProgress}%</span>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="w-full bg-gray-800 rounded-full h-3 border border-amber-600">
                   <div
-                    className="bg-blue-600 h-2 rounded-full transition-all duration-300"
+                    className="bg-gradient-to-r from-amber-500 to-yellow-500 h-3 rounded-full transition-all duration-300 shadow-lg"
                     style={{ width: `${uploadProgress}%` }}
                   ></div>
                 </div>
@@ -268,84 +268,84 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
             {/* Photo Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-amber-400 mb-1">
                   Title *
                 </label>
                 <input
                   type="text"
                   {...register('title')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
                   placeholder="Enter photo title"
                 />
                 {errors.title && (
-                  <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
+                  <p className="text-red-400 text-sm mt-1">{errors.title.message}</p>
                 )}
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-amber-400 mb-1">
                   Description
                 </label>
                 <textarea
                   {...register('description')}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
                   placeholder="Describe your photo..."
                 />
                 {errors.description && (
-                  <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
+                  <p className="text-red-400 text-sm mt-1">{errors.description.message}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-amber-400 mb-1">
                   Category *
                 </label>
                 <select
                   {...register('category')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
                 >
                   {categories.map((category) => (
-                    <option key={category.value} value={category.value}>
+                    <option key={category.value} value={category.value} className="bg-gray-900">
                       {category.label}
                     </option>
                   ))}
                 </select>
                 {errors.category && (
-                  <p className="text-red-500 text-sm mt-1">{errors.category.message}</p>
+                  <p className="text-red-400 text-sm mt-1">{errors.category.message}</p>
                 )}
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-amber-400 mb-1">
                   Location
                 </label>
                 <input
                   type="text"
                   {...register('locationName')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
                   placeholder="Where was this taken?"
                 />
                 {errors.locationName && (
-                  <p className="text-red-500 text-sm mt-1">{errors.locationName.message}</p>
+                  <p className="text-red-400 text-sm mt-1">{errors.locationName.message}</p>
                 )}
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-amber-400 mb-1">
                   Tags
                 </label>
                 <input
                   type="text"
                   {...register('tags')}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
                   placeholder="Enter tags separated by commas (e.g., landscape, sunset, beach)"
                 />
                 <p className="text-sm text-gray-500 mt-1">
                   Separate tags with commas
                 </p>
                 {errors.tags && (
-                  <p className="text-red-500 text-sm mt-1">{errors.tags.message}</p>
+                  <p className="text-red-400 text-sm mt-1">{errors.tags.message}</p>
                 )}
               </div>
 
@@ -354,9 +354,9 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                   <input
                     type="checkbox"
                     {...register('isPublic')}
-                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-amber-500 focus:ring-amber-500 border-amber-600 rounded bg-gray-900"
                   />
-                  <label className="ml-2 text-sm font-medium text-gray-700">
+                  <label className="ml-2 text-sm font-medium text-gray-300">
                     Make this photo public
                   </label>
                 </div>
@@ -367,19 +367,19 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
             </div>
 
             {/* Actions */}
-            <div className="flex justify-end space-x-3 pt-4 border-t">
+            <div className="flex justify-end space-x-3 pt-4 border-t border-amber-400">
               <button
                 type="button"
                 onClick={handleClose}
                 disabled={isUploading}
-                className="px-4 py-2 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-4 py-2 text-gray-300 bg-gray-800 border border-gray-600 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 Cancel
               </button>
               <button
                 type="submit"
                 disabled={isUploading || !selectedFile}
-                className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-semibold rounded-md hover:from-amber-600 hover:to-yellow-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg"
               >
                 {isUploading ? 'Uploading...' : 'Upload Photo'}
               </button>

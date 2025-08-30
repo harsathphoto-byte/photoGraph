@@ -1,16 +1,15 @@
+// Load environment variables first
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
-const dotenv = require('dotenv');
 
 // Import routes
 const authRoutes = require('./routes/auth');
 const photoRoutes = require('./routes/photos');
 const userRoutes = require('./routes/users');
-
-// Load environment variables
-dotenv.config();
 
 const app = express();
 
@@ -59,11 +58,16 @@ app.get('/api/health', (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack);
+  console.error('=== GLOBAL ERROR HANDLER ===');
+  console.error('Error message:', err.message);
+  console.error('Error stack:', err.stack);
+  console.error('Request path:', req.path);
+  console.error('Request method:', req.method);
   res.status(500).json({
     success: false,
     message: 'Something went wrong!',
-    error: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error'
+    error: process.env.NODE_ENV === 'development' ? err.message : 'Internal server error',
+    stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
   });
 });
 
