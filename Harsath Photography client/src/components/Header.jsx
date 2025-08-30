@@ -7,11 +7,21 @@ import { HiMail } from "@react-icons/all-files/hi/HiMail"
 import { HiPhone } from "@react-icons/all-files/hi/HiPhone"
 import { HiMenu } from "@react-icons/all-files/hi/HiMenu"
 import { HiX } from "@react-icons/all-files/hi/HiX"
+import { HiPlus } from "@react-icons/all-files/hi/HiPlus"
+import { HiLogout } from "@react-icons/all-files/hi/HiLogout"
 import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
+import { useAuth } from '../context/AuthContext'
+import AuthModal from './AuthModal'
+import PhotoUpload from './PhotoUpload'
 
 const Header = ({ currentPage, setCurrentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [showAuthModal, setShowAuthModal] = useState(false)
+  const [showUploadModal, setShowUploadModal] = useState(false)
+  const [authMode, setAuthMode] = useState('login')
+  
+  const { user, logout, isAuthenticated } = useAuth()
 
   // Navigation items array with React Icons
   const navigationItems = [
@@ -33,6 +43,22 @@ const Header = ({ currentPage, setCurrentPage }) => {
 
   const handleNavClick = (page) => {
     setCurrentPage(page)
+    setIsMenuOpen(false)
+  }
+
+  const handleAuthClick = (mode) => {
+    setAuthMode(mode)
+    setShowAuthModal(true)
+    setIsMenuOpen(false)
+  }
+
+  const handleLogout = () => {
+    logout()
+    setIsMenuOpen(false)
+  }
+
+  const handleUploadClick = () => {
+    setShowUploadModal(true)
     setIsMenuOpen(false)
   }
 
@@ -85,6 +111,58 @@ const Header = ({ currentPage, setCurrentPage }) => {
                 </button>
               )
             })}
+            
+            {/* Authentication & Upload Section */}
+            <div className="flex items-center space-x-3 ml-4 pl-4 border-l border-white/10">
+              {isAuthenticated ? (
+                <>
+                  {/* Upload Button (for admins only) */}
+                  {user && user.role === 'admin' && (
+                    <button
+                      onClick={handleUploadClick}
+                      className="flex items-center space-x-2 px-3 py-2 bg-[#D6A33E] text-black rounded-lg font-medium text-sm hover:bg-[#c1922f] transition-all duration-300"
+                    >
+                      <HiPlus className="w-4 h-4" />
+                      <span>Upload</span>
+                    </button>
+                  )}
+                  
+                  {/* User Menu */}
+                  <div className="flex items-center space-x-2">
+                    <div className="text-right">
+                      <div className="text-white text-sm font-medium">
+                        {user?.firstName} {user?.lastName}
+                      </div>
+                      <div className="text-[#D6A33E] text-xs">
+                        {user?.role}
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleLogout}
+                      className="p-2 text-white/80 hover:text-red-400 hover:bg-white/10 rounded-lg transition-all duration-300"
+                      title="Logout"
+                    >
+                      <HiLogout className="w-4 h-4" />
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => handleAuthClick('login')}
+                    className="px-4 py-2 text-white/90 hover:text-[#D6A33E] font-medium text-sm transition-all duration-300"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => handleAuthClick('register')}
+                    className="px-4 py-2 bg-[#D6A33E] text-black rounded-lg font-medium text-sm hover:bg-[#c1922f] transition-all duration-300"
+                  >
+                    Sign Up
+                  </button>
+                </>
+              )}
+            </div>
           </nav>
 
           {/* Tablet Navigation - Compact & Clean */}
@@ -178,6 +256,64 @@ const Header = ({ currentPage, setCurrentPage }) => {
             {/* Divider */}
             <div className="my-1 mx-3 border-t border-[#D6A33E]/20"></div>
             
+            {/* Authentication Section */}
+            {isAuthenticated ? (
+              <>
+                <div className="px-3 py-2">
+                  <p className="text-[#D6A33E] text-xs font-medium mb-2">Account</p>
+                  <div className="flex items-center space-x-2 mb-2">
+                    <div className="flex-1">
+                      <div className="text-white text-sm font-medium">
+                        {user?.firstName} {user?.lastName}
+                      </div>
+                      <div className="text-[#D6A33E] text-xs">
+                        {user?.role}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    {user && ['photographer', 'admin'].includes(user.role) && (
+                      <button
+                        onClick={handleUploadClick}
+                        className="w-full flex items-center space-x-2 px-2 py-1.5 bg-[#D6A33E] text-black rounded-md text-sm font-medium hover:bg-[#c1922f] transition-all duration-150"
+                      >
+                        <HiPlus className="w-4 h-4" />
+                        <span>Upload Photo</span>
+                      </button>
+                    )}
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center space-x-2 px-2 py-1.5 bg-red-600/20 text-red-400 rounded-md text-sm font-medium hover:bg-red-600/30 transition-all duration-150"
+                    >
+                      <HiLogout className="w-4 h-4" />
+                      <span>Sign Out</span>
+                    </button>
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="px-3 py-2">
+                <p className="text-[#D6A33E] text-xs font-medium mb-2">Account</p>
+                <div className="space-y-1">
+                  <button
+                    onClick={() => handleAuthClick('login')}
+                    className="w-full flex items-center justify-center px-2 py-1.5 bg-[#D6A33E]/10 text-[#D6A33E] rounded-md text-sm font-medium hover:bg-[#D6A33E]/20 transition-all duration-150"
+                  >
+                    Sign In
+                  </button>
+                  <button
+                    onClick={() => handleAuthClick('register')}
+                    className="w-full flex items-center justify-center px-2 py-1.5 bg-[#D6A33E] text-black rounded-md text-sm font-medium hover:bg-[#c1922f] transition-all duration-150"
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              </div>
+            )}
+            
+            {/* Divider */}
+            <div className="my-1 mx-3 border-t border-[#D6A33E]/20"></div>
+            
             {/* Quick Actions */}
             <div className="px-3 py-2">
               <p className="text-[#D6A33E] text-xs font-medium mb-2">Quick Contact</p>
@@ -208,6 +344,25 @@ const Header = ({ currentPage, setCurrentPage }) => {
           </div>
         </div>
       </div>
+      
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        initialMode={authMode}
+      />
+      
+      {/* Photo Upload Modal */}
+      <PhotoUpload
+        isOpen={showUploadModal}
+        onClose={() => setShowUploadModal(false)}
+        onUploadSuccess={() => {
+          // Refresh gallery if we're on gallery page
+          if (currentPage === 'gallery') {
+            window.location.reload()
+          }
+        }}
+      />
     </header>
   )
 }
