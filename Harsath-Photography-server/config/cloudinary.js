@@ -62,7 +62,8 @@ const uploadImage = multer({
     } else {
       cb(new Error('Only image files are allowed!'), false);
     }
-  },
+  }
+  // No file size limit for images
 });
 
 // Configure multer for videos
@@ -75,10 +76,8 @@ const uploadVideo = multer({
     } else {
       cb(new Error('Only video files are allowed!'), false);
     }
-  },
-  limits: {
-    fileSize: 100 * 1024 * 1024 // 100MB limit for videos
   }
+  // No file size limit for videos
 });
 
 // Configure multer for both images and videos
@@ -136,10 +135,8 @@ const uploadMedia = multer({
     } else {
       cb(new Error('Only image and video files are allowed!'), false);
     }
-  },
-  limits: {
-    fileSize: 100 * 1024 * 1024 // 100MB limit
   }
+  // No file size limit - allows unlimited video uploads from cameras
 });
 
 // For backward compatibility

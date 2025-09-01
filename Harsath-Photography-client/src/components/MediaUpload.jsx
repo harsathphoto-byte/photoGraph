@@ -77,12 +77,8 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
 
   // Get file size limit based on media type
   const getFileSizeLimit = (file) => {
-    if (file.type.startsWith('image/')) {
-      return 10 * 1024 * 1024; // 10MB for images
-    } else if (file.type.startsWith('video/')) {
-      return 100 * 1024 * 1024; // 100MB for videos
-    }
-    return 0;
+    // No limits for both images and videos (unlimited)
+    return null;
   };
 
   // Handle file selection
@@ -97,7 +93,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
 
       // Validate file size
       const sizeLimit = getFileSizeLimit(file);
-      if (file.size > sizeLimit) {
+      if (sizeLimit && file.size > sizeLimit) {
         const limitMB = sizeLimit / (1024 * 1024);
         toast.error(`File size must be less than ${limitMB}MB`);
         return;
@@ -290,7 +286,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                       Click to select or drag and drop your media here
                     </p>
                     <p className="text-sm text-gray-500">
-                      Supports: Images (JPG, PNG, GIF, WebP - Max 10MB) or Videos (MP4, MOV, AVI, etc. - Max 100MB)
+                      Supports: Images (JPG, PNG, GIF, WebP) and Videos (MP4, MOV, AVI, etc.) - No Size Limits
                     </p>
                   </div>
                 )}

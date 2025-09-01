@@ -12,7 +12,7 @@ import { HiPlus } from "@react-icons/all-files/hi/HiPlus"
 import { HiLogout } from "@react-icons/all-files/hi/HiLogout"
 import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 import { useAuth } from '../context/AuthContext'
-import PhotoUpload from './PhotoUpload'
+import MediaUpload from './MediaUpload'
 
 const Header = ({ currentPage, setCurrentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -120,7 +120,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                       className="flex items-center space-x-2 px-3 py-2 bg-[#D6A33E] text-black rounded-lg font-medium text-sm hover:bg-[#c1922f] transition-all duration-300"
                     >
                       <HiPlus className="w-4 h-4" />
-                      <span>Upload</span>
+                      <span>Upload Media</span>
                     </button>
                   )}
                   
@@ -275,7 +275,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                         className="w-full flex items-center space-x-2 px-2 py-1.5 bg-[#D6A33E] text-black rounded-md text-sm font-medium hover:bg-[#c1922f] transition-all duration-150"
                       >
                         <HiPlus className="w-4 h-4" />
-                        <span>Upload Photo</span>
+                        <span>Upload Media</span>
                       </button>
                     )}
                     <button
@@ -342,8 +342,8 @@ const Header = ({ currentPage, setCurrentPage }) => {
         </div>
       </div>
       
-      {/* Photo Upload Modal */}
-      <PhotoUpload
+      {/* Media Upload Modal */}
+      <MediaUpload
         isOpen={showUploadModal}
         onClose={() => setShowUploadModal(false)}
         onUploadSuccess={() => {
