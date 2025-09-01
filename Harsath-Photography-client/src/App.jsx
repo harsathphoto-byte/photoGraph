@@ -6,6 +6,9 @@ import './App.css'
 // Context
 import { AuthProvider } from './context/AuthContext'
 
+// Configuration
+import { config } from './config/env'
+
 // Components
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -81,7 +84,7 @@ function App() {
             <div className="absolute inset-0 w-24 h-24 border-4 border-[#D6A33E]/30 rounded-full animate-spin border-t-[#D6A33E] mx-auto"></div>
           </div>
           
-          <h2 className="text-[#D6A33E] text-2xl font-bold mb-2">HARSATH PHOTOGRAPHY</h2>
+          <h2 className="text-[#D6A33E] text-2xl font-bold mb-2">{config.APP_NAME}</h2>
           <p className="text-gray-300">Loading your visual experience...</p>
           
           {/* Progress Bar */}

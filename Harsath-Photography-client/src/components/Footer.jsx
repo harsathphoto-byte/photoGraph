@@ -7,6 +7,7 @@ import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 import { FaWhatsapp } from "@react-icons/all-files/fa/FaWhatsapp"
 import { FaFacebook } from "@react-icons/all-files/fa/FaFacebook"
 import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter"
+import { config } from '../config/env'
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -171,7 +172,7 @@ const Footer = () => {
           <div className="border-t border-[#D6A33E]/10 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="flex items-center space-x-2 text-gray-300 font-light tracking-wide">
-                <span>© 2025 Harsath Photography. All rights reserved.</span>
+                <span>© 2025 {config.APP_NAME}. All rights reserved.</span>
               </div>
               
               <div className="flex items-center space-x-8 text-gray-400 font-light tracking-wide">

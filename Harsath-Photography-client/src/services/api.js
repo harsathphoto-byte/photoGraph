@@ -1,11 +1,10 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
-const API_BASE_URL = 'http://localhost:3001/api';
+import { config } from '../config/env';
 
 // Create axios instance
 const api = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: config.API_BASE_URL,
 });
 
 // Add auth token to requests

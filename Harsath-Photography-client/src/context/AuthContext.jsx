@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useReducer } from 'react';
+import { config } from '../config/env';
 import { toast } from 'react-toastify';
 
 // Initial state
@@ -99,13 +100,10 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // API base URL
-  const API_BASE_URL = 'http://localhost:3001/api';
-
   // Helper function to make API calls
   const apiCall = async (endpoint, options = {}) => {
-    const url = `${API_BASE_URL}${endpoint}`;
-    const config = {
+    const url = `${config.API_BASE_URL}${endpoint}`;
+    const requestConfig = {
       headers: {
         'Content-Type': 'application/json',
         ...(state.token && { Authorization: `Bearer ${state.token}` }),
@@ -114,7 +112,7 @@ export const AuthProvider = ({ children }) => {
       ...options,
     };
 
-    const response = await fetch(url, config);
+    const response = await fetch(url, requestConfig);
     const data = await response.json();
 
     if (!response.ok) {
