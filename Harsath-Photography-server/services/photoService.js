@@ -7,56 +7,16 @@ class PhotoService {
    * Parse FormData fields that come as JSON strings
    */
   static parseFormData(body) {
-    const { title, description, category, tags, isPublic, location, capturedAt } = body;
-
-    // Parse tags if it's a string
-    let parsedTags = [];
-    if (tags) {
-      if (Array.isArray(tags)) {
-        parsedTags = tags;
-      } else if (typeof tags === 'string') {
-        try {
-          parsedTags = JSON.parse(tags);
-        } catch (error) {
-          console.warn('Failed to parse tags:', error.message);
-          parsedTags = [];
-        }
-      }
-    }
-
-    // Parse location if it's a string
-    let parsedLocation = {};
-    if (location) {
-      if (typeof location === 'string') {
-        try {
-          parsedLocation = JSON.parse(location);
-        } catch (error) {
-          console.warn('Failed to parse location:', error.message);
-          parsedLocation = {};
-        }
-      } else {
-        parsedLocation = location;
-      }
-    }
-
-    // Parse isPublic (might come as string from FormData)
-    let parsedIsPublic = true;
-    if (isPublic !== undefined) {
-      if (typeof isPublic === 'string') {
-        parsedIsPublic = isPublic === 'true';
-      } else {
-        parsedIsPublic = Boolean(isPublic);
-      }
-    }
+    const { category, locationName } = body;
 
     return {
-      title,
-      description,
       category,
-      tags: parsedTags,
-      isPublic: parsedIsPublic,
-      location: parsedLocation,
-      capturedAt: capturedAt ? new Date(capturedAt) : new Date()
+      location: locationName ? { name: locationName } : {},
+      isPublic: true, // Default to public since private option was removed
+      tags: [], // Default empty tags since tags field was removed
+      title: `Photo - ${category}`, // Auto-generate title from category
+      description: '', // Default empty description since description field was removed
+      capturedAt: new Date()
     };
   }
 

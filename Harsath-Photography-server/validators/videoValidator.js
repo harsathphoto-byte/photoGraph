@@ -22,63 +22,17 @@ const VIDEO_CATEGORIES = [
 
 // Upload video validation
 const uploadVideoValidation = [
-  body('title')
-    .optional()
-    .isLength({ min: 1, max: 200 })
-    .withMessage('Title must be between 1 and 200 characters')
-    .trim(),
-  
-  body('description')
-    .optional()
-    .isLength({ max: 1000 })
-    .withMessage('Description must not exceed 1000 characters')
-    .trim(),
-  
   body('category')
-    .optional()
+    .notEmpty()
+    .withMessage('Category is required')
     .isIn(VIDEO_CATEGORIES)
     .withMessage(`Category must be one of: ${VIDEO_CATEGORIES.join(', ')}`),
   
-  body('tags')
+  body('locationName')
     .optional()
-    .custom((value) => {
-      if (typeof value === 'string') {
-        try {
-          const parsed = JSON.parse(value);
-          if (!Array.isArray(parsed)) {
-            throw new Error('Tags must be an array');
-          }
-          if (parsed.length > 20) {
-            throw new Error('Maximum 20 tags allowed');
-          }
-          parsed.forEach(tag => {
-            if (typeof tag !== 'string' || tag.length > 50) {
-              throw new Error('Each tag must be a string with maximum 50 characters');
-            }
-          });
-          return true;
-        } catch (error) {
-          throw new Error('Invalid tags format');
-        }
-      }
-      if (Array.isArray(value)) {
-        if (value.length > 20) {
-          throw new Error('Maximum 20 tags allowed');
-        }
-        value.forEach(tag => {
-          if (typeof tag !== 'string' || tag.length > 50) {
-            throw new Error('Each tag must be a string with maximum 50 characters');
-          }
-        });
-        return true;
-      }
-      throw new Error('Tags must be an array or JSON string');
-    }),
-  
-  body('isPrivate')
-    .optional()
-    .isBoolean()
-    .withMessage('isPrivate must be a boolean value')
+    .isLength({ max: 100 })
+    .withMessage('Location name cannot exceed 100 characters')
+    .trim()
 ];
 
 // Get videos validation

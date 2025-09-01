@@ -106,6 +106,7 @@ photoSchema.index({ uploadedBy: 1 });
 photoSchema.index({ tags: 1 });
 photoSchema.index({ isFeatured: 1, isPublic: 1 });
 photoSchema.index({ createdAt: -1 });
+photoSchema.index({ cloudinaryPublicId: 1 }, { unique: true }); // Ensure unique Cloudinary IDs
 
 // Virtual for like count
 photoSchema.virtual('likeCount').get(function() {

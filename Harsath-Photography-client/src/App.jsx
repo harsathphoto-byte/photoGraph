@@ -52,6 +52,10 @@ function App() {
         return <About />
       case 'gallery':
         return <GalleryPage />
+      case 'photos':
+        return <GalleryPage initialSection="photos" />
+      case 'videos':
+        return <GalleryPage initialSection="videos" />
       case 'services':
         return <ServicesPage />
       case 'contact':

@@ -2,73 +2,16 @@ const { body, query } = require('express-validator');
 
 // Upload photo validation rules
 const uploadPhotoValidation = [
-  body('title')
-    .notEmpty()
-    .withMessage('Title is required')
-    .isLength({ max: 100 })
-    .withMessage('Title cannot exceed 100 characters'),
-    
-  body('description')
-    .optional()
-    .isLength({ max: 500 })
-    .withMessage('Description cannot exceed 500 characters'),
-    
   body('category')
+    .notEmpty()
+    .withMessage('Category is required')
     .isIn(['wedding', 'portrait', 'event', 'nature', 'street', 'fashion', 'commercial', 'other'])
     .withMessage('Invalid category'),
     
-  body('tags')
+  body('locationName')
     .optional()
-    .custom((value) => {
-      if (!value) return true; // Optional field
-      
-      // If it's already an array, that's fine
-      if (Array.isArray(value)) return true;
-      
-      // If it's a string, try to parse it as JSON
-      if (typeof value === 'string') {
-        try {
-          const parsed = JSON.parse(value);
-          return Array.isArray(parsed);
-        } catch (error) {
-          throw new Error('Tags must be a valid JSON array');
-        }
-      }
-      
-      throw new Error('Tags must be an array or valid JSON array string');
-    }),
-    
-  body('isPublic')
-    .optional()
-    .custom((value) => {
-      if (value === undefined || value === null) return true;
-      if (typeof value === 'boolean') return true;
-      if (typeof value === 'string' && (value === 'true' || value === 'false')) return true;
-      throw new Error('isPublic must be a boolean or string "true"/"false"');
-    }),
-    
-  body('location')
-    .optional()
-    .custom((value) => {
-      if (!value) return true; // Optional field
-      
-      let locationObj;
-      if (typeof value === 'string') {
-        try {
-          locationObj = JSON.parse(value);
-        } catch (error) {
-          throw new Error('Location must be a valid JSON object');
-        }
-      } else {
-        locationObj = value;
-      }
-      
-      if (locationObj.name && locationObj.name.length > 100) {
-        throw new Error('Location name cannot exceed 100 characters');
-      }
-      
-      return true;
-    })
+    .isLength({ max: 100 })
+    .withMessage('Location name cannot exceed 100 characters')
 ];
 
 // Get photos validation rules

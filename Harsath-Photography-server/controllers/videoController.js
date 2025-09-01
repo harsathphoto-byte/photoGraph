@@ -27,26 +27,21 @@ class VideoController {
         });
       }
 
-      const { title, description, category, tags, isPrivate } = req.body;
-
-      // Parse tags if it's a string
-      let parsedTags = [];
-      if (tags) {
-        parsedTags = typeof tags === 'string' ? JSON.parse(tags) : tags;
-      }
+      const { category, locationName } = req.body;
 
       // Create video document
       const video = new Video({
-        title: title || `Video ${Date.now()}`,
-        description: description || '',
+        title: `Video - ${category || 'general'}`, // Auto-generate title from category
+        description: '', // Default empty description
         category: category || 'general',
-        tags: parsedTags,
+        tags: [], // Default empty tags
+        location: locationName ? { name: locationName } : {},
         cloudinaryId: req.file.filename,
         url: req.file.path,
         fileSize: req.file.size,
         format: req.file.format,
         uploadedBy: req.user.userId,
-        isPrivate: isPrivate === 'true' || isPrivate === true
+        isPrivate: false // Default to public since private option was removed
       });
 
       await video.save();
@@ -95,14 +90,8 @@ class VideoController {
         });
       }
 
-      const { title, description, category, tags, isPrivate } = req.body;
+      const { category, locationName } = req.body;
       const isVideo = req.file.mimetype.startsWith('video/');
-
-      // Parse tags if it's a string
-      let parsedTags = [];
-      if (tags) {
-        parsedTags = typeof tags === 'string' ? JSON.parse(tags) : tags;
-      }
 
       let mediaDocument;
 
@@ -110,31 +99,33 @@ class VideoController {
         // Create video document
         const Video = require('../models/Video');
         mediaDocument = new Video({
-          title: title || `Video ${Date.now()}`,
-          description: description || '',
+          title: `Video - ${category || 'general'}`, // Auto-generate title from category
+          description: '', // Default empty description
           category: category || 'general',
-          tags: parsedTags,
+          tags: [], // Default empty tags
+          location: locationName ? { name: locationName } : {},
           cloudinaryId: req.file.filename,
           url: req.file.path,
           fileSize: req.file.size,
           format: req.file.format,
           uploadedBy: req.user.userId,
-          isPrivate: isPrivate === 'true' || isPrivate === true
+          isPrivate: false // Default to public since private option was removed
         });
       } else {
         // Create photo document
         const Photo = require('../models/Photo');
         mediaDocument = new Photo({
-          title: title || `Photo ${Date.now()}`,
-          description: description || '',
+          title: `Photo - ${category || 'general'}`, // Auto-generate title from category
+          description: '', // Default empty description
           category: category || 'general',
-          tags: parsedTags,
+          tags: [], // Default empty tags
+          location: locationName ? { name: locationName } : {},
           cloudinaryId: req.file.filename,
           url: req.file.path,
           fileSize: req.file.size,
           format: req.file.format,
           uploadedBy: req.user.userId,
-          isPrivate: isPrivate === 'true' || isPrivate === true
+          isPrivate: false // Default to public since private option was removed
         });
       }
 

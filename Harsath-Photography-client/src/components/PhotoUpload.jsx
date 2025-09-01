@@ -31,17 +31,51 @@ const categories = [
 
 const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   const { user } = useAuth();
-  
-  // Admin access check
-  if (!user || user.role !== 'admin') {
-    return null;
-  }
-  
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const fileInputRef = useRef(null);
+
+  // Helper function to format file size
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+  };
+
+  // Helper function to compress image
+  const compressImage = (file, maxSizeMB = 8, quality = 0.8) => {
+    return new Promise((resolve) => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const img = new Image();
+      
+      img.onload = () => {
+        // Calculate new dimensions
+        const maxWidth = 1920;
+        const maxHeight = 1080;
+        let { width, height } = img;
+        
+        if (width > maxWidth || height > maxHeight) {
+          const ratio = Math.min(maxWidth / width, maxHeight / height);
+          width *= ratio;
+          height *= ratio;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        
+        // Draw and compress
+        ctx.drawImage(img, 0, 0, width, height);
+        canvas.toBlob(resolve, 'image/jpeg', quality);
+      };
+      
+      img.src = URL.createObjectURL(file);
+    });
+  };
 
   const {
     register,
@@ -58,7 +92,7 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   });
 
   // Handle file selection
-  const handleFileSelect = (event) => {
+  const handleFileSelect = async (event) => {
     const file = event.target.files[0];
     if (file) {
       // Validate file type
@@ -67,18 +101,35 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
         return;
       }
 
-      // Validate file size (10MB)
-      if (file.size > 10 * 1024 * 1024) {
-        toast.error('File size must be less than 10MB');
-        return;
+      let processedFile = file;
+
+      // If file is too large, offer to compress it
+      if (file.size > 9 * 1024 * 1024) {
+        const userConfirm = window.confirm(
+          `File size is ${formatFileSize(file.size)} (over 9MB limit). Would you like to compress it automatically?`
+        );
+        
+        if (userConfirm) {
+          try {
+            toast.info('Compressing image...');
+            processedFile = await compressImage(file);
+            toast.success(`Image compressed to ${formatFileSize(processedFile.size)}`);
+          } catch (error) {
+            toast.error('Failed to compress image. Please try a smaller file.');
+            return;
+          }
+        } else {
+          toast.error('File size must be less than 9MB. Please compress your image or choose a smaller file.');
+          return;
+        }
       }
 
-      setSelectedFile(file);
+      setSelectedFile(processedFile);
 
       // Create preview
       const reader = new FileReader();
       reader.onload = (e) => setPreview(e.target.result);
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(processedFile);
     }
   };
 
@@ -175,10 +226,20 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-      <div className="bg-black rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-amber-400">
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-90 z-[9999] flex items-center justify-center p-4"
+      onClick={(e) => {
+        if (e.target === e.currentTarget && !isUploading) {
+          handleClose();
+        }
+      }}
+    >
+      <div 
+        className="bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border-2 border-amber-400 relative z-[10000]"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-amber-400">
+        <div className="flex justify-between items-center p-6 border-b border-amber-400 bg-gray-900 rounded-t-lg">
           <h2 className="text-2xl font-bold text-amber-400">Upload Photo</h2>
           <button
             onClick={handleClose}
@@ -210,9 +271,17 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                       alt="Preview"
                       className="mx-auto max-h-48 rounded-lg shadow-lg border border-amber-600"
                     />
-                    <p className="text-sm text-gray-300">
-                      {selectedFile?.name}
-                    </p>
+                    <div className="space-y-2">
+                      <p className="text-sm text-gray-300">
+                        {selectedFile?.name}
+                      </p>
+                      <p className="text-xs text-gray-400">
+                        Size: {formatFileSize(selectedFile?.size || 0)}
+                        {selectedFile?.size > 9 * 1024 * 1024 && (
+                          <span className="text-red-400 block">⚠️ File too large (max 9MB)</span>
+                        )}
+                      </p>
+                    </div>
                     <button
                       type="button"
                       onClick={(e) => {
@@ -235,7 +304,7 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                       Click to select or drag and drop your photo here
                     </p>
                     <p className="text-sm text-gray-500">
-                      Supports: JPG, PNG, GIF, WebP (Max 10MB)
+                      Supports: JPG, PNG, GIF, WebP (Max 9MB)
                     </p>
                   </div>
                 )}

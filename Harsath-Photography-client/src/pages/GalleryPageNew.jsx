@@ -1,8 +1,8 @@
 import Gallery from '../components/Gallery'
 
-const GalleryPage = () => {
+const GalleryPage = ({ initialSection = 'photos' }) => {
   return (
-    <Gallery />
+    <Gallery initialSection={initialSection} />
   )
 }
 

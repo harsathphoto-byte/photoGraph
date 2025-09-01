@@ -4,8 +4,8 @@ import { HiDesktopComputer } from "@react-icons/all-files/hi/HiDesktopComputer"
 import PhotoGallery from './PhotoGallery'
 import VideoGallery from './VideoGallery'
 
-const Gallery = () => {
-  const [activeSection, setActiveSection] = useState('photos')
+const Gallery = ({ initialSection = 'photos' }) => {
+  const [activeSection, setActiveSection] = useState(initialSection)
   const [selectedPhoto, setSelectedPhoto] = useState(null)
   const [selectedVideo, setSelectedVideo] = useState(null)
 
@@ -37,6 +37,11 @@ const Gallery = () => {
     window.addEventListener('setGallerySection', handleSetGallerySection)
     return () => window.removeEventListener('setGallerySection', handleSetGallerySection)
   }, [])
+
+  // Update active section when initialSection prop changes
+  useEffect(() => {
+    setActiveSection(initialSection)
+  }, [initialSection])
 
   return (
     <div className="min-h-screen pt-24 pb-16">

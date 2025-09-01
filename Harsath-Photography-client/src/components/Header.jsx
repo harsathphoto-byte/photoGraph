@@ -10,6 +10,9 @@ import { HiMenu } from "@react-icons/all-files/hi/HiMenu"
 import { HiX } from "@react-icons/all-files/hi/HiX"
 import { HiPlus } from "@react-icons/all-files/hi/HiPlus"
 import { HiLogout } from "@react-icons/all-files/hi/HiLogout"
+import { HiChevronDown } from "@react-icons/all-files/hi/HiChevronDown"
+import { HiPhotograph } from "@react-icons/all-files/hi/HiPhotograph"
+import { HiPlay } from "@react-icons/all-files/hi/HiPlay"
 import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 import { useAuth } from '../context/AuthContext'
 import MediaUpload from './MediaUpload'
@@ -18,6 +21,8 @@ const Header = ({ currentPage, setCurrentPage }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [showUploadModal, setShowUploadModal] = useState(false)
+  const [showGalleryDropdown, setShowGalleryDropdown] = useState(false)
+  const [showMobileGalleryDropdown, setShowMobileGalleryDropdown] = useState(false)
   
   const { user, logout, isAuthenticated } = useAuth()
 
@@ -25,7 +30,16 @@ const Header = ({ currentPage, setCurrentPage }) => {
   const navigationItems = [
     { key: 'home', label: 'Home', icon: HiHome },
     { key: 'about', label: 'About', icon: HiUser },
-    { key: 'gallery', label: 'Gallery', icon: HiCamera },
+    { 
+      key: 'gallery', 
+      label: 'Gallery', 
+      icon: HiCamera,
+      hasDropdown: true,
+      subItems: [
+        { key: 'photos', label: 'Photos', icon: HiPhotograph },
+        { key: 'videos', label: 'Videos', icon: HiPlay }
+      ]
+    },
     { key: 'services', label: 'Services', icon: HiLightningBolt },
     { key: 'contact', label: 'Contact', icon: HiMail }
   ]
@@ -35,13 +49,57 @@ const Header = ({ currentPage, setCurrentPage }) => {
       setIsScrolled(window.scrollY > 10)
     }
 
+    const handleClickOutside = (event) => {
+      // Only close desktop dropdown when clicking outside, not mobile
+      if (!event.target.closest('.gallery-dropdown') && !event.target.closest('.md\\:hidden')) {
+        setShowGalleryDropdown(false)
+      }
+    }
+
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    document.addEventListener('click', handleClickOutside)
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('click', handleClickOutside)
+    }
   }, [])
 
   const handleNavClick = (page) => {
+    if (page === 'gallery') {
+      setShowGalleryDropdown(!showGalleryDropdown)
+      return
+    }
     setCurrentPage(page)
     setIsMenuOpen(false)
+    setShowGalleryDropdown(false)
+    setShowMobileGalleryDropdown(false)
+  }
+
+  const handleMobileNavClick = (page) => {
+    if (page === 'gallery') {
+      setShowMobileGalleryDropdown(!showMobileGalleryDropdown)
+      return
+    }
+    setCurrentPage(page)
+    setIsMenuOpen(false)
+    setShowGalleryDropdown(false)
+    setShowMobileGalleryDropdown(false)
+  }
+
+  const handleMobileMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen)
+    if (!isMenuOpen) {
+      // Reset dropdown states when opening menu
+      setShowMobileGalleryDropdown(false)
+    }
+  }
+
+  const handleGallerySubClick = (subPage) => {
+    setCurrentPage(subPage)
+    setIsMenuOpen(false)
+    setShowGalleryDropdown(false)
+    setShowMobileGalleryDropdown(false)
   }
 
   const handleAuthClick = (mode) => {
@@ -88,6 +146,58 @@ const Header = ({ currentPage, setCurrentPage }) => {
           <nav className="hidden lg:flex items-center space-x-8 ml-auto">
             {navigationItems.map((item) => {
               const IconComponent = item.icon
+              
+              if (item.hasDropdown) {
+                return (
+                  <div key={item.key} className="relative group gallery-dropdown">
+                    <button 
+                      onClick={() => handleNavClick(item.key)} 
+                      className={`group relative px-4 py-2 rounded-lg font-medium text-sm tracking-wide transition-all duration-300 flex items-center space-x-2 ${
+                        ['gallery', 'photos', 'videos'].includes(currentPage)
+                          ? 'text-[#D6A33E] bg-[#D6A33E]/10 border border-[#D6A33E]/30' 
+                          : 'text-white/90 hover:text-[#D6A33E] hover:bg-white/5'
+                      }`}
+                    >
+                      <IconComponent className="w-4 h-4" />
+                      <span>{item.label}</span>
+                      <HiChevronDown className={`w-3 h-3 transition-transform duration-200 ${
+                        showGalleryDropdown ? 'rotate-180' : ''
+                      }`} />
+                      
+                      {/* Active indicator */}
+                      {['gallery', 'photos', 'videos'].includes(currentPage) && (
+                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#D6A33E] rounded-full"></div>
+                      )}
+                    </button>
+                    
+                    {/* Dropdown Menu */}
+                    <div className={`absolute top-full left-0 mt-2 w-48 bg-[#111111] rounded-lg shadow-xl border border-[#D6A33E]/20 overflow-hidden transform transition-all duration-200 origin-top z-50 ${
+                      showGalleryDropdown 
+                        ? 'scale-100 opacity-100 translate-y-0' 
+                        : 'scale-95 opacity-0 -translate-y-1 pointer-events-none'
+                    }`}>
+                      {item.subItems.map((subItem) => {
+                        const SubIconComponent = subItem.icon
+                        return (
+                          <button
+                            key={subItem.key}
+                            onClick={() => handleGallerySubClick(subItem.key)}
+                            className={`w-full flex items-center space-x-3 px-4 py-3 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 ${
+                              currentPage === subItem.key 
+                                ? 'bg-[#D6A33E]/15 text-[#D6A33E] border-r-2 border-[#D6A33E]' 
+                                : 'text-white hover:text-[#D6A33E]'
+                            }`}
+                          >
+                            <SubIconComponent className="w-4 h-4" />
+                            <span className="font-medium text-sm">{subItem.label}</span>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              }
+              
               return (
                 <button 
                   key={item.key}
@@ -166,6 +276,55 @@ const Header = ({ currentPage, setCurrentPage }) => {
           <nav className="hidden md:flex lg:hidden items-center space-x-6">
             {navigationItems.map((item) => {
               const IconComponent = item.icon
+              
+              if (item.hasDropdown) {
+                return (
+                  <div key={item.key} className="relative group gallery-dropdown">
+                    <button 
+                      onClick={() => handleNavClick(item.key)} 
+                      className={`group relative p-2 rounded-lg transition-all duration-300 flex items-center space-x-1 ${
+                        ['gallery', 'photos', 'videos'].includes(currentPage)
+                          ? 'text-[#D6A33E] bg-[#D6A33E]/10' 
+                          : 'text-white/80 hover:text-[#D6A33E] hover:bg-white/5'
+                      }`}
+                    >
+                      <IconComponent className="w-5 h-5" />
+                      <HiChevronDown className={`w-3 h-3 transition-transform duration-200 ${
+                        showGalleryDropdown ? 'rotate-180' : ''
+                      }`} />
+                      {['gallery', 'photos', 'videos'].includes(currentPage) && (
+                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#D6A33E] rounded-full"></div>
+                      )}
+                    </button>
+                    
+                    {/* Dropdown Menu */}
+                    <div className={`absolute top-full left-0 mt-2 w-40 bg-[#111111] rounded-lg shadow-xl border border-[#D6A33E]/20 overflow-hidden transform transition-all duration-200 origin-top z-50 ${
+                      showGalleryDropdown 
+                        ? 'scale-100 opacity-100 translate-y-0' 
+                        : 'scale-95 opacity-0 -translate-y-1 pointer-events-none'
+                    }`}>
+                      {item.subItems.map((subItem) => {
+                        const SubIconComponent = subItem.icon
+                        return (
+                          <button
+                            key={subItem.key}
+                            onClick={() => handleGallerySubClick(subItem.key)}
+                            className={`w-full flex items-center space-x-2 px-3 py-2 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 ${
+                              currentPage === subItem.key 
+                                ? 'bg-[#D6A33E]/15 text-[#D6A33E]' 
+                                : 'text-white hover:text-[#D6A33E]'
+                            }`}
+                          >
+                            <SubIconComponent className="w-4 h-4" />
+                            <span className="text-sm">{subItem.label}</span>
+                          </button>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )
+              }
+              
               return (
                 <button 
                   key={item.key}
@@ -193,7 +352,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   ? 'bg-[#D6A33E] text-black' 
                   : 'text-white hover:bg-white/10 hover:text-[#D6A33E]'
               }`}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={handleMobileMenuToggle}
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
@@ -218,10 +377,82 @@ const Header = ({ currentPage, setCurrentPage }) => {
             {/* Navigation Items */}
             {navigationItems.map((item, index) => {
               const IconComponent = item.icon
+              
+              if (item.hasDropdown) {
+                return (
+                  <div key={item.key}>
+                    <button 
+                      onClick={() => handleMobileNavClick(item.key)} 
+                      className={`w-full flex items-center space-x-2.5 px-3 py-2.5 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 group ${
+                        ['gallery', 'photos', 'videos'].includes(currentPage)
+                          ? 'bg-[#D6A33E]/15 text-[#D6A33E] border-r-2 border-[#D6A33E]' 
+                          : 'text-white hover:text-[#D6A33E]'
+                      }`}
+                    >
+                      {/* Icon Container */}
+                      <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-all duration-150 ${
+                        ['gallery', 'photos', 'videos'].includes(currentPage)
+                          ? 'bg-[#D6A33E] text-[#111111]' 
+                          : 'bg-[#D6A33E]/20 text-[#D6A33E] group-hover:bg-[#D6A33E] group-hover:text-[#111111]'
+                      }`}>
+                        <IconComponent className="w-4 h-4" />
+                      </div>
+                      
+                      {/* Text */}
+                      <span className="font-medium text-sm flex-1">{item.label}</span>
+                      
+                      {/* Dropdown Icon */}
+                      <HiChevronDown className={`w-3 h-3 transition-transform duration-200 ${
+                        showMobileGalleryDropdown ? 'rotate-180' : ''
+                      }`} />
+                    </button>
+                    
+                    {/* Submenu Items */}
+                    {showMobileGalleryDropdown && (
+                      <div className="pl-4 border-l-2 border-[#D6A33E]/20 ml-3">
+                        {item.subItems.map((subItem) => {
+                          const SubIconComponent = subItem.icon
+                          return (
+                            <button
+                              key={subItem.key}
+                              onClick={() => handleGallerySubClick(subItem.key)}
+                              className={`w-full flex items-center space-x-2.5 px-3 py-2 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 group ${
+                                currentPage === subItem.key 
+                                  ? 'bg-[#D6A33E]/15 text-[#D6A33E] border-r-2 border-[#D6A33E]' 
+                                  : 'text-white/80 hover:text-[#D6A33E]'
+                              }`}
+                            >
+                              {/* Sub Icon Container */}
+                              <div className={`w-6 h-6 rounded-md flex items-center justify-center transition-all duration-150 ${
+                                currentPage === subItem.key 
+                                  ? 'bg-[#D6A33E] text-[#111111]' 
+                                  : 'bg-[#D6A33E]/10 text-[#D6A33E] group-hover:bg-[#D6A33E] group-hover:text-[#111111]'
+                              }`}>
+                                <SubIconComponent className="w-3 h-3" />
+                              </div>
+                              
+                              {/* Text */}
+                              <span className="font-medium text-sm">{subItem.label}</span>
+                              
+                              {/* Active Indicator */}
+                              {currentPage === subItem.key && (
+                                <div className="ml-auto">
+                                  <div className="w-1.5 h-1.5 bg-[#D6A33E] rounded-full"></div>
+                                </div>
+                              )}
+                            </button>
+                          )
+                        })}
+                      </div>
+                    )}
+                  </div>
+                )
+              }
+              
               return (
                 <button 
                   key={item.key}
-                  onClick={() => handleNavClick(item.key)} 
+                  onClick={() => handleMobileNavClick(item.key)} 
                   className={`w-full flex items-center space-x-2.5 px-3 py-2.5 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 group ${
                     currentPage === item.key 
                       ? 'bg-[#D6A33E]/15 text-[#D6A33E] border-r-2 border-[#D6A33E]' 

@@ -8,8 +8,6 @@ import { toast } from 'react-toastify';
 
 // Validation schema
 const uploadSchema = yup.object({
-  title: yup.string().required('Title is required').max(100, 'Title cannot exceed 100 characters'),
-  description: yup.string().max(500, 'Description cannot exceed 500 characters'),
   category: yup.string()
     .required('Category is required')
     .oneOf([
@@ -17,8 +15,6 @@ const uploadSchema = yup.object({
       'landscape', 'architecture', 'sports', 'travel', 'documentary', 'cinematic',
       'music-video', 'promotional', 'general'
     ], 'Invalid category'),
-  tags: yup.string(),
-  isPrivate: yup.boolean(),
   locationName: yup.string().max(100, 'Location name cannot exceed 100 characters'),
 });
 
@@ -43,12 +39,6 @@ const categories = [
 
 const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   const { user } = useAuth();
-  
-  // Admin access check
-  if (!user || user.role !== 'admin') {
-    return null;
-  }
-  
   const [selectedFile, setSelectedFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
@@ -66,7 +56,6 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
     resolver: yupResolver(uploadSchema),
     defaultValues: {
       category: 'general',
-      isPrivate: false,
     },
   });
 
@@ -77,8 +66,21 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
 
   // Get file size limit based on media type
   const getFileSizeLimit = (file) => {
-    // No limits for both images and videos (unlimited)
+    if (file.type.startsWith('image/')) {
+      return 9 * 1024 * 1024; // 9MB for images
+    } else if (file.type.startsWith('video/')) {
+      return 50 * 1024 * 1024; // 50MB for videos (Cloudinary free plan limit)
+    }
     return null;
+  };
+
+  // Helper function to format file size
+  const formatFileSize = (bytes) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   // Handle file selection
@@ -95,7 +97,8 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
       const sizeLimit = getFileSizeLimit(file);
       if (sizeLimit && file.size > sizeLimit) {
         const limitMB = sizeLimit / (1024 * 1024);
-        toast.error(`File size must be less than ${limitMB}MB`);
+        const fileType = file.type.startsWith('image/') ? 'image' : 'video';
+        toast.error(`${fileType} size must be less than ${limitMB}MB. Current size: ${formatFileSize(file.size)}`);
         return;
       }
 
@@ -143,16 +146,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
         formData.append('media', selectedFile);
       }
       
-      formData.append('title', data.title);
-      formData.append('description', data.description || '');
       formData.append('category', data.category);
-      formData.append('isPrivate', data.isPrivate);
-
-      // Handle tags
-      if (data.tags) {
-        const tagsArray = data.tags.split(',').map(tag => tag.trim()).filter(tag => tag);
-        formData.append('tags', JSON.stringify(tagsArray));
-      }
 
       // Handle location
       if (data.locationName) {
@@ -208,13 +202,28 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
     }
   };
 
+  // Admin access check - after all hooks are defined
+  if (!user || user.role !== 'admin') {
+    return null;
+  }
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4">
-      <div className="bg-black rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-amber-400">
-        {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-amber-400">
+    <div 
+      className="fixed inset-0 bg-black bg-opacity-90 z-[9999] flex items-start justify-center p-4 overflow-y-auto"
+      onClick={(e) => {
+        if (e.target === e.currentTarget && !isUploading) {
+          handleClose();
+        }
+      }}
+    >
+      <div 
+        className="bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full my-8 border-2 border-amber-400 min-h-fit relative z-[10000]"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header - Fixed */}
+        <div className="flex justify-between items-center p-6 border-b border-amber-400 sticky top-0 bg-gray-900 z-[10001] rounded-t-lg">
           <h2 className="text-2xl font-bold text-amber-400">
             Upload {mediaType ? (mediaType === 'image' ? 'Photo' : 'Video') : 'Media'}
           </h2>
@@ -227,9 +236,9 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
           </button>
         </div>
 
-        {/* Body */}
-        <div className="p-6">
-          <form onSubmit={handleSubmit(handleUpload)} className="space-y-6">
+        {/* Body - Scrollable */}
+        <div className="p-6 max-h-[calc(90vh-120px)] overflow-y-auto">
+          <form onSubmit={handleSubmit(handleUpload)} className="space-y-6 pb-20">
             {/* File Upload Area */}
             <div>
               <label className="block text-sm font-medium text-amber-400 mb-2">
@@ -286,7 +295,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                       Click to select or drag and drop your media here
                     </p>
                     <p className="text-sm text-gray-500">
-                      Supports: Images (JPG, PNG, GIF, WebP) and Videos (MP4, MOV, AVI, etc.) - No Size Limits
+                      Supports: Images (JPG, PNG, GIF, WebP) up to 9MB and Videos (MP4, MOV, AVI, etc.) up to 50MB
                     </p>
                   </div>
                 )}
@@ -318,36 +327,6 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
 
             {/* Media Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-amber-400 mb-1">
-                  Title *
-                </label>
-                <input
-                  type="text"
-                  {...register('title')}
-                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
-                  placeholder={`Enter ${mediaType || 'media'} title`}
-                />
-                {errors.title && (
-                  <p className="text-red-400 text-sm mt-1">{errors.title.message}</p>
-                )}
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-amber-400 mb-1">
-                  Description
-                </label>
-                <textarea
-                  {...register('description')}
-                  rows={3}
-                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
-                  placeholder={`Describe your ${mediaType || 'media'}...`}
-                />
-                {errors.description && (
-                  <p className="text-red-400 text-sm mt-1">{errors.description.message}</p>
-                )}
-              </div>
-
               <div>
                 <label className="block text-sm font-medium text-amber-400 mb-1">
                   Category *
@@ -381,44 +360,10 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                   <p className="text-red-400 text-sm mt-1">{errors.locationName.message}</p>
                 )}
               </div>
-
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-amber-400 mb-1">
-                  Tags
-                </label>
-                <input
-                  type="text"
-                  {...register('tags')}
-                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
-                  placeholder="Enter tags separated by commas (e.g., wedding, cinematic, beautiful)"
-                />
-                <p className="text-sm text-gray-500 mt-1">
-                  Separate tags with commas
-                </p>
-                {errors.tags && (
-                  <p className="text-red-400 text-sm mt-1">{errors.tags.message}</p>
-                )}
-              </div>
-
-              <div className="md:col-span-2">
-                <div className="flex items-center">
-                  <input
-                    type="checkbox"
-                    {...register('isPrivate')}
-                    className="h-4 w-4 text-amber-500 focus:ring-amber-500 border-amber-600 rounded bg-gray-900"
-                  />
-                  <label className="ml-2 text-sm font-medium text-gray-300">
-                    Make this {mediaType || 'media'} private
-                  </label>
-                </div>
-                <p className="text-sm text-gray-500 mt-1">
-                  Private {mediaType || 'media'} will only be visible to admins
-                </p>
-              </div>
             </div>
 
-            {/* Actions */}
-            <div className="flex justify-end space-x-3 pt-4 border-t border-amber-400">
+            {/* Actions - Fixed at bottom */}
+            <div className="sticky bottom-0 bg-gray-900 flex justify-end space-x-3 pt-4 border-t border-amber-400 -mx-6 px-6 pb-6 rounded-b-lg">
               <button
                 type="button"
                 onClick={handleClose}

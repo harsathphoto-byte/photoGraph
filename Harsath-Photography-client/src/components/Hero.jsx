@@ -539,7 +539,7 @@ const Hero = ({ setCurrentPage }) => {
               {
                 name: 'Essential',
                 price: '₹53,000',
-                features: ['Wedding Album', '2 Premium Frames', 'HD Video Coverage', 'Custom Calendar'],
+                features: ['Wedding Album', '2 Premium Frames', 'HD Video Coverage', 'Custom Calendar','Candid Photography'],
                 popular: false,
                 description: 'Perfect for intimate celebrations'
               },
