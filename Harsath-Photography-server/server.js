@@ -10,6 +10,7 @@ const cookieParser = require('cookie-parser');
 const authRoutes = require('./routes/auth');
 const photoRoutes = require('./routes/photos');
 const userRoutes = require('./routes/users');
+const videoRoutes = require('./routes/videos');
 
 const app = express();
 
@@ -46,6 +47,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/harsath_p
 app.use('/api/auth', authRoutes);
 app.use('/api/photos', photoRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/videos', videoRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

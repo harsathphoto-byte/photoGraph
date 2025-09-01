@@ -164,4 +164,95 @@ export const userAPI = {
   },
 };
 
+// Video API service
+export const videoAPI = {
+  // Upload video
+  uploadVideo: async (formData) => {
+    try {
+      const response = await api.post('/videos/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error uploading video');
+    }
+  },
+
+  // Upload media (image or video)
+  uploadMedia: async (formData) => {
+    try {
+      const response = await api.post('/videos/upload-media', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error uploading media');
+    }
+  },
+
+  // Get all videos
+  getVideos: async (params = {}) => {
+    try {
+      const response = await api.get('/videos', { params });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error fetching videos');
+    }
+  },
+
+  // Get single video
+  getVideo: async (id) => {
+    try {
+      const response = await api.get(`/videos/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error fetching video');
+    }
+  },
+
+  // Update video
+  updateVideo: async (id, updates) => {
+    try {
+      const response = await api.put(`/videos/${id}`, updates);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error updating video');
+    }
+  },
+
+  // Delete video
+  deleteVideo: async (id) => {
+    try {
+      const response = await api.delete(`/videos/${id}`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error deleting video');
+    }
+  },
+
+  // Toggle video privacy
+  toggleVideoPrivacy: async (id) => {
+    try {
+      const response = await api.post(`/videos/${id}/toggle-privacy`);
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error toggling video privacy');
+    }
+  },
+
+  // Get videos by category
+  getVideosByCategory: async (category, params = {}) => {
+    try {
+      const response = await api.get(`/videos/category/${category}`, { params });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || 'Error fetching videos by category');
+    }
+  },
+};
+
 export default api;

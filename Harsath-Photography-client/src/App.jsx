@@ -13,7 +13,7 @@ import Footer from './components/Footer'
 // Pages
 import Home from './pages/Home'
 import About from './pages/About'
-import GalleryPage from './pages/GalleryPage'
+import GalleryPage from './pages/GalleryPageNew'
 import ServicesPage from './pages/ServicesPage'
 import ContactPage from './pages/ContactPage'
 import LoginPage from './pages/LoginPage'
