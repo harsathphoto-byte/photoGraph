@@ -3,21 +3,10 @@ const { body, query, param } = require('express-validator');
 // Video categories
 const VIDEO_CATEGORIES = [
   'wedding',
-  'portrait', 
-  'landscape',
-  'event',
-  'commercial',
+  'baby-shower',
   'fashion',
-  'street',
-  'nature',
-  'architecture',
-  'sports',
-  'travel',
-  'documentary',
-  'cinematic',
-  'music-video',
-  'promotional',
-  'general'
+  'newborn',
+  'traditional'
 ];
 
 // Upload video validation

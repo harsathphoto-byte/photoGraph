@@ -23,8 +23,8 @@ const photoSchema = new mongoose.Schema({
   category: {
     type: String,
     required: [true, 'Category is required'],
-    enum: ['wedding', 'portrait', 'event', 'nature', 'street', 'fashion', 'commercial', 'other'],
-    default: 'other'
+    enum: ['wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'],
+    default: 'traditional'
   },
   tags: [{
     type: String,

@@ -230,7 +230,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                       className="flex items-center space-x-2 px-3 py-2 bg-[#D6A33E] text-black rounded-lg font-medium text-sm hover:bg-[#c1922f] transition-all duration-300"
                     >
                       <HiPlus className="w-4 h-4" />
-                      <span>Upload Media</span>
+                      <span>Upload</span>
                     </button>
                   )}
                   
@@ -283,7 +283,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                     <button 
                       onClick={() => handleNavClick(item.key)} 
                       className={`group relative p-2 rounded-lg transition-all duration-300 flex items-center space-x-1 ${
-                        ['gallery', 'photos', 'videos'].includes(currentPage)
+                        ['gallery', 'wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'].includes(currentPage)
                           ? 'text-[#D6A33E] bg-[#D6A33E]/10' 
                           : 'text-white/80 hover:text-[#D6A33E] hover:bg-white/5'
                       }`}
@@ -506,12 +506,12 @@ const Header = ({ currentPage, setCurrentPage }) => {
                         className="w-full flex items-center space-x-2 px-2 py-1.5 bg-[#D6A33E] text-black rounded-md text-sm font-medium hover:bg-[#c1922f] transition-all duration-150"
                       >
                         <HiPlus className="w-4 h-4" />
-                        <span>Upload Media</span>
+                        <span>Upload</span>
                       </button>
                     )}
                     <button
                       onClick={handleLogout}
-                      className="w-full flex items-center space-x-2 px-2 py-1.5 bg-red-600/20 text-red-400 rounded-md text-sm font-medium hover:bg-red-600/30 transition-all duration-150"
+                      className="w-full flex items-center space-x-2 px-2 py-1.5 bg-gray-600/20 text-gray-400 rounded-md text-sm font-medium hover:bg-gray-600/30 transition-all duration-150"
                     >
                       <HiLogout className="w-4 h-4" />
                       <span>Sign Out</span>

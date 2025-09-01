@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Global Poppins Font Application */
+* {
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+}
+
+body, html {
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+}
+
 /* 3D Carousel CSS */
 .perspective-1000 {
   perspective: 1000px;
@@ -784,3 +793,302 @@
 .delay-700 { animation-delay: 0.7s; }
 .delay-800 { animation-delay: 0.8s; }
 
+/* Masonry Layout Styles - Instagram-like */
+.masonry-grid {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 2px;
+}
+
+/* Mobile optimizations - Instagram mobile style */
+@media (max-width: 479px) {
+  .masonry-grid {
+    padding: 1px;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .masonry-grid {
+    padding: 2px;
+  }
+}
+
+@media (min-width: 768px) {
+  .masonry-grid {
+    padding: 4px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .masonry-grid {
+    padding: 6px;
+  }
+}
+
+.masonry-sizer,
+.masonry-item {
+  width: 100%;
+}
+
+.masonry-gutter {
+  width: 1%;
+}
+
+/* Mobile First - Instagram mobile style */
+@media (min-width: 480px) {
+  .masonry-sizer,
+  .masonry-item {
+    width: 49.5%;
+  }
+  
+  .masonry-gutter {
+    width: 1%;
+  }
+}
+
+/* Small tablets - 3 columns like Instagram */
+@media (min-width: 640px) {
+  .masonry-sizer,
+  .masonry-item {
+    width: 32.666%;
+  }
+  
+  .masonry-gutter {
+    width: 1%;
+  }
+}
+
+/* Medium tablets - 4 columns */
+@media (min-width: 768px) {
+  .masonry-sizer,
+  .masonry-item {
+    width: 24.25%;
+  }
+  
+  .masonry-gutter {
+    width: 1%;
+  }
+}
+
+/* Large tablets/Small desktops - 5 columns */
+@media (min-width: 1024px) {
+  .masonry-sizer,
+  .masonry-item {
+    width: 19.2%;
+  }
+  
+  .masonry-gutter {
+    width: 1%;
+  }
+}
+
+/* Large desktops - 6 columns */
+@media (min-width: 1280px) {
+  .masonry-sizer,
+  .masonry-item {
+    width: 15.833%;
+  }
+  
+  .masonry-gutter {
+    width: 1%;
+  }
+}
+
+/* Extra large screens - 6 columns */
+@media (min-width: 1536px) {
+  .masonry-sizer,
+  .masonry-item {
+    width: 15.833%;
+  }
+  
+  .masonry-gutter {
+    width: 1%;
+  }
+}
+
+/* Grid item sizes - Instagram-like proportions */
+.grid-w1 { width: 100%; }
+.grid-w2 { width: 100%; }
+
+.grid-h1 { 
+  height: 120px; /* Instagram square-ish on mobile */
+}
+.grid-h2 { 
+  height: 180px; /* Portrait rectangle */
+}
+.grid-h3 { 
+  height: 240px; /* Tall portrait */
+}
+
+/* Small mobile devices - Instagram mobile grid */
+@media (min-width: 480px) {
+  .grid-w1 { width: 49.5%; }
+  .grid-w2 { width: 100%; }
+  
+  .grid-h1 { height: 140px; }
+  .grid-h2 { height: 200px; }
+  .grid-h3 { height: 260px; }
+}
+
+/* Small tablets - 3x3 Instagram grid */
+@media (min-width: 640px) {
+  .grid-w1 { width: 32.666%; }
+  .grid-w2 { width: 66.332%; }
+  
+  .grid-h1 { height: 120px; }
+  .grid-h2 { height: 180px; }
+  .grid-h3 { height: 240px; }
+}
+
+/* Medium tablets - cleaner grid */
+@media (min-width: 768px) {
+  .grid-w1 { width: 24.25%; }
+  .grid-w2 { width: 49.5%; }
+  
+  .grid-h1 { height: 140px; }
+  .grid-h2 { height: 200px; }
+  .grid-h3 { height: 260px; }
+}
+
+/* Large tablets/Small desktops */
+@media (min-width: 1024px) {
+  .grid-w1 { width: 19.2%; }
+  .grid-w2 { width: 39.4%; }
+  
+  .grid-h1 { height: 160px; }
+  .grid-h2 { height: 220px; }
+  .grid-h3 { height: 280px; }
+}
+
+/* Large desktops - professional Instagram-like */
+@media (min-width: 1280px) {
+  .grid-w1 { width: 15.833%; }
+  .grid-w2 { width: 32.666%; }
+  
+  .grid-h1 { height: 180px; }
+  .grid-h2 { height: 240px; }
+  .grid-h3 { height: 300px; }
+}
+
+/* Extra large screens */
+@media (min-width: 1536px) {
+  .grid-w1 { width: 15.833%; }
+  .grid-w2 { width: 32.666%; }
+  
+  .grid-h1 { height: 200px; }
+  .grid-h2 { height: 260px; }
+  .grid-h3 { height: 320px; }
+}
+
+.masonry-item {
+  margin-bottom: 2px;
+  display: block;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+@media (min-width: 480px) {
+  .masonry-item {
+    margin-bottom: 2px;
+  }
+}
+
+@media (min-width: 768px) {
+  .masonry-item {
+    margin-bottom: 4px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .masonry-item {
+    margin-bottom: 6px;
+  }
+}
+
+.masonry-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 4px; /* Instagram-like rounded corners */
+  transition: all 0.3s ease;
+}
+
+/* Instagram-like hover effect */
+.masonry-item:hover img {
+  transform: scale(1.03);
+  filter: brightness(1.1);
+}
+
+/* Modal Override - Ensure all modals appear above everything */
+.fixed.inset-0[class*="z-[99999]"],
+.fixed.inset-0[class*="z-[9999]"] {
+  z-index: 999999 !important;
+  position: fixed !important;
+  isolation: isolate;
+}
+
+/* Ensure modal content appears above backdrop */
+.fixed.inset-0[class*="z-[99999]"] > *,
+.fixed.inset-0[class*="z-[9999]"] > * {
+  z-index: 1000000 !important;
+  position: relative;
+}
+
+/* Additional modal safety - force all fixed modals to top layer */
+[class*="fixed"][class*="inset-0"] {
+  isolation: isolate;
+}
+
+/* Ensure masonry grid doesn't interfere with modals */
+.masonry-grid {
+  position: relative;
+  z-index: 0;
+  display: block;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.masonry-item {
+  position: relative;
+  z-index: 1;
+}
+
+/* Instagram-like hover effects */
+.masonry-item.grid-w2:hover,
+.masonry-item.grid-h2:hover,
+.masonry-item.grid-h3:hover {
+  z-index: 2;
+}
+
+/* Mobile touch optimization - Instagram style */
+@media (max-width: 767px) {
+  .masonry-item:active img {
+    transform: scale(0.98);
+    filter: brightness(0.9);
+  }
+  
+  .masonry-item:hover img {
+    transform: none;
+    filter: none;
+  }
+  
+  .masonry-item.grid-w2:hover,
+  .masonry-item.grid-h2:hover,
+  .masonry-item.grid-h3:hover {
+    transform: none;
+  }
+}
+
+/* Desktop hover effects */
+@media (min-width: 768px) {
+  .masonry-item:hover {
+    z-index: 10;
+  }
+}
+
+/* Ensure smooth transitions on all devices */
+.masonry-item {
+  transition: transform 0.2s ease, z-index 0.2s ease;
+}

@@ -17,23 +17,12 @@ const videoSchema = new mongoose.Schema({
     required: true,
     enum: [
       'wedding',
-      'portrait',
-      'landscape',
-      'event',
-      'commercial',
+      'baby-shower',
       'fashion',
-      'street',
-      'nature',
-      'architecture',
-      'sports',
-      'travel',
-      'documentary',
-      'cinematic',
-      'music-video',
-      'promotional',
-      'general'
+      'newborn',
+      'traditional'
     ],
-    default: 'general'
+    default: 'traditional'
   },
   tags: [{
     type: String,

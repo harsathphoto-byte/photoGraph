@@ -262,9 +262,13 @@ const Hero = ({ setCurrentPage }) => {
     setIsVisible(true)
   }, [])
 
-  const handleCategoryClick = (path) => {
-    if (path.includes('gallery')) {
-      setCurrentPage('gallery')
+  const handleCategoryClick = (category) => {
+    // Store the selected category and navigate to gallery
+    if (setCurrentPage) {
+      // We'll use the photos section by default when coming from home page
+      setCurrentPage('photos')
+      // Store the category in localStorage temporarily to pass to Gallery
+      localStorage.setItem('selectedCategory', category)
     }
   }
 
@@ -385,19 +389,18 @@ const Hero = ({ setCurrentPage }) => {
           </div>
           
           <h4 className="text-[#D6A33E] text-2xl lg:text-3xl xl:text-4xl font-bold mb-8 text-center animate-slideIn3D relative z-20">Categories</h4>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {[
-              { name: 'Wedding', path: '/gallery?category=wedding' },
-              { name: 'Baby Shoots', path: '/gallery?category=baby-shoots' },
-              { name: 'Fashion', path: '/gallery?category=fashion' },
-              { name: 'Engagement', path: '/gallery?category=engagement' },
-              { name: 'New Born', path: '/gallery?category=new-born' },
-              { name: 'Events', path: '/gallery?category=events' }
+              { name: 'Wedding', category: 'wedding' },
+              { name: 'Baby Shower', category: 'baby-shower' },
+              { name: 'Fashion', category: 'fashion' },
+              { name: 'New Born', category: 'newborn' },
+              { name: 'Traditional', category: 'traditional' }
             ].map((category, index) => (
               <div 
                 key={index} 
                 className={`relative group cursor-pointer animate-fadeInUp3D animate-delay-${(index + 1) * 100}`}
-                onClick={() => handleCategoryClick(category.path)}
+                onClick={() => handleCategoryClick(category.category)}
               >
                 <div className="aspect-square rounded-2xl overflow-hidden border-3 border-[#D6A33E]/60 group-hover:border-[#D6A33E] transition-all duration-500 glass-golden flex items-center justify-center group-hover:from-[#D6A33E]/70 group-hover:to-[#D6A33E]/90 hover-lift shadow-xl group-hover:shadow-2xl group-hover:shadow-[#D6A33E]/30 perspective-container">
                   <div className="text-center transform-3d">
@@ -406,7 +409,7 @@ const Hero = ({ setCurrentPage }) => {
                       alt={category.name}
                       className="w-16 h-16 lg:w-20 lg:h-20 object-cover rounded-lg mx-auto mb-2 hover-tilt"
                     />
-                    <span className="text-white font-bold text-sm lg:text-base text-center group-hover:text-[#111111] transition-colors leading-tight">
+                    <span className="text-white font-bold text-sm lg:text-base text-center group-hover:text-[#D6A33E] transition-colors leading-tight">
                       {category.name}
                     </span>
                   </div>

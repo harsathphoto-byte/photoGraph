@@ -5,7 +5,7 @@ const uploadPhotoValidation = [
   body('category')
     .notEmpty()
     .withMessage('Category is required')
-    .isIn(['wedding', 'portrait', 'event', 'nature', 'street', 'fashion', 'commercial', 'other'])
+    .isIn(['wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'])
     .withMessage('Invalid category'),
     
   body('locationName')
@@ -30,7 +30,7 @@ const getPhotosValidation = [
     .optional()
     .custom((value) => {
       if (value === '' || value === undefined || value === null) return true;
-      return ['wedding', 'portrait', 'event', 'nature', 'street', 'fashion', 'commercial', 'other'].includes(value);
+      return ['wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'].includes(value);
     })
     .withMessage('Invalid category'),
     

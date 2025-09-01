@@ -9,46 +9,6 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
   const [loading, setLoading] = useState(true);
   const [pagination, setPagination] = useState({});
   const [currentPage, setCurrentPage] = useState(1);
-  const [filters, setFilters] = useState({
-    category: '',
-    sort: 'newest',
-    search: '',
-  });
-
-  // Update filters when props change
-  useEffect(() => {
-    setFilters(prev => ({
-      ...prev,
-      category: category || ''
-    }));
-  }, [category]);
-
-  const categories = [
-    { value: '', label: 'All Categories' },
-    { value: 'wedding', label: 'Wedding' },
-    { value: 'portrait', label: 'Portrait' },
-    { value: 'event', label: 'Event' },
-    { value: 'nature', label: 'Nature' },
-    { value: 'street', label: 'Street Photography' },
-    { value: 'fashion', label: 'Fashion' },
-    { value: 'commercial', label: 'Commercial' },
-    { value: 'landscape', label: 'Landscape' },
-    { value: 'architecture', label: 'Architecture' },
-    { value: 'sports', label: 'Sports' },
-    { value: 'travel', label: 'Travel' },
-    { value: 'documentary', label: 'Documentary' },
-    { value: 'cinematic', label: 'Cinematic' },
-    { value: 'music-video', label: 'Music Video' },
-    { value: 'promotional', label: 'Promotional' },
-    { value: 'general', label: 'General' },
-  ];
-
-  const sortOptions = [
-    { value: 'newest', label: 'Newest First' },
-    { value: 'oldest', label: 'Oldest First' },
-    { value: 'popular', label: 'Most Popular' },
-    { value: 'title', label: 'Title A-Z' },
-  ];
 
   // Fetch videos
   const fetchVideos = async (page = 1) => {
@@ -57,10 +17,11 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
       const params = {
         page,
         limit: 12,
-        ...filters,
+        sort: 'newest'
       };
 
       // Add specific filters
+      if (category) params.category = category;
       if (userId) params.uploadedBy = userId;
       if (featured !== undefined) params.featured = featured;
 
@@ -104,19 +65,6 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
     }
   };
 
-  // Handle filter changes
-  const handleFilterChange = (key, value) => {
-    setFilters(prev => ({ ...prev, [key]: value }));
-    setCurrentPage(1);
-  };
-
-  // Handle search
-  const handleSearch = (e) => {
-    e.preventDefault();
-    setCurrentPage(1);
-    fetchVideos(1);
-  };
-
   // Handle delete (admin only)
   const handleDelete = async (videoId, videoTitle) => {
     if (!user || user.role !== 'admin') {
@@ -137,23 +85,11 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
     }
   };
 
-  // Initial load and when filters change
+  // Initial load and when category changes
   useEffect(() => {
     setCurrentPage(1);
     fetchVideos(1);
-  }, [filters.category, filters.sort, userId, featured]);
-
-  // Handle search separately to avoid excessive API calls
-  useEffect(() => {
-    if (filters.search !== '') {
-      const timeoutId = setTimeout(() => {
-        setCurrentPage(1);
-        fetchVideos(1);
-      }, 500); // Debounce search
-      
-      return () => clearTimeout(timeoutId);
-    }
-  }, [filters.search]);
+  }, [category, userId, featured]);
 
   // Format duration from seconds to MM:SS
   const formatDuration = (seconds) => {
@@ -165,55 +101,6 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
 
   return (
     <div className="space-y-6">
-      {/* Filters */}
-      <div className="bg-gray-900 rounded-lg p-4 border border-gray-800">
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
-          {/* Search */}
-          <form onSubmit={handleSearch} className="flex-1 max-w-md">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search videos..."
-                value={filters.search}
-                onChange={(e) => handleFilterChange('search', e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent"
-              />
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-            </div>
-          </form>
-
-          {/* Category Filter */}
-          <select
-            value={filters.category}
-            onChange={(e) => handleFilterChange('category', e.target.value)}
-            className="px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent"
-          >
-            {categories.map((cat) => (
-              <option key={cat.value} value={cat.value} className="bg-gray-800">
-                {cat.label}
-              </option>
-            ))}
-          </select>
-
-          {/* Sort */}
-          <select
-            value={filters.sort}
-            onChange={(e) => handleFilterChange('sort', e.target.value)}
-            className="px-3 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent"
-          >
-            {sortOptions.map((option) => (
-              <option key={option.value} value={option.value} className="bg-gray-800">
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
       {/* Videos Grid */}
       {loading && videos.length === 0 ? (
         <div className="flex justify-center items-center py-12">

@@ -211,7 +211,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
 
   return (
     <div 
-      className="fixed inset-0 bg-black bg-opacity-90 z-[9999] flex items-start justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 bg-black bg-opacity-90 z-[99999] flex items-start justify-center p-4 overflow-y-auto"
       onClick={(e) => {
         if (e.target === e.currentTarget && !isUploading) {
           handleClose();
@@ -219,11 +219,11 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
       }}
     >
       <div 
-        className="bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full my-8 border-2 border-amber-400 min-h-fit relative z-[10000]"
+        className="bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full my-8 border-2 border-amber-400 min-h-fit relative z-[100000]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header - Fixed */}
-        <div className="flex justify-between items-center p-6 border-b border-amber-400 sticky top-0 bg-gray-900 z-[10001] rounded-t-lg">
+        <div className="flex justify-between items-center p-6 border-b border-amber-400 sticky top-0 bg-gray-900 z-[100001] rounded-t-lg">
           <h2 className="text-2xl font-bold text-amber-400">
             Upload {mediaType ? (mediaType === 'image' ? 'Photo' : 'Video') : 'Media'}
           </h2>
