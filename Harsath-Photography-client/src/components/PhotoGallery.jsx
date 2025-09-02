@@ -186,10 +186,16 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
 
   // Function to get dynamic item size for Instagram-like layout
   const getMasonryItemClass = (index) => {
-    // Instagram-like mobile pattern - mostly square with occasional rectangles
+    // Enhanced mobile masonry pattern - same variety as large screens
     if (screenSize === 'xs') {
       const mobileSizes = [
         'masonry-item grid-w1 grid-h1', // square
+        'masonry-item grid-w1 grid-h2', // portrait rectangle
+        'masonry-item grid-w1 grid-h1', // square
+        'masonry-item grid-w1 grid-h1', // square
+        'masonry-item grid-w1 grid-h2', // portrait rectangle
+        'masonry-item grid-w1 grid-h1', // square
+        'masonry-item grid-w1 grid-h3', // tall portrait
         'masonry-item grid-w1 grid-h1', // square
         'masonry-item grid-w1 grid-h1', // square
         'masonry-item grid-w1 grid-h2', // portrait rectangle
@@ -199,7 +205,7 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
       return mobileSizes[index % mobileSizes.length];
     }
     
-    // Small screen Instagram pattern
+    // Enhanced small screen masonry pattern - more varied like larger screens
     if (screenSize === 'sm') {
       const smallSizes = [
         'masonry-item grid-w1 grid-h1', // square
@@ -207,9 +213,13 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
         'masonry-item grid-w1 grid-h2', // portrait
         'masonry-item grid-w2 grid-h1', // landscape
         'masonry-item grid-w1 grid-h1', // square
-        'masonry-item grid-w1 grid-h1', // square
-        'masonry-item grid-w1 grid-h1', // square
         'masonry-item grid-w1 grid-h2', // portrait
+        'masonry-item grid-w1 grid-h1', // square
+        'masonry-item grid-w1 grid-h1', // square
+        'masonry-item grid-w2 grid-h2', // large square
+        'masonry-item grid-w1 grid-h1', // square
+        'masonry-item grid-w1 grid-h3', // tall portrait
+        'masonry-item grid-w1 grid-h1', // square
       ];
       return smallSizes[index % smallSizes.length];
     }

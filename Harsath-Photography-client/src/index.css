@@ -800,11 +800,20 @@ body, html {
   padding: 2px;
 }
 
-/* Mobile optimizations - Instagram mobile style */
+/* Mobile optimizations - Enhanced Instagram mobile masonry */
 @media (max-width: 479px) {
   .masonry-grid {
-    padding: 1px;
+    padding: 2px;
     max-width: 100%;
+  }
+  
+  .masonry-sizer,
+  .masonry-item {
+    width: 100%;
+  }
+  
+  .masonry-gutter {
+    width: 2%;
   }
 }
 
@@ -912,13 +921,13 @@ body, html {
 .grid-w2 { width: 100%; }
 
 .grid-h1 { 
-  height: 120px; /* Instagram square-ish on mobile */
+  height: 150px; /* Enhanced mobile squares */
 }
 .grid-h2 { 
-  height: 180px; /* Portrait rectangle */
+  height: 220px; /* Enhanced mobile portrait rectangles */
 }
 .grid-h3 { 
-  height: 240px; /* Tall portrait */
+  height: 290px; /* Enhanced mobile tall portraits */
 }
 
 /* Small mobile devices - Instagram mobile grid */
