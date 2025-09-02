@@ -3,44 +3,32 @@ const ServicesPage = () => {
     {
       image: 'https://picsum.photos/400/300?random=31',
       title: 'Wedding Photography',
-      description: 'Capture your special day with elegant and timeless wedding photography that tells your unique love story.',
-      features: ['Pre-wedding shoot', 'Ceremony coverage', 'Reception photography', 'Edited photos delivery', 'Online gallery'],
-      price: 'Starting from ₹25,000'
+      description: 'Capture your special day with elegant and timeless wedding photography that tells your unique love story.'
     },
     {
       image: 'https://picsum.photos/400/300?random=32',
       title: 'Portrait Photography',
-      description: 'Professional portraits for individuals, families, and corporate headshots with artistic flair.',
-      features: ['Studio or outdoor sessions', 'Professional lighting', 'Multiple outfit changes', 'Retouched images', 'Print options'],
-      price: 'Starting from ₹5,000'
+      description: 'Professional portraits for individuals, families, and corporate headshots with artistic flair.'
     },
     {
       image: 'https://picsum.photos/400/300?random=33',
       title: 'Event Photography',
-      description: 'Document your special events with professional event photography and candid storytelling.',
-      features: ['Full event coverage', 'Candid moments', 'Group photos', 'Quick turnaround', 'Social media ready'],
-      price: 'Starting from ₹8,000'
+      description: 'Document your special events with professional event photography and candid storytelling.'
     },
     {
       image: 'https://picsum.photos/400/300?random=34',
       title: 'Fashion Photography',
-      description: 'Creative fashion shoots for models, brands, and fashion enthusiasts with modern aesthetics.',
-      features: ['Concept development', 'Styling guidance', 'Professional editing', 'Portfolio ready images', 'Commercial use'],
-      price: 'Starting from ₹10,000'
+      description: 'Creative fashion shoots for models, brands, and fashion enthusiasts with modern aesthetics.'
     },
     {
       image: 'https://picsum.photos/400/300?random=35',
       title: 'Video Production',
-      description: 'Professional video production and editing services for all occasions and commercial needs.',
-      features: ['Event videography', 'Promotional videos', 'Music videos', 'Professional editing', '4K quality'],
-      price: 'Starting from ₹15,000'
+      description: 'Professional video production and editing services for all occasions and commercial needs.'
     },
     {
       image: 'https://picsum.photos/400/300?random=36',
       title: 'Photo Editing',
-      description: 'Advanced photo retouching and enhancement services to make your images truly exceptional.',
-      features: ['Color correction', 'Skin retouching', 'Background removal', 'Creative editing', 'Fast delivery'],
-      price: 'Starting from ₹100/photo'
+      description: 'Advanced photo retouching and enhancement services to make your images truly exceptional.'
     }
   ]
 
@@ -126,25 +114,13 @@ const ServicesPage = () => {
                   <h3 className="text-2xl font-light tracking-wide text-[#D6A33E] mb-4">
                     {service.title}
                   </h3>
-                  <p className="text-gray-300 font-light leading-relaxed mb-6 tracking-wide">
+                  <p className="text-gray-300 font-light leading-relaxed mb-8 tracking-wide">
                     {service.description}
                   </p>
                   
-                  <div className="space-y-3 mb-8">
-                    {service.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center text-gray-300 font-light">
-                        <div className="w-2 h-2 bg-[#D6A33E] rounded-full mr-3 flex-shrink-0"></div>
-                        <span className="tracking-wide">{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                  
-                  <div className="flex items-center justify-between">
-                    <span className="text-[#D6A33E] font-light text-lg tracking-wide">
-                      {service.price}
-                    </span>
-                    <button className="glass-golden px-6 py-2 rounded-full font-light tracking-wider hover-lift transition-all duration-300">
-                      Book Now
+                  <div className="text-center">
+                    <button className="glass-golden px-8 py-3 rounded-full font-light tracking-wider hover-lift transition-all duration-300">
+                      Enquire Now
                     </button>
                   </div>
                 </div>
@@ -181,13 +157,10 @@ const ServicesPage = () => {
               >
                 <div className="relative mb-8">
                   <div className="w-24 h-24 mx-auto glass-golden rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
-                    <span className="text-2xl font-light tracking-wider text-black">
+                    <span className="text-2xl font-light tracking-wider text-[#D6A33E]">
                       {item.step}
                     </span>
                   </div>
-                  {index < 3 && (
-                    <div className="hidden lg:block absolute top-12 left-full w-full h-px bg-gradient-to-r from-[#D6A33E]/50 to-transparent"></div>
-                  )}
                 </div>
                 <h3 className="text-xl font-light tracking-wide text-[#D6A33E] mb-4">
                   {item.title}

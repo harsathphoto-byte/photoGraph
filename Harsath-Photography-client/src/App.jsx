@@ -27,14 +27,51 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
   const [scrollProgress, setScrollProgress] = useState(0)
 
+  // Function to get page from URL hash
+  const getPageFromUrl = () => {
+    const hash = window.location.hash.replace('#', '')
+    const validPages = ['home', 'about', 'gallery', 'photos', 'videos', 'services', 'contact', 'login', 'register']
+    return validPages.includes(hash) ? hash : 'home'
+  }
+
+  // Function to update URL hash when page changes
+  const updateUrlHash = (page) => {
+    window.location.hash = page === 'home' ? '' : page
+  }
+
   useEffect(() => {
+    // Set current page from URL on load
+    const pageFromUrl = getPageFromUrl()
+    setCurrentPage(pageFromUrl)
+    
+    // Listen for hash changes (back/forward navigation)
+    const handleHashChange = () => {
+      const page = getPageFromUrl()
+      setCurrentPage(page)
+      // Scroll to top when hash changes (back/forward navigation)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+    
+    window.addEventListener('hashchange', handleHashChange)
+    
     // Simulate initial loading
     const timer = setTimeout(() => {
       setIsLoading(false)
     }, 1500)
 
-    return () => clearTimeout(timer)
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('hashchange', handleHashChange)
+    }
   }, [])
+
+  // Enhanced setCurrentPage function that updates URL
+  const setCurrentPageWithUrl = (page) => {
+    setCurrentPage(page)
+    updateUrlHash(page)
+    // Scroll to top when changing pages
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   useEffect(() => {
     const updateScrollProgress = () => {
@@ -50,7 +87,7 @@ function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <Home setCurrentPage={setCurrentPage} />
+        return <Home setCurrentPage={setCurrentPageWithUrl} />
       case 'about':
         return <About />
       case 'gallery':
@@ -64,11 +101,11 @@ function App() {
       case 'contact':
         return <ContactPage />
       case 'login':
-        return <LoginPage setCurrentPage={setCurrentPage} />
+        return <LoginPage setCurrentPage={setCurrentPageWithUrl} />
       case 'register':
-        return <RegisterPage setCurrentPage={setCurrentPage} />
+        return <RegisterPage setCurrentPage={setCurrentPageWithUrl} />
       default:
-        return <Home setCurrentPage={setCurrentPage} />
+        return <Home setCurrentPage={setCurrentPageWithUrl} />
     }
   }
 
@@ -116,7 +153,7 @@ function App() {
           ></div>
         </div>
 
-        <Header currentPage={currentPage} setCurrentPage={setCurrentPage} />
+        <Header currentPage={currentPage} setCurrentPage={setCurrentPageWithUrl} />
         
         <main className="relative z-10">
           <div className="transition-all duration-500 ease-in-out">

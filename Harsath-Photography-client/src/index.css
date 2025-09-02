@@ -1092,3 +1092,58 @@ body, html {
 .masonry-item {
   transition: transform 0.2s ease, z-index 0.2s ease;
 }
+
+/* Upload Modal z-index fix */
+.upload-modal-overlay {
+  z-index: 2147483647 !important;
+  position: fixed !important;
+  isolation: isolate !important;
+}
+
+.upload-modal-content {
+  z-index: 2147483647 !important;
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+.upload-modal-content select {
+  z-index: 2147483647 !important;
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+.upload-modal-content select option {
+  z-index: 2147483647 !important;
+  background-color: #111827 !important;
+  color: white !important;
+}
+
+/* Ensure upload modal stays above everything */
+[data-modal="upload"] {
+  z-index: 2147483647 !important;
+  isolation: isolate !important;
+}
+
+/* Fix dropdown z-index in upload forms */
+.upload-form select {
+  z-index: 2147483647 !important;
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+/* Prevent scroll issues with modal */
+body.modal-open {
+  overflow: hidden !important;
+}
+
+/* Force modal to be above all content */
+.upload-modal-overlay::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2147483646 !important;
+  pointer-events: none;
+}

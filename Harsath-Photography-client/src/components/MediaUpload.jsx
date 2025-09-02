@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { photoAPI, videoAPI } from '../services/api';
 import { useForm } from 'react-hook-form';
@@ -11,30 +11,17 @@ const uploadSchema = yup.object({
   category: yup.string()
     .required('Category is required')
     .oneOf([
-      'wedding', 'portrait', 'event', 'nature', 'street', 'fashion', 'commercial',
-      'landscape', 'architecture', 'sports', 'travel', 'documentary', 'cinematic',
-      'music-video', 'promotional', 'general'
+      'wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'
     ], 'Invalid category'),
   locationName: yup.string().max(100, 'Location name cannot exceed 100 characters'),
 });
 
 const categories = [
   { value: 'wedding', label: 'Wedding' },
-  { value: 'portrait', label: 'Portrait' },
-  { value: 'event', label: 'Event' },
-  { value: 'nature', label: 'Nature' },
-  { value: 'street', label: 'Street Photography' },
+  { value: 'baby-shower', label: 'Baby Shower' },
   { value: 'fashion', label: 'Fashion' },
-  { value: 'commercial', label: 'Commercial' },
-  { value: 'landscape', label: 'Landscape' },
-  { value: 'architecture', label: 'Architecture' },
-  { value: 'sports', label: 'Sports' },
-  { value: 'travel', label: 'Travel' },
-  { value: 'documentary', label: 'Documentary' },
-  { value: 'cinematic', label: 'Cinematic' },
-  { value: 'music-video', label: 'Music Video' },
-  { value: 'promotional', label: 'Promotional' },
-  { value: 'general', label: 'General' },
+  { value: 'newborn', label: 'New Born' },
+  { value: 'traditional', label: 'Traditional' },
 ];
 
 const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
@@ -55,7 +42,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   } = useForm({
     resolver: yupResolver(uploadSchema),
     defaultValues: {
-      category: 'general',
+      category: 'wedding',
     },
   });
 
@@ -198,9 +185,25 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
       setPreview(null);
       setMediaType(null);
       setUploadProgress(0);
+      // Remove body scroll lock
+      document.body.classList.remove('modal-open');
       onClose();
     }
   };
+
+  // Handle body scroll lock
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [isOpen]);
 
   // Admin access check - after all hooks are defined
   if (!user || user.role !== 'admin') {
@@ -211,19 +214,23 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
 
   return (
     <div 
-      className="fixed inset-0 bg-black bg-opacity-90 z-[99999] flex items-start justify-center p-4 overflow-y-auto"
+      className="fixed inset-0 bg-black bg-opacity-90 flex items-start justify-center p-4 overflow-y-auto upload-modal-overlay"
       onClick={(e) => {
         if (e.target === e.currentTarget && !isUploading) {
           handleClose();
         }
       }}
+      style={{ zIndex: 2147483647, position: 'fixed' }}
+      data-modal="upload"
     >
       <div 
-        className="bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full my-8 border-2 border-amber-400 min-h-fit relative z-[100000]"
+        className="bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full my-8 border-2 border-amber-400 min-h-fit relative upload-modal-content"
         onClick={(e) => e.stopPropagation()}
+        style={{ zIndex: 2147483647, position: 'relative' }}
       >
         {/* Header - Fixed */}
-        <div className="flex justify-between items-center p-6 border-b border-amber-400 sticky top-0 bg-gray-900 z-[100001] rounded-t-lg">
+        <div className="flex justify-between items-center p-6 border-b border-amber-400 sticky top-0 bg-gray-900 rounded-t-lg"
+             style={{ zIndex: 2147483647 }}>
           <h2 className="text-2xl font-bold text-amber-400">
             Upload {mediaType ? (mediaType === 'image' ? 'Photo' : 'Video') : 'Media'}
           </h2>
@@ -237,8 +244,8 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
         </div>
 
         {/* Body - Scrollable */}
-        <div className="p-6 max-h-[calc(90vh-120px)] overflow-y-auto">
-          <form onSubmit={handleSubmit(handleUpload)} className="space-y-6 pb-20">
+        <div className="p-6 max-h-[calc(90vh-120px)] overflow-y-auto relative" style={{ zIndex: 2147483647 }}>
+          <form onSubmit={handleSubmit(handleUpload)} className="space-y-6 pb-20 relative upload-form" style={{ zIndex: 2147483647 }}>
             {/* File Upload Area */}
             <div>
               <label className="block text-sm font-medium text-amber-400 mb-2">
@@ -327,16 +334,17 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
 
             {/* Media Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
+              <div className="relative" style={{ zIndex: 2147483647 }}>
                 <label className="block text-sm font-medium text-amber-400 mb-1">
                   Category *
                 </label>
                 <select
                   {...register('category')}
-                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
+                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400 relative"
+                  style={{ zIndex: 2147483647, position: 'relative' }}
                 >
                   {categories.map((category) => (
-                    <option key={category.value} value={category.value} className="bg-gray-900">
+                    <option key={category.value} value={category.value} className="bg-gray-900 text-white" style={{ backgroundColor: '#111827', color: 'white' }}>
                       {category.label}
                     </option>
                   ))}

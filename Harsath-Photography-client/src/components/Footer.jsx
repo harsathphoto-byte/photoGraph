@@ -41,12 +41,25 @@ const Footer = () => {
   return (
     <footer className="relative bg-gradient-to-b from-black to-black/95 border-t border-[#D6A33E]/10">
       
-      {/* Back to Top Button */}
+      {/* Back to Top Button - Enhanced */}
       <button
         onClick={scrollToTop}
-        className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 glass-golden w-14 h-14 rounded-full flex items-center justify-center hover:scale-110 transition-all duration-500 shadow-xl z-10"
+        className="group absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-[#D6A33E] to-[#B8922A] w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center hover:from-[#c1922f] hover:to-[#A6821F] transition-all duration-300 hover:scale-110 shadow-lg shadow-[#D6A33E]/30 hover:shadow-xl hover:shadow-[#D6A33E]/50 border border-[#D6A33E]/30 z-20 overflow-hidden hover:-translate-y-1"
+        style={{
+          boxShadow: `
+            0 4px 15px rgba(214, 163, 62, 0.3),
+            0 2px 10px rgba(214, 163, 62, 0.2),
+            inset 0 1px 0 rgba(255, 255, 255, 0.1),
+            inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+          `
+        }}
+        aria-label="Scroll to top"
       >
-        <HiArrowUp className="w-6 h-6 text-black" />
+        <HiArrowUp className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black relative z-10 group-hover:-translate-y-0.5 transition-transform duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+        
+        {/* Pulse animation ring */}
+        <div className="absolute inset-0 rounded-full border-2 border-[#D6A33E]/20 animate-ping group-hover:animate-none"></div>
       </button>
 
       <div className="px-4 py-20">
@@ -148,21 +161,6 @@ const Footer = () => {
                       </a>
                     )
                   })}
-                </div>
-              </div>
-              
-              {/* Newsletter */}
-              <div className="text-center md:text-right">
-                <h4 className="text-white font-light text-xl tracking-wider mb-6">Stay Updated</h4>
-                <div className="flex max-w-sm mx-auto md:mx-0">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 px-6 py-4 glass-dark border border-[#D6A33E]/20 rounded-l-full text-white placeholder-gray-400 focus:border-[#D6A33E] focus:outline-none font-light tracking-wide"
-                  />
-                  <button className="glass-golden px-8 py-4 rounded-r-full font-light tracking-wider hover:scale-105 transition-all duration-500">
-                    Subscribe
-                  </button>
                 </div>
               </div>
             </div>

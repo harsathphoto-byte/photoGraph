@@ -366,10 +366,19 @@ const Hero = ({ setCurrentPage }) => {
                   window.dispatchEvent(event)
                 }, 100)
               }}
-              className="bg-[#D6A33E] text-[#111111] px-12 py-4 lg:px-16 lg:py-5 rounded-full font-light text-lg lg:text-xl flex items-center space-x-3 mx-auto hover:bg-[#c1922f] transition-all duration-300 shadow-lg"
+              className="group bg-gradient-to-br from-[#D6A33E] to-[#B8922A] text-[#111111] px-8 py-3 lg:px-10 lg:py-4 rounded-full font-medium text-base lg:text-lg hover:from-[#c1922f] hover:to-[#A6821F] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#D6A33E]/30 hover:shadow-xl hover:shadow-[#D6A33E]/50 border border-[#D6A33E]/30 hover-lift relative overflow-hidden flex items-center space-x-3 mx-auto"
+              style={{
+                boxShadow: `
+                  0 4px 15px rgba(214, 163, 62, 0.3),
+                  0 2px 10px rgba(214, 163, 62, 0.2),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                `
+              }}
             >
-              <HiPhotograph className="w-6 h-6 lg:w-7 lg:h-7" />
-              <span>Explore Photography</span>
+              <HiPhotograph className="w-6 h-6 lg:w-7 lg:h-7 relative z-10" />
+              <span className="relative z-10">Explore Photography</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </button>
           </div>
         </div>
@@ -388,8 +397,65 @@ const Hero = ({ setCurrentPage }) => {
             </div>
           </div>
           
-          <h4 className="text-[#D6A33E] text-2xl lg:text-3xl xl:text-4xl font-bold mb-8 text-center animate-slideIn3D relative z-20">Categories</h4>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+          <h4 className="text-[#D6A33E] text-2xl lg:text-3xl xl:text-4xl font-semibold mb-8 text-center animate-slideIn3D relative z-20">Categories</h4>
+          
+          {/* Mobile Layout - All categories same size */}
+          <div className="block md:hidden">
+            {/* First 4 categories in 2x2 grid */}
+            <div className="grid grid-cols-2 gap-6 mb-6">
+              {[
+                { name: 'Wedding', category: 'wedding' },
+                { name: 'Baby Shower', category: 'baby-shower' },
+                { name: 'Fashion', category: 'fashion' },
+                { name: 'New Born', category: 'newborn' }
+              ].map((category, index) => (
+                <div 
+                  key={index} 
+                  className={`relative group cursor-pointer animate-fadeInUp3D animate-delay-${(index + 1) * 100}`}
+                  onClick={() => handleCategoryClick(category.category)}
+                >
+                  <div className="aspect-square rounded-2xl overflow-hidden border-3 border-[#D6A33E]/60 group-hover:border-[#D6A33E] transition-all duration-500 glass-golden flex items-center justify-center group-hover:from-[#D6A33E]/70 group-hover:to-[#D6A33E]/90 hover-lift shadow-xl group-hover:shadow-2xl group-hover:shadow-[#D6A33E]/30 perspective-container">
+                    <div className="text-center transform-3d">
+                      <img 
+                        src={`https://picsum.photos/120/120?random=${index + 8}`}
+                        alt={category.name}
+                        className="w-16 h-16 lg:w-20 lg:h-20 object-cover rounded-lg mx-auto mb-2 hover-tilt"
+                      />
+                      <span className="text-white font-bold text-sm lg:text-base text-center group-hover:text-[#D6A33E] transition-colors leading-tight">
+                        {category.name}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Traditional category - perfectly centered */}
+            <div className="flex justify-center">
+              <div className="w-[calc(50%-12px)]"> {/* Exact grid column width: 50% minus half of gap-6 */}
+                <div 
+                  className="relative group cursor-pointer animate-fadeInUp3D animate-delay-500"
+                  onClick={() => handleCategoryClick('traditional')}
+                >
+                  <div className="aspect-square rounded-2xl overflow-hidden border-3 border-[#D6A33E]/60 group-hover:border-[#D6A33E] transition-all duration-500 glass-golden flex items-center justify-center group-hover:from-[#D6A33E]/70 group-hover:to-[#D6A33E]/90 hover-lift shadow-xl group-hover:shadow-2xl group-hover:shadow-[#D6A33E]/30 perspective-container">
+                    <div className="text-center transform-3d">
+                      <img 
+                        src={`https://picsum.photos/120/120?random=12`}
+                        alt="Traditional"
+                        className="w-16 h-16 lg:w-20 lg:h-20 object-cover rounded-lg mx-auto mb-2 hover-tilt"
+                      />
+                      <span className="text-white font-bold text-sm lg:text-base text-center group-hover:text-[#D6A33E] transition-colors leading-tight">
+                        Traditional
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Tablet and Desktop Layout */}
+          <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
             {[
               { name: 'Wedding', category: 'wedding' },
               { name: 'Baby Shower', category: 'baby-shower' },
@@ -420,7 +486,15 @@ const Hero = ({ setCurrentPage }) => {
 
           <div className="text-center mt-10">
             <button 
-              className="bg-[#D6A33E] text-[#111111] px-10 py-4 lg:px-14 lg:py-5 rounded-full font-bold text-lg lg:text-xl hover:bg-[#c1922f] transition-all duration-300 hover:scale-105 shadow-xl hover:shadow-[#D6A33E]/40 border-2 border-[#D6A33E]/50 hover-lift animate-pulse3D"
+              className="group bg-gradient-to-br from-[#D6A33E] to-[#B8922A] text-[#111111] px-8 py-3 lg:px-10 lg:py-4 rounded-full font-medium text-base lg:text-lg hover:from-[#c1922f] hover:to-[#A6821F] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#D6A33E]/30 hover:shadow-xl hover:shadow-[#D6A33E]/50 border border-[#D6A33E]/30 hover-lift relative overflow-hidden"
+              style={{
+                boxShadow: `
+                  0 4px 15px rgba(214, 163, 62, 0.3),
+                  0 2px 10px rgba(214, 163, 62, 0.2),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                `
+              }}
               onClick={() => {
                 setCurrentPage('gallery')
                 // Set a flag to show photos section
@@ -430,12 +504,15 @@ const Hero = ({ setCurrentPage }) => {
                 }, 100)
               }}
             >
-              More →
+              <span className="relative z-10">More →</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </button>
           </div>
         </div>
+      </section>
 
-        {/* Professional Achievements Section */}
+      {/* Professional Achievements Section */}
+      <section className="bg-gradient-to-b from-[#111111] to-[#0a0a0a] px-4 sm:px-6 lg:px-12 xl:px-16 py-12">
         <div className="bg-[#111111] rounded-2xl p-8 lg:p-12 shadow-lg max-w-7xl mx-auto mb-12 animate-fadeInUp3D animate-delay-500 relative">
           {/* Achievements Sparkle Effects */}
           <div className="absolute inset-0 overflow-hidden pointer-events-none z-10 rounded-2xl">
@@ -584,8 +661,18 @@ const Hero = ({ setCurrentPage }) => {
                   ))}
                 </div>
                 
-                <button className="w-full bg-transparent border border-[#D6A33E] text-[#D6A33E] py-3 font-light text-lg tracking-wider hover:bg-[#D6A33E] hover:text-[#111111] transition-all duration-300">
-                  SELECT PACKAGE
+                <button className="group w-full bg-gradient-to-br from-[#D6A33E] to-[#B8922A] text-[#111111] py-3 lg:py-4 rounded-full font-medium text-base lg:text-lg hover:from-[#c1922f] hover:to-[#A6821F] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#D6A33E]/30 hover:shadow-xl hover:shadow-[#D6A33E]/50 border border-[#D6A33E]/30 hover-lift relative overflow-hidden tracking-wider"
+                  style={{
+                    boxShadow: `
+                      0 4px 15px rgba(214, 163, 62, 0.3),
+                      0 2px 10px rgba(214, 163, 62, 0.2),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                      inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                    `
+                  }}
+                >
+                  <span className="relative z-10">SELECT PACKAGE</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                 </button>
               </div>
             ))}
@@ -606,10 +693,19 @@ const Hero = ({ setCurrentPage }) => {
               Ready to capture your special moments? Let's discuss your vision and create something extraordinary that you'll treasure forever.
             </p>
             <button 
-              className="bg-transparent border-2 border-[#D6A33E] text-[#D6A33E] px-12 py-4 lg:px-16 lg:py-5 font-light text-lg lg:text-xl tracking-wider hover:bg-[#D6A33E] hover:text-[#111111] transition-all duration-300 hover-lift"
+              className="group bg-gradient-to-br from-[#D6A33E] to-[#B8922A] text-[#111111] px-8 py-3 lg:px-10 lg:py-4 rounded-full font-medium text-base lg:text-lg hover:from-[#c1922f] hover:to-[#A6821F] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#D6A33E]/30 hover:shadow-xl hover:shadow-[#D6A33E]/50 border border-[#D6A33E]/30 hover-lift relative overflow-hidden tracking-wider"
               onClick={() => setCurrentPage('contact')}
+              style={{
+                boxShadow: `
+                  0 4px 15px rgba(214, 163, 62, 0.3),
+                  0 2px 10px rgba(214, 163, 62, 0.2),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                  inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                `
+              }}
             >
-              START YOUR JOURNEY
+              <span className="relative z-10">START YOUR JOURNEY</span>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
             </button>
           </div>
 
@@ -658,7 +754,7 @@ const Hero = ({ setCurrentPage }) => {
                 allowFullScreen="" 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                className="hover:brightness-110 transition-all duration-300 grayscale hover:grayscale-0"
+                className="hover:brightness-110 transition-all duration-300"
               ></iframe>
             </div>
           </div>

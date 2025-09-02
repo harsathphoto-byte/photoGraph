@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { photoAPI } from '../services/api';
 import { useForm } from 'react-hook-form';
@@ -12,7 +12,7 @@ const uploadSchema = yup.object({
   description: yup.string().max(500, 'Description cannot exceed 500 characters'),
   category: yup.string()
     .required('Category is required')
-    .oneOf(['wedding', 'portrait', 'event', 'nature', 'street', 'fashion', 'commercial', 'other'], 'Invalid category'),
+    .oneOf(['wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'], 'Invalid category'),
   tags: yup.string(),
   isPublic: yup.boolean(),
   locationName: yup.string().max(100, 'Location name cannot exceed 100 characters'),
@@ -20,13 +20,10 @@ const uploadSchema = yup.object({
 
 const categories = [
   { value: 'wedding', label: 'Wedding' },
-  { value: 'portrait', label: 'Portrait' },
-  { value: 'event', label: 'Event' },
-  { value: 'nature', label: 'Nature' },
-  { value: 'street', label: 'Street Photography' },
+  { value: 'baby-shower', label: 'Baby Shower' },
   { value: 'fashion', label: 'Fashion' },
-  { value: 'commercial', label: 'Commercial' },
-  { value: 'other', label: 'Other' },
+  { value: 'newborn', label: 'New Born' },
+  { value: 'traditional', label: 'Traditional' },
 ];
 
 const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
@@ -214,9 +211,25 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
       setSelectedFile(null);
       setPreview(null);
       setUploadProgress(0);
+      // Remove body scroll lock
+      document.body.classList.remove('modal-open');
       onClose();
     }
   };
+
+  // Handle body scroll lock
+  useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.classList.remove('modal-open');
+    };
+  }, [isOpen]);
 
   // Check if user can upload (photographer or admin)
   if (!user || !['photographer', 'admin'].includes(user.role)) {
@@ -227,16 +240,19 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
 
   return (
     <div 
-      className="fixed inset-0 bg-black bg-opacity-90 z-[9999] flex items-center justify-center p-4"
+      className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center p-4 upload-modal-overlay"
       onClick={(e) => {
         if (e.target === e.currentTarget && !isUploading) {
           handleClose();
         }
       }}
+      style={{ zIndex: 2147483647, position: 'fixed' }}
+      data-modal="upload"
     >
       <div 
-        className="bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border-2 border-amber-400 relative z-[10000]"
+        className="bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto border-2 border-amber-400 relative upload-modal-content"
         onClick={(e) => e.stopPropagation()}
+        style={{ zIndex: 2147483647, position: 'relative' }}
       >
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b border-amber-400 bg-gray-900 rounded-t-lg">
@@ -366,16 +382,17 @@ const PhotoUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                 )}
               </div>
 
-              <div>
+              <div className="relative" style={{ zIndex: 2147483647 }}>
                 <label className="block text-sm font-medium text-amber-400 mb-1">
                   Category *
                 </label>
                 <select
                   {...register('category')}
-                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400"
+                  className="w-full px-3 py-2 border border-amber-600 rounded-md bg-gray-900 text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-400 relative"
+                  style={{ zIndex: 2147483647, position: 'relative' }}
                 >
                   {categories.map((category) => (
-                    <option key={category.value} value={category.value} className="bg-gray-900">
+                    <option key={category.value} value={category.value} className="bg-gray-900 text-white" style={{ backgroundColor: '#111827', color: 'white' }}>
                       {category.label}
                     </option>
                   ))}
