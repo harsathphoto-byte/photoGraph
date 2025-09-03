@@ -127,7 +127,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'h-20 glass-dark backdrop-blur-md border-b border-[#D6A33E]/20 shadow-2xl' 
+        ? 'h-20 glass-dark backdrop-blur-md border-b border-[#B8860B]/20 shadow-2xl' 
         : 'h-24 bg-gradient-to-b from-black/50 to-transparent'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
@@ -141,11 +141,11 @@ const Header = ({ currentPage, setCurrentPage }) => {
               <div className="w-12 h-12 sm:w-14 sm:h-14 glass-golden rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
                 <span className="text-black font-bold text-lg sm:text-xl tracking-wider">HP</span>
               </div>
-              <div className="absolute inset-0 rounded-full border border-[#D6A33E]/40 group-hover:border-[#D6A33E]/80 transition-colors duration-500"></div>
+              <div className="absolute inset-0 rounded-full border border-[#B8860B]/40 group-hover:border-[#B8860B]/80 transition-colors duration-500"></div>
             </div>
             <div className="hidden sm:block">
               <div className="text-white font-semibold text-lg sm:text-xl tracking-wide">HARSATH</div>
-              <div className="text-[#D6A33E] font-medium text-xs sm:text-sm tracking-wider -mt-0.5">PHOTOGRAPHY</div>
+              <div className="text-[#B8860B] font-medium text-xs sm:text-sm tracking-wider -mt-0.5">PHOTOGRAPHY</div>
             </div>
           </div>
           
@@ -161,8 +161,8 @@ const Header = ({ currentPage, setCurrentPage }) => {
                       onClick={() => handleNavClick(item.key)} 
                       className={`group relative px-4 py-2 rounded-lg font-medium text-sm tracking-wide transition-all duration-300 flex items-center space-x-2 ${
                         ['gallery', 'photos', 'videos'].includes(currentPage)
-                          ? 'text-[#D6A33E] bg-[#D6A33E]/10 border border-[#D6A33E]/30' 
-                          : 'text-white/90 hover:text-[#D6A33E] hover:bg-white/5'
+                          ? 'text-[#B8860B] bg-[#B8860B]/10 border border-[#B8860B]/30' 
+                          : 'text-white/90 hover:text-[#B8860B] hover:bg-white/5'
                       }`}
                     >
                       <IconComponent className="w-4 h-4" />
@@ -173,12 +173,12 @@ const Header = ({ currentPage, setCurrentPage }) => {
                       
                       {/* Active indicator */}
                       {['gallery', 'photos', 'videos'].includes(currentPage) && (
-                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#D6A33E] rounded-full"></div>
+                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#B8860B] rounded-full"></div>
                       )}
                     </button>
                     
                     {/* Dropdown Menu */}
-                    <div className={`absolute top-full left-0 mt-2 w-48 bg-[#111111] rounded-lg shadow-xl border border-[#D6A33E]/20 overflow-hidden transform transition-all duration-200 origin-top z-50 ${
+                    <div className={`absolute top-full left-0 mt-2 w-48 bg-[#111111] rounded-lg shadow-xl border border-[#B8860B]/20 overflow-hidden transform transition-all duration-200 origin-top z-50 ${
                       showGalleryDropdown 
                         ? 'scale-100 opacity-100 translate-y-0' 
                         : 'scale-95 opacity-0 -translate-y-1 pointer-events-none'
@@ -189,10 +189,10 @@ const Header = ({ currentPage, setCurrentPage }) => {
                           <button
                             key={subItem.key}
                             onClick={() => handleGallerySubClick(subItem.key)}
-                            className={`w-full flex items-center space-x-3 px-4 py-3 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 ${
+                            className={`w-full flex items-center space-x-3 px-4 py-3 text-left transition-all duration-150 hover:bg-[#B8860B]/10 ${
                               currentPage === subItem.key 
-                                ? 'bg-[#D6A33E]/15 text-[#D6A33E] border-r-2 border-[#D6A33E]' 
-                                : 'text-white hover:text-[#D6A33E]'
+                                ? 'bg-[#B8860B]/15 text-[#B8860B] border-r-2 border-[#B8860B]' 
+                                : 'text-white hover:text-[#B8860B]'
                             }`}
                           >
                             <SubIconComponent className="w-4 h-4" />
@@ -211,8 +211,8 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   onClick={() => handleNavClick(item.key)} 
                   className={`group relative px-4 py-2 rounded-lg font-medium text-sm tracking-wide transition-all duration-300 flex items-center space-x-2 ${
                     currentPage === item.key 
-                      ? 'text-[#D6A33E] bg-[#D6A33E]/10 border border-[#D6A33E]/30' 
-                      : 'text-white/90 hover:text-[#D6A33E] hover:bg-white/5'
+                      ? 'text-[#B8860B] bg-[#B8860B]/10 border border-[#B8860B]/30' 
+                      : 'text-white/90 hover:text-[#B8860B] hover:bg-white/5'
                   }`}
                 >
                   <IconComponent className="w-4 h-4" />
@@ -220,7 +220,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   
                   {/* Active indicator */}
                   {currentPage === item.key && (
-                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#D6A33E] rounded-full"></div>
+                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#B8860B] rounded-full"></div>
                   )}
                 </button>
               )
@@ -234,7 +234,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   {user && user.role === 'admin' && (
                     <button
                       onClick={handleUploadClick}
-                      className="flex items-center space-x-2 px-3 py-2 bg-[#D6A33E] text-black rounded-lg font-medium text-sm hover:bg-[#c1922f] transition-all duration-300"
+                      className="flex items-center space-x-2 px-3 py-2 bg-[#B8860B] text-black rounded-lg font-medium text-sm hover:bg-[#DAA520] transition-all duration-300"
                     >
                       <HiPlus className="w-4 h-4" />
                       <span>Upload</span>
@@ -247,7 +247,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                       <div className="text-white text-sm font-medium">
                         {user?.firstName} {user?.lastName}
                       </div>
-                      <div className="text-[#D6A33E] text-xs">
+                      <div className="text-[#B8860B] text-xs">
                         {user?.role}
                       </div>
                     </div>
@@ -264,13 +264,13 @@ const Header = ({ currentPage, setCurrentPage }) => {
                 <>
                   <button
                     onClick={() => handleAuthClick('login')}
-                    className="px-4 py-2 text-white/90 hover:text-[#D6A33E] font-medium text-sm transition-all duration-300"
+                    className="px-4 py-2 text-white/90 hover:text-[#B8860B] font-medium text-sm transition-all duration-300"
                   >
                     Sign In
                   </button>
                   <button
                     onClick={() => handleAuthClick('register')}
-                    className="px-4 py-2 bg-[#D6A33E] text-black rounded-lg font-medium text-sm hover:bg-[#c1922f] transition-all duration-300"
+                    className="px-4 py-2 bg-[#B8860B] text-black rounded-lg font-medium text-sm hover:bg-[#DAA520] transition-all duration-300"
                   >
                     Sign Up
                   </button>
@@ -291,8 +291,8 @@ const Header = ({ currentPage, setCurrentPage }) => {
                       onClick={() => handleNavClick(item.key)} 
                       className={`group relative p-2 rounded-lg transition-all duration-300 flex items-center space-x-1 ${
                         ['gallery', 'wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'].includes(currentPage)
-                          ? 'text-[#D6A33E] bg-[#D6A33E]/10' 
-                          : 'text-white/80 hover:text-[#D6A33E] hover:bg-white/5'
+                          ? 'text-[#B8860B] bg-[#B8860B]/10' 
+                          : 'text-white/80 hover:text-[#B8860B] hover:bg-white/5'
                       }`}
                     >
                       <IconComponent className="w-5 h-5" />
@@ -300,12 +300,12 @@ const Header = ({ currentPage, setCurrentPage }) => {
                         showGalleryDropdown ? 'rotate-180' : ''
                       }`} />
                       {['gallery', 'photos', 'videos'].includes(currentPage) && (
-                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#D6A33E] rounded-full"></div>
+                        <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#B8860B] rounded-full"></div>
                       )}
                     </button>
                     
                     {/* Dropdown Menu */}
-                    <div className={`absolute top-full left-0 mt-2 w-40 bg-[#111111] rounded-lg shadow-xl border border-[#D6A33E]/20 overflow-hidden transform transition-all duration-200 origin-top z-50 ${
+                    <div className={`absolute top-full left-0 mt-2 w-40 bg-[#111111] rounded-lg shadow-xl border border-[#B8860B]/20 overflow-hidden transform transition-all duration-200 origin-top z-50 ${
                       showGalleryDropdown 
                         ? 'scale-100 opacity-100 translate-y-0' 
                         : 'scale-95 opacity-0 -translate-y-1 pointer-events-none'
@@ -316,10 +316,10 @@ const Header = ({ currentPage, setCurrentPage }) => {
                           <button
                             key={subItem.key}
                             onClick={() => handleGallerySubClick(subItem.key)}
-                            className={`w-full flex items-center space-x-2 px-3 py-2 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 ${
+                            className={`w-full flex items-center space-x-2 px-3 py-2 text-left transition-all duration-150 hover:bg-[#B8860B]/10 ${
                               currentPage === subItem.key 
-                                ? 'bg-[#D6A33E]/15 text-[#D6A33E]' 
-                                : 'text-white hover:text-[#D6A33E]'
+                                ? 'bg-[#B8860B]/15 text-[#B8860B]' 
+                                : 'text-white hover:text-[#B8860B]'
                             }`}
                           >
                             <SubIconComponent className="w-4 h-4" />
@@ -338,13 +338,13 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   onClick={() => handleNavClick(item.key)} 
                   className={`group relative p-2 rounded-lg transition-all duration-300 ${
                     currentPage === item.key 
-                      ? 'text-[#D6A33E] bg-[#D6A33E]/10' 
-                      : 'text-white/80 hover:text-[#D6A33E] hover:bg-white/5'
+                      ? 'text-[#B8860B] bg-[#B8860B]/10' 
+                      : 'text-white/80 hover:text-[#B8860B] hover:bg-white/5'
                   }`}
                 >
                   <IconComponent className="w-5 h-5" />
                   {currentPage === item.key && (
-                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#D6A33E] rounded-full"></div>
+                    <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#B8860B] rounded-full"></div>
                   )}
                 </button>
               )
@@ -356,8 +356,8 @@ const Header = ({ currentPage, setCurrentPage }) => {
             <button 
               className={`mobile-menu-button relative p-3 rounded-lg transition-all duration-300 ${
                 isMenuOpen 
-                  ? 'bg-[#D6A33E] text-black' 
-                  : 'text-white hover:bg-white/10 hover:text-[#D6A33E]'
+                  ? 'bg-[#B8860B] text-black' 
+                  : 'text-white hover:bg-white/10 hover:text-[#B8860B]'
               }`}
               onClick={handleMobileMenuToggle}
               aria-label="Toggle menu"
@@ -374,14 +374,14 @@ const Header = ({ currentPage, setCurrentPage }) => {
         {/* Mobile Navigation Popup - Professional & Compact */}
         <div 
           ref={mobileMenuRef}
-          className={`md:hidden absolute right-4 top-full mt-1 w-56 bg-[#111111] rounded-lg shadow-xl border border-[#D6A33E]/20 overflow-hidden transform transition-all duration-200 origin-top-right z-50 ${
+          className={`md:hidden absolute right-4 top-full mt-1 w-56 bg-[#111111] rounded-lg shadow-xl border border-[#B8860B]/20 overflow-hidden transform transition-all duration-200 origin-top-right z-50 ${
             isMenuOpen 
               ? 'scale-100 opacity-100 translate-y-0' 
               : 'scale-95 opacity-0 -translate-y-1 pointer-events-none'
           }`}
         >
           {/* Popup Arrow */}
-          <div className="absolute -top-1 right-5 w-3 h-3 bg-[#111111] border-l border-t border-[#D6A33E]/20 transform rotate-45"></div>
+          <div className="absolute -top-1 right-5 w-3 h-3 bg-[#111111] border-l border-t border-[#B8860B]/20 transform rotate-45"></div>
           
           <div className="py-1">
             {/* Navigation Items */}
@@ -393,17 +393,17 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   <div key={item.key}>
                     <button 
                       onClick={() => handleMobileNavClick(item.key)} 
-                      className={`w-full flex items-center space-x-2.5 px-3 py-2.5 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 group ${
+                      className={`w-full flex items-center space-x-2.5 px-3 py-2.5 text-left transition-all duration-150 hover:bg-[#B8860B]/10 group ${
                         ['gallery', 'photos', 'videos'].includes(currentPage)
-                          ? 'bg-[#D6A33E]/15 text-[#D6A33E] border-r-2 border-[#D6A33E]' 
-                          : 'text-white hover:text-[#D6A33E]'
+                          ? 'bg-[#B8860B]/15 text-[#B8860B] border-r-2 border-[#B8860B]' 
+                          : 'text-white hover:text-[#B8860B]'
                       }`}
                     >
                       {/* Icon Container */}
                       <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-all duration-150 ${
                         ['gallery', 'photos', 'videos'].includes(currentPage)
-                          ? 'bg-[#D6A33E] text-[#111111]' 
-                          : 'bg-[#D6A33E]/20 text-[#D6A33E] group-hover:bg-[#D6A33E] group-hover:text-[#111111]'
+                          ? 'bg-[#B8860B] text-[#111111]' 
+                          : 'bg-[#B8860B]/20 text-[#B8860B] group-hover:bg-[#B8860B] group-hover:text-[#111111]'
                       }`}>
                         <IconComponent className="w-4 h-4" />
                       </div>
@@ -419,24 +419,24 @@ const Header = ({ currentPage, setCurrentPage }) => {
                     
                     {/* Submenu Items */}
                     {showMobileGalleryDropdown && (
-                      <div className="pl-4 border-l-2 border-[#D6A33E]/20 ml-3">
+                      <div className="pl-4 border-l-2 border-[#B8860B]/20 ml-3">
                         {item.subItems.map((subItem) => {
                           const SubIconComponent = subItem.icon
                           return (
                             <button
                               key={subItem.key}
                               onClick={() => handleGallerySubClick(subItem.key)}
-                              className={`w-full flex items-center space-x-2.5 px-3 py-2 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 group ${
+                              className={`w-full flex items-center space-x-2.5 px-3 py-2 text-left transition-all duration-150 hover:bg-[#B8860B]/10 group ${
                                 currentPage === subItem.key 
-                                  ? 'bg-[#D6A33E]/15 text-[#D6A33E] border-r-2 border-[#D6A33E]' 
-                                  : 'text-white/80 hover:text-[#D6A33E]'
+                                  ? 'bg-[#B8860B]/15 text-[#B8860B] border-r-2 border-[#B8860B]' 
+                                  : 'text-white/80 hover:text-[#B8860B]'
                               }`}
                             >
                               {/* Sub Icon Container */}
                               <div className={`w-6 h-6 rounded-md flex items-center justify-center transition-all duration-150 ${
                                 currentPage === subItem.key 
-                                  ? 'bg-[#D6A33E] text-[#111111]' 
-                                  : 'bg-[#D6A33E]/10 text-[#D6A33E] group-hover:bg-[#D6A33E] group-hover:text-[#111111]'
+                                  ? 'bg-[#B8860B] text-[#111111]' 
+                                  : 'bg-[#B8860B]/10 text-[#B8860B] group-hover:bg-[#B8860B] group-hover:text-[#111111]'
                               }`}>
                                 <SubIconComponent className="w-3 h-3" />
                               </div>
@@ -447,7 +447,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                               {/* Active Indicator */}
                               {currentPage === subItem.key && (
                                 <div className="ml-auto">
-                                  <div className="w-1.5 h-1.5 bg-[#D6A33E] rounded-full"></div>
+                                  <div className="w-1.5 h-1.5 bg-[#B8860B] rounded-full"></div>
                                 </div>
                               )}
                             </button>
@@ -463,17 +463,17 @@ const Header = ({ currentPage, setCurrentPage }) => {
                 <button 
                   key={item.key}
                   onClick={() => handleMobileNavClick(item.key)} 
-                  className={`w-full flex items-center space-x-2.5 px-3 py-2.5 text-left transition-all duration-150 hover:bg-[#D6A33E]/10 group ${
+                  className={`w-full flex items-center space-x-2.5 px-3 py-2.5 text-left transition-all duration-150 hover:bg-[#B8860B]/10 group ${
                     currentPage === item.key 
-                      ? 'bg-[#D6A33E]/15 text-[#D6A33E] border-r-2 border-[#D6A33E]' 
-                      : 'text-white hover:text-[#D6A33E]'
+                      ? 'bg-[#B8860B]/15 text-[#B8860B] border-r-2 border-[#B8860B]' 
+                      : 'text-white hover:text-[#B8860B]'
                   }`}
                 >
                   {/* Icon Container */}
                   <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-all duration-150 ${
                     currentPage === item.key 
-                      ? 'bg-[#D6A33E] text-[#111111]' 
-                      : 'bg-[#D6A33E]/20 text-[#D6A33E] group-hover:bg-[#D6A33E] group-hover:text-[#111111]'
+                      ? 'bg-[#B8860B] text-[#111111]' 
+                      : 'bg-[#B8860B]/20 text-[#B8860B] group-hover:bg-[#B8860B] group-hover:text-[#111111]'
                   }`}>
                     <IconComponent className="w-4 h-4" />
                   </div>
@@ -484,7 +484,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   {/* Active Indicator */}
                   {currentPage === item.key && (
                     <div className="ml-auto">
-                      <div className="w-1.5 h-1.5 bg-[#D6A33E] rounded-full"></div>
+                      <div className="w-1.5 h-1.5 bg-[#B8860B] rounded-full"></div>
                     </div>
                   )}
                 </button>
@@ -492,19 +492,19 @@ const Header = ({ currentPage, setCurrentPage }) => {
             })}
             
             {/* Divider */}
-            <div className="my-1 mx-3 border-t border-[#D6A33E]/20"></div>
+            <div className="my-1 mx-3 border-t border-[#B8860B]/20"></div>
             
             {/* Authentication Section */}
             {isAuthenticated ? (
               <>
                 <div className="px-3 py-2">
-                  <p className="text-[#D6A33E] text-xs font-medium mb-2">Account</p>
+                  <p className="text-[#B8860B] text-xs font-medium mb-2">Account</p>
                   <div className="flex items-center space-x-2 mb-2">
                     <div className="flex-1">
                       <div className="text-white text-sm font-medium">
                         {user?.firstName} {user?.lastName}
                       </div>
-                      <div className="text-[#D6A33E] text-xs">
+                      <div className="text-[#B8860B] text-xs">
                         {user?.role}
                       </div>
                     </div>
@@ -513,7 +513,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                     {user && ['photographer', 'admin'].includes(user.role) && (
                       <button
                         onClick={handleUploadClick}
-                        className="w-full flex items-center space-x-2 px-2 py-1.5 bg-[#D6A33E] text-black rounded-md text-sm font-medium hover:bg-[#c1922f] transition-all duration-150"
+                        className="w-full flex items-center space-x-2 px-2 py-1.5 bg-[#B8860B] text-black rounded-md text-sm font-medium hover:bg-[#DAA520] transition-all duration-150"
                       >
                         <HiPlus className="w-4 h-4" />
                         <span>Upload</span>
@@ -531,17 +531,17 @@ const Header = ({ currentPage, setCurrentPage }) => {
               </>
             ) : (
               <div className="px-3 py-2">
-                <p className="text-[#D6A33E] text-xs font-medium mb-2">Account</p>
+                <p className="text-[#B8860B] text-xs font-medium mb-2">Account</p>
                 <div className="space-y-1">
                   <button
                     onClick={() => handleAuthClick('login')}
-                    className="w-full flex items-center justify-center px-2 py-1.5 bg-[#D6A33E]/10 text-[#D6A33E] rounded-md text-sm font-medium hover:bg-[#D6A33E]/20 transition-all duration-150"
+                    className="w-full flex items-center justify-center px-2 py-1.5 bg-[#B8860B]/10 text-[#B8860B] rounded-md text-sm font-medium hover:bg-[#B8860B]/20 transition-all duration-150"
                   >
                     Sign In
                   </button>
                   <button
                     onClick={() => handleAuthClick('register')}
-                    className="w-full flex items-center justify-center px-2 py-1.5 bg-[#D6A33E] text-black rounded-md text-sm font-medium hover:bg-[#c1922f] transition-all duration-150"
+                    className="w-full flex items-center justify-center px-2 py-1.5 bg-[#B8860B] text-black rounded-md text-sm font-medium hover:bg-[#DAA520] transition-all duration-150"
                   >
                     Sign Up
                   </button>
@@ -550,29 +550,29 @@ const Header = ({ currentPage, setCurrentPage }) => {
             )}
             
             {/* Divider */}
-            <div className="my-1 mx-3 border-t border-[#D6A33E]/20"></div>
+            <div className="my-1 mx-3 border-t border-[#B8860B]/20"></div>
             
             {/* Quick Actions */}
             <div className="px-3 py-2">
-              <p className="text-[#D6A33E] text-xs font-medium mb-2">Quick Contact</p>
+              <p className="text-[#B8860B] text-xs font-medium mb-2">Quick Contact</p>
               <div className="flex space-x-1.5">
                 <a 
                   href="tel:+91XXXXXXXXX" 
-                  className="flex-1 flex items-center justify-center p-2 bg-[#D6A33E]/10 rounded-md text-[#D6A33E] hover:bg-[#D6A33E] hover:text-[#111111] transition-all duration-150 group"
+                  className="flex-1 flex items-center justify-center p-2 bg-[#B8860B]/10 rounded-md text-[#B8860B] hover:bg-[#B8860B] hover:text-[#111111] transition-all duration-150 group"
                   aria-label="Call us"
                 >
                   <HiPhone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                 </a>
                 <a 
                   href="mailto:hello@harsathphotography.com" 
-                  className="flex-1 flex items-center justify-center p-2 bg-[#D6A33E]/10 rounded-md text-[#D6A33E] hover:bg-[#D6A33E] hover:text-[#111111] transition-all duration-150 group"
+                  className="flex-1 flex items-center justify-center p-2 bg-[#B8860B]/10 rounded-md text-[#B8860B] hover:bg-[#B8860B] hover:text-[#111111] transition-all duration-150 group"
                   aria-label="Email us"
                 >
                   <HiMail className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                 </a>
                 <a 
                   href="#" 
-                  className="flex-1 flex items-center justify-center p-2 bg-[#D6A33E]/10 rounded-md text-[#D6A33E] hover:bg-[#D6A33E] hover:text-[#111111] transition-all duration-150 group"
+                  className="flex-1 flex items-center justify-center p-2 bg-[#B8860B]/10 rounded-md text-[#B8860B] hover:bg-[#B8860B] hover:text-[#111111] transition-all duration-150 group"
                   aria-label="Follow on Instagram"
                 >
                   <FaInstagram className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />

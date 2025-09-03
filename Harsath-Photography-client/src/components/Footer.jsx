@@ -39,29 +39,8 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="relative bg-gradient-to-b from-black to-black/95 border-t border-[#D6A33E]/10">
+    <footer className="relative bg-gradient-to-b from-black to-black/95 border-t border-[#B8860B]/10">
       
-      {/* Back to Top Button - Enhanced */}
-      <button
-        onClick={scrollToTop}
-        className="group absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-[#D6A33E] to-[#B8922A] w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center hover:from-[#c1922f] hover:to-[#A6821F] transition-all duration-300 hover:scale-110 shadow-lg shadow-[#D6A33E]/30 hover:shadow-xl hover:shadow-[#D6A33E]/50 border border-[#D6A33E]/30 z-20 overflow-hidden hover:-translate-y-1"
-        style={{
-          boxShadow: `
-            0 4px 15px rgba(214, 163, 62, 0.3),
-            0 2px 10px rgba(214, 163, 62, 0.2),
-            inset 0 1px 0 rgba(255, 255, 255, 0.1),
-            inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-          `
-        }}
-        aria-label="Scroll to top"
-      >
-        <HiArrowUp className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-black relative z-10 group-hover:-translate-y-0.5 transition-transform duration-300" />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-        
-        {/* Pulse animation ring */}
-        <div className="absolute inset-0 rounded-full border-2 border-[#D6A33E]/20 animate-ping group-hover:animate-none"></div>
-      </button>
-
       <div className="px-4 py-20">
         <div className="max-w-7xl mx-auto">
           
@@ -76,30 +55,30 @@ const Footer = () => {
                 </div>
                 <div>
                   <div className="text-white font-light text-3xl tracking-wider">HARSATH</div>
-                  <div className="text-[#D6A33E] font-light text-lg tracking-wider -mt-1">PHOTOGRAPHY</div>
+                  <div className="text-[#B8860B] font-light text-lg tracking-wider -mt-1">PHOTOGRAPHY</div>
                 </div>
               </div>
               
               <p className="text-gray-300 font-light text-lg leading-relaxed mb-8 max-w-lg tracking-wide">
                 Capturing life's most precious moments with artistic excellence and professional dedication. 
-                Creating <span className="text-[#D6A33E]">timeless memories</span> that last forever.
+                Creating <span className="text-[#B8860B]">timeless memories</span> that last forever.
               </p>
               
               {/* Contact Info */}
               <div className="space-y-4">
-                <div className="flex items-center space-x-4 text-gray-300 hover:text-[#D6A33E] transition-colors duration-500 group">
+                <div className="flex items-center space-x-4 text-gray-300 hover:text-[#B8860B] transition-colors duration-500 group">
                   <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
                     <HiPhone className="w-5 h-5" />
                   </div>
                   <span className="font-light tracking-wide">+91 XXXXX XXXXX</span>
                 </div>
-                <div className="flex items-center space-x-4 text-gray-300 hover:text-[#D6A33E] transition-colors duration-500 group">
+                <div className="flex items-center space-x-4 text-gray-300 hover:text-[#B8860B] transition-colors duration-500 group">
                   <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
                     <HiMail className="w-5 h-5" />
                   </div>
                   <span className="font-light tracking-wide">hello@harsathphotography.com</span>
                 </div>
-                <div className="flex items-center space-x-4 text-gray-300 hover:text-[#D6A33E] transition-colors duration-500 group">
+                <div className="flex items-center space-x-4 text-gray-300 hover:text-[#B8860B] transition-colors duration-500 group">
                   <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
                     <HiLocationMarker className="w-5 h-5" />
                   </div>
@@ -110,14 +89,14 @@ const Footer = () => {
             
             {/* Quick Links */}
             <div>
-              <h3 className="text-[#D6A33E] font-light text-2xl tracking-wider mb-8">Navigation</h3>
-              <div className="w-12 h-px bg-[#D6A33E] mb-6"></div>
+              <h3 className="text-[#B8860B] font-light text-2xl tracking-wider mb-8">Navigation</h3>
+              <div className="w-12 h-px bg-[#B8860B] mb-6"></div>
               <ul className="space-y-4">
                 {quickLinks.map((link, index) => (
                   <li key={index}>
                     <a 
                       href={link.href} 
-                      className="text-gray-300 hover:text-[#D6A33E] transition-all duration-500 hover:translate-x-2 transform inline-block font-light tracking-wide hover-lift"
+                      className="text-gray-300 hover:text-[#B8860B] transition-all duration-500 hover:translate-x-2 transform inline-block font-light tracking-wide hover-lift"
                     >
                       {link.name}
                     </a>
@@ -128,11 +107,11 @@ const Footer = () => {
             
             {/* Services */}
             <div>
-              <h3 className="text-[#D6A33E] font-light text-2xl tracking-wider mb-8">Services</h3>
-              <div className="w-12 h-px bg-[#D6A33E] mb-6"></div>
+              <h3 className="text-[#B8860B] font-light text-2xl tracking-wider mb-8">Services</h3>
+              <div className="w-12 h-px bg-[#B8860B] mb-6"></div>
               <ul className="space-y-4">
                 {services.map((service, index) => (
-                  <li key={index} className="text-gray-300 hover:text-[#D6A33E] transition-colors duration-500 font-light tracking-wide">
+                  <li key={index} className="text-gray-300 hover:text-[#B8860B] transition-colors duration-500 font-light tracking-wide">
                     {service}
                   </li>
                 ))}
@@ -141,7 +120,7 @@ const Footer = () => {
           </div>
           
           {/* Social Media & Newsletter */}
-          <div className="border-t border-[#D6A33E]/10 pt-12 mb-12">
+          <div className="border-t border-[#B8860B]/10 pt-12 mb-12">
             <div className="flex flex-col md:flex-row justify-between items-center gap-12">
               
               {/* Social Media */}
@@ -167,21 +146,21 @@ const Footer = () => {
           </div>
           
           {/* Bottom Bar */}
-          <div className="border-t border-[#D6A33E]/10 pt-8">
+          <div className="border-t border-[#B8860B]/10 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-6">
               <div className="flex items-center space-x-2 text-gray-300 font-light tracking-wide">
                 <span>© 2025 {config.APP_NAME}. All rights reserved.</span>
               </div>
               
               <div className="flex items-center space-x-8 text-gray-400 font-light tracking-wide">
-                <a href="#" className="hover:text-[#D6A33E] transition-colors duration-500">Privacy Policy</a>
-                <a href="#" className="hover:text-[#D6A33E] transition-colors duration-500">Terms of Service</a>
-                <a href="#" className="hover:text-[#D6A33E] transition-colors duration-500">Cookie Policy</a>
+                <a href="#" className="hover:text-[#B8860B] transition-colors duration-500">Privacy Policy</a>
+                <a href="#" className="hover:text-[#B8860B] transition-colors duration-500">Terms of Service</a>
+                <a href="#" className="hover:text-[#B8860B] transition-colors duration-500">Cookie Policy</a>
               </div>
               
               <div className="flex items-center space-x-2 text-gray-300 font-light tracking-wide">
                 <span>Made with</span>
-                <HiHeart className="w-5 h-5 text-[#D6A33E] animate-pulse" />
+                <HiHeart className="w-5 h-5 text-[#B8860B] animate-pulse" />
                 <span>in India</span>
               </div>
             </div>
@@ -191,9 +170,9 @@ const Footer = () => {
       
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5 pointer-events-none">
-        <div className="absolute top-20 left-20 w-40 h-40 bg-[#D6A33E] rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 right-20 w-48 h-48 bg-[#D6A33E] rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-[#D6A33E] rounded-full blur-3xl"></div>
+        <div className="absolute top-20 left-20 w-40 h-40 bg-[#B8860B] rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-48 h-48 bg-[#B8860B] rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-[#B8860B] rounded-full blur-3xl"></div>
       </div>
     </footer>
   )

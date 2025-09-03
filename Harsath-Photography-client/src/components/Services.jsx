@@ -88,7 +88,7 @@ const Services = () => {
           <h2 className="text-4xl lg:text-6xl font-light tracking-wider text-white mb-6">
             Our Services
           </h2>
-          <div className="w-24 h-px bg-[#D6A33E] mx-auto mb-8"></div>
+          <div className="w-24 h-px bg-[#B8860B] mx-auto mb-8"></div>
           <p className="text-lg lg:text-xl font-light text-gray-300 max-w-3xl mx-auto leading-relaxed tracking-wide">
             Professional photography services tailored to your unique needs with 
             exceptional quality and artistic vision
@@ -123,10 +123,10 @@ const Services = () => {
                 {/* Content */}
                 <div className="p-8 flex flex-col h-full">
                   <div className="flex-grow">
-                    <h3 className="text-xl lg:text-2xl font-light tracking-wide text-[#D6A33E] mb-3">
+                    <h3 className="text-xl lg:text-2xl font-light tracking-wide text-[#B8860B] mb-3">
                       {service.title}
                     </h3>
-                    <p className="text-[#D6A33E] font-light text-lg mb-4 tracking-wide">
+                    <p className="text-[#B8860B] font-light text-lg mb-4 tracking-wide">
                       {service.price}
                     </p>
                     <p className="text-gray-300 font-light leading-relaxed mb-6 tracking-wide">
@@ -137,7 +137,7 @@ const Services = () => {
                     <div className="space-y-2">
                       {service.features.map((feature, idx) => (
                         <div key={idx} className="flex items-center text-gray-300 font-light">
-                          <div className="w-2 h-2 bg-[#D6A33E] rounded-full mr-3 flex-shrink-0"></div>
+                          <div className="w-2 h-2 bg-[#B8860B] rounded-full mr-3 flex-shrink-0"></div>
                           <span className="tracking-wide text-sm">{feature}</span>
                         </div>
                       ))}
@@ -146,7 +146,7 @@ const Services = () => {
                   
                   {/* CTA Button */}
                   <div className="mt-8">
-                    <button className="w-full glass-dark border border-[#D6A33E]/30 py-3 rounded-full font-light tracking-wider hover:glass-golden hover:border-[#D6A33E] transition-all duration-500 group-hover:scale-105">
+                    <button className="w-full glass-dark border border-[#B8860B]/30 py-3 rounded-full font-light tracking-wider hover:glass-golden hover:border-[#B8860B] transition-all duration-500 group-hover:scale-105">
                       Book Now
                       <HiArrowRight className="inline-block w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                     </button>
@@ -163,7 +163,7 @@ const Services = () => {
             <h3 className="text-3xl lg:text-4xl font-light tracking-wider text-white mb-6">
               Need a Custom Package?
             </h3>
-            <div className="w-24 h-px bg-[#D6A33E] mx-auto mb-8"></div>
+            <div className="w-24 h-px bg-[#B8860B] mx-auto mb-8"></div>
             <p className="text-lg font-light text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed tracking-wide">
               Every project is unique. Let's discuss your specific requirements 
               and create a customized photography package that perfectly fits your vision and budget.
@@ -173,7 +173,7 @@ const Services = () => {
                 Get Custom Quote
                 <HiArrowRight className="inline-block w-5 h-5 ml-2" />
               </button>
-              <button className="glass-dark border border-[#D6A33E]/30 px-12 py-4 rounded-full font-light tracking-wider hover-lift transition-all duration-500">
+              <button className="glass-dark border border-[#B8860B]/30 px-12 py-4 rounded-full font-light tracking-wider hover-lift transition-all duration-500">
                 View Portfolio
               </button>
             </div>

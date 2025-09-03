@@ -104,11 +104,11 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
       {/* Videos Grid */}
       {loading && videos.length === 0 ? (
         <div className="flex justify-center items-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D6A33E]"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#B8860B]"></div>
         </div>
       ) : videos.length === 0 ? (
         <div className="text-center py-12">
-          <div className="text-[#D6A33E] text-6xl mb-4">🎬</div>
+          <div className="text-[#B8860B] text-6xl mb-4">🎬</div>
           <h3 className="text-xl font-medium text-white mb-2">No videos found</h3>
           <p className="text-gray-400">Try adjusting your filters or search terms.</p>
         </div>
@@ -146,13 +146,13 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
                     />
                   ) : (
                     <div className="w-full h-full bg-gray-800 flex items-center justify-center">
-                      <div className="text-[#D6A33E] text-4xl">🎬</div>
+                      <div className="text-[#B8860B] text-4xl">🎬</div>
                     </div>
                   )}
                   
                   {/* Play Button Overlay */}
                   <div className="absolute inset-0 bg-black bg-opacity-30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <div className="w-16 h-16 bg-[#D6A33E] rounded-full flex items-center justify-center shadow-lg">
+                    <div className="w-16 h-16 bg-[#B8860B] rounded-full flex items-center justify-center shadow-lg">
                       <svg className="w-8 h-8 text-black ml-1" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M8 5v14l11-7z"/>
                       </svg>
@@ -174,7 +174,7 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
                     by {video.uploadedBy?.firstName} {video.uploadedBy?.lastName}
                   </p>
                   <div className="flex items-center justify-between">
-                    <span className="text-xs bg-[#D6A33E] text-black px-2 py-1 rounded font-medium">
+                    <span className="text-xs bg-[#B8860B] text-black px-2 py-1 rounded font-medium">
                       {video.category}
                     </span>
                     <div className="flex items-center space-x-3 text-sm">
@@ -209,7 +209,7 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
               <button
                 onClick={loadMore}
                 disabled={loading}
-                className="px-8 py-3 bg-[#D6A33E] text-black font-medium rounded-lg hover:bg-[#c1922f] focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                className="px-8 py-3 bg-[#B8860B] text-black font-medium rounded-lg hover:bg-[#DAA520] focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
               >
                 {loading ? 'Loading...' : 'Load More Videos'}
               </button>

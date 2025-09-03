@@ -19,7 +19,7 @@ const VideoGalleryPage = () => {
         {/* Header Section */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-6">
-            <div className="w-16 h-16 bg-[#D6A33E] rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 bg-[#B8860B] rounded-full flex items-center justify-center">
               <HiDesktopComputer className="w-8 h-8 text-black" />
             </div>
           </div>
@@ -72,7 +72,7 @@ const VideoGalleryPage = () => {
                     <span>
                       by {selectedVideo.uploadedBy?.firstName} {selectedVideo.uploadedBy?.lastName}
                     </span>
-                    <span className="bg-[#D6A33E] text-black px-2 py-1 rounded font-medium">
+                    <span className="bg-[#B8860B] text-black px-2 py-1 rounded font-medium">
                       {selectedVideo.category}
                     </span>
                   </div>

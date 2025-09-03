@@ -49,9 +49,9 @@ const FeaturedSection = () => {
         {/* Header */}
         <div className="text-center mb-16 animate-fadeInUp3D">
           <div className="inline-block">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#D6A33E] mb-4 relative">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#B8860B] mb-4 relative">
               Featured Work
-              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#D6A33E] to-transparent"></div>
+              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#B8860B] to-transparent"></div>
             </h2>
           </div>
           <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mt-6">
@@ -62,7 +62,7 @@ const FeaturedSection = () => {
         {/* Main Featured Work */}
         <div className="mb-16">
           <div 
-            className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#D6A33E]/20 group cursor-pointer"
+            className="relative rounded-3xl overflow-hidden shadow-2xl border border-[#B8860B]/20 group cursor-pointer"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
           >
@@ -78,8 +78,8 @@ const FeaturedSection = () => {
             }`}>
               {/* Play Button for Main Video */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className={`w-20 h-20 md:w-24 md:h-24 bg-[#D6A33E] rounded-full flex items-center justify-center transition-all duration-300 ${
-                  isHovered ? 'scale-110 shadow-2xl shadow-[#D6A33E]/50' : 'scale-100'
+                <div className={`w-20 h-20 md:w-24 md:h-24 bg-[#B8860B] rounded-full flex items-center justify-center transition-all duration-300 ${
+                  isHovered ? 'scale-110 shadow-2xl shadow-[#B8860B]/50' : 'scale-100'
                 }`}>
                   <HiPlay className="w-8 h-8 md:w-10 md:h-10 text-[#111111] ml-1" />
                 </div>
@@ -90,12 +90,12 @@ const FeaturedSection = () => {
                 <div className="flex items-end justify-between">
                   <div>
                     <div className="flex items-center space-x-3 mb-4">
-                      <span className="bg-[#D6A33E] text-[#111111] px-4 py-2 rounded-full text-sm font-bold">
+                      <span className="bg-[#B8860B] text-[#111111] px-4 py-2 rounded-full text-sm font-bold">
                         FEATURED
                       </span>
                       <div className="flex items-center space-x-1">
                         {[...Array(5)].map((_, i) => (
-                          <HiStar key={i} className="w-4 h-4 text-[#D6A33E] fill-current" />
+                          <HiStar key={i} className="w-4 h-4 text-[#B8860B] fill-current" />
                         ))}
                         <span className="text-white ml-2 text-sm">Award Winner</span>
                       </div>
@@ -108,11 +108,11 @@ const FeaturedSection = () => {
                     </p>
                     <div className="flex items-center space-x-6 text-gray-300">
                       <div className="flex items-center space-x-2">
-                        <HiEye className="w-5 h-5 text-[#D6A33E]" />
+                        <HiEye className="w-5 h-5 text-[#B8860B]" />
                         <span>15.3K views</span>
                       </div>
                       <div className="flex items-center space-x-2">
-                        <HiHeart className="w-5 h-5 text-[#D6A33E]" />
+                        <HiHeart className="w-5 h-5 text-[#B8860B]" />
                         <span>2.8K likes</span>
                       </div>
                       <span>Duration: 8:42</span>
@@ -132,7 +132,7 @@ const FeaturedSection = () => {
               className="group cursor-pointer"
               style={{ animationDelay: `${index * 150}ms` }}
             >
-              <div className="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#D6A33E]/20 group-hover:border-[#D6A33E] transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-[#D6A33E]/20">
+              <div className="relative bg-[#1a1a1a] rounded-2xl overflow-hidden border border-[#B8860B]/20 group-hover:border-[#B8860B] transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-[#B8860B]/20">
                 <div className="relative aspect-video overflow-hidden">
                   <img 
                     src={work.image}
@@ -143,7 +143,7 @@ const FeaturedSection = () => {
                   {/* Video Overlay */}
                   {work.type === 'video' && (
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <div className="w-16 h-16 bg-[#D6A33E] rounded-full flex items-center justify-center">
+                      <div className="w-16 h-16 bg-[#B8860B] rounded-full flex items-center justify-center">
                         <HiPlay className="w-6 h-6 text-[#111111] ml-1" />
                       </div>
                     </div>
@@ -158,7 +158,7 @@ const FeaturedSection = () => {
 
                   {/* Category Badge */}
                   <div className="absolute top-4 left-4">
-                    <span className="bg-[#D6A33E] text-[#111111] px-3 py-1 rounded-full text-sm font-medium">
+                    <span className="bg-[#B8860B] text-[#111111] px-3 py-1 rounded-full text-sm font-medium">
                       {work.category}
                     </span>
                   </div>
@@ -166,7 +166,7 @@ const FeaturedSection = () => {
 
                 {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-white font-bold text-lg mb-2 group-hover:text-[#D6A33E] transition-colors">
+                  <h3 className="text-white font-bold text-lg mb-2 group-hover:text-[#B8860B] transition-colors">
                     {work.title}
                   </h3>
                   
@@ -183,8 +183,8 @@ const FeaturedSection = () => {
                     </div>
                     
                     <div className="flex items-center space-x-1">
-                      <HiStar className="w-4 h-4 text-[#D6A33E] fill-current" />
-                      <span className="text-[#D6A33E] font-medium text-sm">{work.rating}</span>
+                      <HiStar className="w-4 h-4 text-[#B8860B] fill-current" />
+                      <span className="text-[#B8860B] font-medium text-sm">{work.rating}</span>
                     </div>
                   </div>
                 </div>
@@ -194,7 +194,7 @@ const FeaturedSection = () => {
         </div>
 
         {/* CTA Section */}
-        <div className="text-center bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] rounded-3xl p-8 md:p-12 border border-[#D6A33E]/20">
+        <div className="text-center bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] rounded-3xl p-8 md:p-12 border border-[#B8860B]/20">
           <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">
             Ready to Create Your Story?
           </h3>
@@ -202,11 +202,11 @@ const FeaturedSection = () => {
             Let's work together to create stunning visuals that capture your unique moments and tell your story in the most beautiful way
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="group bg-[#D6A33E] text-[#111111] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#c1922f] hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-[#D6A33E]/30 flex items-center justify-center space-x-2">
+            <button className="group bg-[#B8860B] text-[#111111] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#DAA520] hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-[#B8860B]/30 flex items-center justify-center space-x-2">
               <HiPlay className="w-5 h-5" />
               <span>Watch Our Showreel</span>
             </button>
-            <button className="group border-2 border-[#D6A33E] text-[#D6A33E] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#D6A33E] hover:text-[#111111] transition-all duration-300 flex items-center justify-center space-x-2">
+            <button className="group border-2 border-[#B8860B] text-[#B8860B] px-8 py-4 rounded-full font-semibold text-lg hover:bg-[#B8860B] hover:text-[#111111] transition-all duration-300 flex items-center justify-center space-x-2">
               <span>View Full Portfolio</span>
               <HiArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
             </button>

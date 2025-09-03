@@ -1,21 +1,67 @@
 import { HiX } from "@react-icons/all-files/hi/HiX"
+import { useEffect } from "react"
 
 const VideoModal = ({ video, onClose }) => {
   if (!video) return null
 
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    // Save current scroll position and body styles
+    const scrollY = window.scrollY
+    const scrollX = window.scrollX
+    const body = document.body
+    const documentElement = document.documentElement
+    
+    // Save original styles
+    const originalStyles = {
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      width: body.style.width,
+      overflow: body.style.overflow,
+      paddingRight: body.style.paddingRight
+    }
+    
+    // Get scrollbar width to prevent layout shift
+    const scrollBarWidth = window.innerWidth - documentElement.clientWidth
+    
+    // Apply styles to prevent scrolling
+    body.style.position = 'fixed'
+    body.style.top = `-${scrollY}px`
+    body.style.left = `-${scrollX}px`
+    body.style.width = '100%'
+    body.style.overflow = 'hidden'
+    
+    // Compensate for scrollbar width to prevent layout shift
+    if (scrollBarWidth > 0) {
+      body.style.paddingRight = `${scrollBarWidth}px`
+    }
+
+    // Cleanup function to restore scroll when modal closes
+    return () => {
+      // Restore original styles
+      Object.assign(body.style, originalStyles)
+      
+      // Restore scroll position immediately and smoothly
+      window.scrollTo(scrollX, scrollY)
+    }
+  }, [])
+
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[99999] p-4">
-      <div className="relative max-w-7xl max-h-[90vh] w-full">
-        {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 z-10 w-12 h-12 bg-black bg-opacity-50 rounded-full flex items-center justify-center text-white hover:bg-opacity-70 transition-all duration-300 backdrop-blur-sm"
-        >
-          <HiX className="w-6 h-6" />
-        </button>
+    <div className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[99999] p-4 pt-24 md:pt-4">
+      <div className="relative max-w-7xl max-h-[90vh] w-full flex flex-col">
+        {/* Close Button - At the top, above video */}
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={onClose}
+            className="w-12 h-12 bg-black bg-opacity-70 rounded-full flex items-center justify-center text-white hover:bg-opacity-90 transition-all duration-300 backdrop-blur-sm border border-white/20"
+          >
+            <HiX className="w-6 h-6" />
+          </button>
+        </div>
 
         {/* Video Player */}
-        <div className="flex items-center justify-center h-full">
+        <div className="flex items-center justify-center flex-1">
           <video
             src={video.cloudinaryUrl || video.url}
             controls
@@ -25,32 +71,6 @@ const VideoModal = ({ video, onClose }) => {
           >
             Your browser does not support the video tag.
           </video>
-        </div>
-
-        {/* Video Info */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/80 to-transparent p-6 rounded-b-lg">
-          <h3 className="text-2xl font-bold text-white mb-2">
-            {video.title || 'Untitled Video'}
-          </h3>
-          {video.description && (
-            <p className="text-gray-300 mb-3">
-              {video.description}
-            </p>
-          )}
-          <div className="flex items-center justify-between text-sm text-gray-400">
-            <div className="flex items-center space-x-4">
-              <span>
-                by {video.uploadedBy?.firstName} {video.uploadedBy?.lastName}
-              </span>
-              <span className="bg-[#D6A33E] text-black px-2 py-1 rounded font-medium">
-                {video.category}
-              </span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span>{video.views || 0} views</span>
-              <span>{video.likeCount || 0} likes</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>

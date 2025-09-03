@@ -90,9 +90,9 @@ const Contact = () => {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-block">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#D6A33E] mb-4 relative">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#B8860B] mb-4 relative">
               Get In Touch
-              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#D6A33E] to-transparent"></div>
+              <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#B8860B] to-transparent"></div>
             </h2>
           </div>
           <p className="text-gray-300 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed mt-6">
@@ -103,16 +103,16 @@ const Contact = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           
           {/* Contact Form */}
-          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-3xl p-8 border border-[#D6A33E]/20">
+          <div className="bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] rounded-3xl p-8 border border-[#B8860B]/20">
             <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
-              <HiChat className="w-6 h-6 text-[#D6A33E] mr-3" />
+              <HiChat className="w-6 h-6 text-[#B8860B] mr-3" />
               Send a Message
             </h3>
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[#D6A33E] text-sm font-medium mb-2">
+                  <label className="block text-[#B8860B] text-sm font-medium mb-2">
                     <HiUser className="inline w-4 h-4 mr-1" />
                     Your Name *
                   </label>
@@ -122,12 +122,12 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-[#111111] border border-[#D6A33E]/30 rounded-lg text-white placeholder-gray-400 focus:border-[#D6A33E] focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-[#111111] border border-[#B8860B]/30 rounded-lg text-white placeholder-gray-400 focus:border-[#B8860B] focus:outline-none transition-colors"
                     placeholder="Enter your full name"
                   />
                 </div>
                 <div>
-                  <label className="block text-[#D6A33E] text-sm font-medium mb-2">
+                  <label className="block text-[#B8860B] text-sm font-medium mb-2">
                     <HiMail className="inline w-4 h-4 mr-1" />
                     Email Address *
                   </label>
@@ -137,7 +137,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-[#111111] border border-[#D6A33E]/30 rounded-lg text-white placeholder-gray-400 focus:border-[#D6A33E] focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-[#111111] border border-[#B8860B]/30 rounded-lg text-white placeholder-gray-400 focus:border-[#B8860B] focus:outline-none transition-colors"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -145,7 +145,7 @@ const Contact = () => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-[#D6A33E] text-sm font-medium mb-2">
+                  <label className="block text-[#B8860B] text-sm font-medium mb-2">
                     <HiPhone className="inline w-4 h-4 mr-1" />
                     Phone Number
                   </label>
@@ -154,12 +154,12 @@ const Contact = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-[#111111] border border-[#D6A33E]/30 rounded-lg text-white placeholder-gray-400 focus:border-[#D6A33E] focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-[#111111] border border-[#B8860B]/30 rounded-lg text-white placeholder-gray-400 focus:border-[#B8860B] focus:outline-none transition-colors"
                     placeholder="+91 XXXXX XXXXX"
                   />
                 </div>
                 <div>
-                  <label className="block text-[#D6A33E] text-sm font-medium mb-2">
+                  <label className="block text-[#B8860B] text-sm font-medium mb-2">
                     <HiCalendar className="inline w-4 h-4 mr-1" />
                     Preferred Date
                   </label>
@@ -168,20 +168,20 @@ const Contact = () => {
                     name="date"
                     value={formData.date}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-[#111111] border border-[#D6A33E]/30 rounded-lg text-white focus:border-[#D6A33E] focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 bg-[#111111] border border-[#B8860B]/30 rounded-lg text-white focus:border-[#B8860B] focus:outline-none transition-colors"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[#D6A33E] text-sm font-medium mb-2">
+                <label className="block text-[#B8860B] text-sm font-medium mb-2">
                   Service Required
                 </label>
                 <select
                   name="service"
                   value={formData.service}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-[#111111] border border-[#D6A33E]/30 rounded-lg text-white focus:border-[#D6A33E] focus:outline-none transition-colors"
+                  className="w-full px-4 py-3 bg-[#111111] border border-[#B8860B]/30 rounded-lg text-white focus:border-[#B8860B] focus:outline-none transition-colors"
                 >
                   <option value="">Select a service</option>
                   <option value="wedding">Wedding Photography</option>
@@ -193,7 +193,7 @@ const Contact = () => {
               </div>
 
               <div>
-                <label className="block text-[#D6A33E] text-sm font-medium mb-2">
+                <label className="block text-[#B8860B] text-sm font-medium mb-2">
                   Message *
                 </label>
                 <textarea
@@ -202,7 +202,7 @@ const Contact = () => {
                   onChange={handleInputChange}
                   required
                   rows="4"
-                  className="w-full px-4 py-3 bg-[#111111] border border-[#D6A33E]/30 rounded-lg text-white placeholder-gray-400 focus:border-[#D6A33E] focus:outline-none transition-colors resize-none"
+                  className="w-full px-4 py-3 bg-[#111111] border border-[#B8860B]/30 rounded-lg text-white placeholder-gray-400 focus:border-[#B8860B] focus:outline-none transition-colors resize-none"
                   placeholder="Tell us about your project, vision, and any specific requirements..."
                 ></textarea>
               </div>
@@ -210,7 +210,7 @@ const Contact = () => {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`w-full bg-[#D6A33E] text-[#111111] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#c1922f] transition-all duration-300 shadow-lg hover:shadow-[#D6A33E]/30 flex items-center justify-center space-x-2 ${
+                className={`w-full bg-[#B8860B] text-[#111111] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-[#DAA520] transition-all duration-300 shadow-lg hover:shadow-[#B8860B]/30 flex items-center justify-center space-x-2 ${
                   isSubmitting ? 'opacity-70 cursor-not-allowed' : 'hover:scale-105'
                 }`}
               >
@@ -237,14 +237,14 @@ const Contact = () => {
                   <a
                     key={index}
                     href={info.action}
-                    className="group bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] border border-[#D6A33E]/20 rounded-2xl p-6 hover:border-[#D6A33E] hover:shadow-lg hover:shadow-[#D6A33E]/20 transition-all duration-300 hover:scale-105"
+                    className="group bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] border border-[#B8860B]/20 rounded-2xl p-6 hover:border-[#B8860B] hover:shadow-lg hover:shadow-[#B8860B]/20 transition-all duration-300 hover:scale-105"
                   >
                     <div className="flex items-center space-x-4">
-                      <div className="w-12 h-12 bg-[#D6A33E] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <div className="w-12 h-12 bg-[#B8860B] rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                         <IconComponent className="w-6 h-6 text-[#111111]" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-[#D6A33E] font-semibold text-lg mb-1">{info.title}</h3>
+                        <h3 className="text-[#B8860B] font-semibold text-lg mb-1">{info.title}</h3>
                         <p className="text-white font-medium">{info.info}</p>
                         <p className="text-gray-400 text-sm">{info.subInfo}</p>
                       </div>
@@ -255,7 +255,7 @@ const Contact = () => {
             </div>
 
             {/* Social Media */}
-            <div className="bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] border border-[#D6A33E]/20 rounded-2xl p-6">
+            <div className="bg-gradient-to-r from-[#1a1a1a] to-[#0f0f0f] border border-[#B8860B]/20 rounded-2xl p-6">
               <h3 className="text-white text-xl font-bold mb-4">Follow Us</h3>
               <p className="text-gray-300 mb-6">Stay updated with our latest work and behind-the-scenes content</p>
               <div className="flex space-x-4">
@@ -275,11 +275,11 @@ const Contact = () => {
             </div>
 
             {/* Quick Booking */}
-            <div className="bg-gradient-to-br from-[#D6A33E] to-[#c1922f] rounded-2xl p-6 text-center">
+            <div className="bg-gradient-to-br from-[#B8860B] to-[#DAA520] rounded-2xl p-6 text-center">
               <h3 className="text-[#111111] text-xl font-bold mb-2">Quick Booking</h3>
               <p className="text-[#111111]/80 mb-4">Need immediate assistance?</p>
               <div className="flex space-x-3">
-                <button className="flex-1 bg-[#111111] text-[#D6A33E] py-3 rounded-lg font-semibold hover:bg-[#1a1a1a] transition-colors">
+                <button className="flex-1 bg-[#111111] text-[#B8860B] py-3 rounded-lg font-semibold hover:bg-[#1a1a1a] transition-colors">
                   Call Now
                 </button>
                 <button className="flex-1 bg-[#111111]/20 text-[#111111] py-3 rounded-lg font-semibold hover:bg-[#111111]/30 transition-colors">

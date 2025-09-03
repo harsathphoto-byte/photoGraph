@@ -26,8 +26,8 @@ const About = () => {
         
         {/* Professional Header */}
         <div className="text-center mb-16 animate-fadeInUp3D">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#D6A33E] mb-8 tracking-wider">ABOUT US</h1>
-          <div className="w-24 h-0.5 bg-[#D6A33E] mx-auto mb-8"></div>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-[#B8860B] mb-8 tracking-wider">ABOUT US</h1>
+          <div className="w-24 h-0.5 bg-[#B8860B] mx-auto mb-8"></div>
         </div>
 
         {/* Main Content Section */}
@@ -49,8 +49,8 @@ const About = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#111111]/60 via-transparent to-transparent"></div>
             <div className="absolute bottom-6 left-6 right-6">
-              <h3 className="text-[#D6A33E] text-xl md:text-2xl font-light mb-2">Creative Photography</h3>
-              <div className="w-16 h-0.5 bg-[#D6A33E] mb-2"></div>
+              <h3 className="text-[#B8860B] text-xl md:text-2xl font-light mb-2">Creative Photography</h3>
+              <div className="w-16 h-0.5 bg-[#B8860B] mb-2"></div>
             </div>
           </div>
         </div>
@@ -75,8 +75,8 @@ const About = () => {
         {/* Services Grid */}
         <div className="mb-16 animate-fadeInUp3D animate-delay-500">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-[#D6A33E] mb-6 tracking-wide">Our Specializations</h2>
-            <div className="w-16 h-0.5 bg-[#D6A33E] mx-auto"></div>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-[#B8860B] mb-6 tracking-wide">Our Specializations</h2>
+            <div className="w-16 h-0.5 bg-[#B8860B] mx-auto"></div>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
@@ -91,7 +91,7 @@ const About = () => {
               'Indoor & Outdoor'
             ].map((service, index) => (
               <div key={index} className={`text-center p-4 glass-dark rounded-lg hover-lift animate-fadeInUp3D animate-delay-${(index + 1) * 100}`}>
-                <p className="text-[#D6A33E] font-light tracking-wide">{service}</p>
+                <p className="text-[#B8860B] font-light tracking-wide">{service}</p>
               </div>
             ))}
           </div>
@@ -107,7 +107,7 @@ const About = () => {
               { number: '50+', label: 'Awards Won' }
             ].map((stat, index) => (
               <div key={index} className={`text-center glass-dark rounded-xl p-6 hover-lift animate-pulse3D animate-delay-${(index + 1) * 100}`}>
-                <div className="text-2xl md:text-3xl lg:text-4xl font-light text-[#D6A33E] mb-2">{stat.number}</div>
+                <div className="text-2xl md:text-3xl lg:text-4xl font-light text-[#B8860B] mb-2">{stat.number}</div>
                 <div className="text-gray-400 text-sm md:text-base font-light tracking-wide">{stat.label}</div>
               </div>
             ))}
@@ -116,8 +116,8 @@ const About = () => {
 
         {/* Instagram Section */}
         <div className="text-center mb-16 animate-fadeInUp3D animate-delay-700">
-          <h3 className="text-2xl md:text-3xl font-light text-[#D6A33E] mb-6 tracking-wide">FOLLOW US ON INSTAGRAM</h3>
-          <div className="w-16 h-0.5 bg-[#D6A33E] mx-auto mb-8"></div>
+          <h3 className="text-2xl md:text-3xl font-light text-[#B8860B] mb-6 tracking-wide">FOLLOW US ON INSTAGRAM</h3>
+          <div className="w-16 h-0.5 bg-[#B8860B] mx-auto mb-8"></div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-5xl mx-auto mb-8">
             {[...Array(12)].map((_, index) => (
@@ -135,7 +135,7 @@ const About = () => {
             href="https://www.instagram.com/harsath_photography" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-block bg-gradient-to-r from-[#D6A33E] to-[#c1922f] text-[#111111] px-8 py-3 rounded-full font-medium tracking-wide hover:scale-105 transition-all duration-300 hover-lift"
+            className="inline-block bg-gradient-to-r from-[#B8860B] to-[#DAA520] text-[#111111] px-8 py-3 rounded-full font-medium tracking-wide hover:scale-105 transition-all duration-300 hover-lift"
           >
             View on Instagram
           </a>
@@ -143,46 +143,46 @@ const About = () => {
 
         {/* Call to Action */}
         <div className="text-center animate-fadeInUp3D animate-delay-800">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-[#D6A33E] mb-6 tracking-wide">Let's Create Something Beautiful Together</h2>
-          <div className="w-16 h-0.5 bg-[#D6A33E] mx-auto mb-8"></div>
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-light text-[#B8860B] mb-6 tracking-wide">Let's Create Something Beautiful Together</h2>
+          <div className="w-16 h-0.5 bg-[#B8860B] mx-auto mb-8"></div>
           <p className="text-gray-300 mb-8 max-w-2xl mx-auto font-light text-lg leading-relaxed">
             Ready to capture your special moments? We'd love to discuss your photography needs and create something amazing together.
           </p>
         </div>
 
         <div className="mb-12 animate-fadeInUp3D animate-delay-400">
-          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-[#D6A33E] animate-slideIn3D">My Approach</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-[#B8860B] animate-slideIn3D">My Approach</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center p-6 border border-[#D6A33E] rounded-lg glass-dark hover-lift animate-fadeInUp3D animate-delay-100 perspective-container">
+            <div className="text-center p-6 border border-[#B8860B] rounded-lg glass-dark hover-lift animate-fadeInUp3D animate-delay-100 perspective-container">
               <div className="mb-4 animate-float3D flex justify-center">
-                <svg className="w-12 h-12 text-[#D6A33E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-12 h-12 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2 text-[#D6A33E]">Vision</h3>
+              <h3 className="text-lg font-semibold mb-2 text-[#B8860B]">Vision</h3>
               <p className="text-gray-300 text-sm">
                 Creating compelling visual narratives that capture the essence of every moment.
               </p>
             </div>
-            <div className="text-center p-6 border border-[#D6A33E] rounded-lg glass-dark hover-lift animate-fadeInUp3D animate-delay-200 perspective-container">
+            <div className="text-center p-6 border border-[#B8860B] rounded-lg glass-dark hover-lift animate-fadeInUp3D animate-delay-200 perspective-container">
               <div className="mb-4 animate-float3D animate-delay-100 flex justify-center">
-                <svg className="w-12 h-12 text-[#D6A33E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-12 h-12 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2 text-[#D6A33E]">Creativity</h3>
+              <h3 className="text-lg font-semibold mb-2 text-[#B8860B]">Creativity</h3>
               <p className="text-gray-300 text-sm">
                 Bringing artistic flair and innovative techniques to every project.
               </p>
             </div>
-            <div className="text-center p-6 border border-[#D6A33E] rounded-lg glass-dark hover-lift animate-fadeInUp3D animate-delay-300 perspective-container">
+            <div className="text-center p-6 border border-[#B8860B] rounded-lg glass-dark hover-lift animate-fadeInUp3D animate-delay-300 perspective-container">
               <div className="mb-4 animate-float3D animate-delay-200 flex justify-center">
-                <svg className="w-12 h-12 text-[#D6A33E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-12 h-12 text-[#B8860B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2 text-[#D6A33E]">Partnership</h3>
+              <h3 className="text-lg font-semibold mb-2 text-[#B8860B]">Partnership</h3>
               <p className="text-gray-300 text-sm">
                 Working closely with clients to bring their vision to life.
               </p>
@@ -191,14 +191,14 @@ const About = () => {
         </div>
 
         <div className="text-center animate-fadeInUp3D animate-delay-500">
-          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#D6A33E] animate-slideIn3D">Let's Create Something Beautiful Together</h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-4 text-[#B8860B] animate-slideIn3D">Let's Create Something Beautiful Together</h2>
           <p className="text-gray-300 mb-6 max-w-2xl mx-auto animate-fadeInUp3D animate-delay-100">
             Ready to capture your special moments? I'd love to discuss your photography needs 
             and create something amazing together.
           </p>
           <a 
             href="#contact" 
-            className="bg-[#D6A33E] text-[#111111] px-8 py-3 rounded-full font-semibold hover:bg-[#c1922f] transition-colors inline-block"
+            className="bg-[#B8860B] text-[#111111] px-8 py-3 rounded-full font-semibold hover:bg-[#DAA520] transition-colors inline-block"
           >
             Get In Touch
           </a>

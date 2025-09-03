@@ -71,10 +71,10 @@ const Gallery = ({ initialSection = 'photos' }) => {
         <div className="flex justify-center mb-12">
           <div className="relative">
             {/* Background glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-[#D6A33E]/10 via-[#D6A33E]/20 to-[#D6A33E]/10 rounded-2xl blur-xl"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#B8860B]/10 via-[#B8860B]/20 to-[#B8860B]/10 rounded-2xl blur-xl"></div>
             
             {/* Navigation container */}
-            <div className="relative bg-black/30 backdrop-blur-lg rounded-2xl p-2 border border-[#D6A33E]/20 shadow-2xl">
+            <div className="relative bg-black/30 backdrop-blur-lg rounded-2xl p-2 border border-[#B8860B]/20 shadow-2xl">
               <div className="flex flex-wrap justify-center gap-1">
                 {categories.map((category) => {
                   const IconComponent = category.icon
@@ -84,8 +84,8 @@ const Gallery = ({ initialSection = 'photos' }) => {
                       onClick={() => setActiveCategory(category.key)}
                       className={`relative flex items-center space-x-2 px-4 py-3 rounded-xl font-semibold transition-all duration-500 transform hover:scale-105 ${
                         activeCategory === category.key
-                          ? 'bg-gradient-to-r from-[#D6A33E] to-[#c1922f] text-black shadow-xl shadow-[#D6A33E]/30'
-                          : 'text-white/80 hover:text-[#D6A33E] hover:bg-[#D6A33E]/10 hover:border hover:border-[#D6A33E]/30'
+                          ? 'bg-gradient-to-r from-[#B8860B] to-[#DAA520] text-black shadow-xl shadow-[#B8860B]/30'
+                          : 'text-white/80 hover:text-[#B8860B] hover:bg-[#B8860B]/10 hover:border hover:border-[#B8860B]/30'
                       }`}
                     >
                       <IconComponent className="w-4 h-4" />

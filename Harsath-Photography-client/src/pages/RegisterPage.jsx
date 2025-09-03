@@ -78,9 +78,9 @@ const RegisterPage = ({ setCurrentPage }) => {
       <div className="absolute inset-0 bg-gradient-to-br from-[#111111] via-[#0f0f0f] to-[#111111]"></div>
       
       {/* Animated Background Elements */}
-      <div className="absolute top-20 right-10 w-32 h-32 bg-[#D6A33E]/10 rounded-full blur-xl animate-pulse"></div>
-      <div className="absolute top-60 left-20 w-48 h-48 bg-[#D6A33E]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
-      <div className="absolute bottom-40 right-1/3 w-40 h-40 bg-[#D6A33E]/8 rounded-full blur-xl animate-pulse delay-500"></div>
+      <div className="absolute top-20 right-10 w-32 h-32 bg-[#B8860B]/10 rounded-full blur-xl animate-pulse"></div>
+      <div className="absolute top-60 left-20 w-48 h-48 bg-[#B8860B]/5 rounded-full blur-2xl animate-pulse delay-1000"></div>
+      <div className="absolute bottom-40 right-1/3 w-40 h-40 bg-[#B8860B]/8 rounded-full blur-xl animate-pulse delay-500"></div>
       
       {/* Grid Pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -96,7 +96,7 @@ const RegisterPage = ({ setCurrentPage }) => {
       <div className="relative z-10 max-w-2xl mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-20 h-20 bg-[#D6A33E] rounded-full mb-6 shadow-lg shadow-[#D6A33E]/30">
+          <div className="inline-flex items-center justify-center w-20 h-20 bg-[#B8860B] rounded-full mb-6 shadow-lg shadow-[#B8860B]/30">
             <HiUserAdd className="w-10 h-10 text-black" />
           </div>
           <h1 className="text-4xl font-bold text-white mb-3">Join Our Community</h1>
@@ -116,7 +116,7 @@ const RegisterPage = ({ setCurrentPage }) => {
                   id="firstName"
                   type="text"
                   {...register('firstName')}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:border-transparent transition-all duration-300"
                   placeholder="John"
                 />
                 {errors.firstName && (
@@ -132,7 +132,7 @@ const RegisterPage = ({ setCurrentPage }) => {
                   id="lastName"
                   type="text"
                   {...register('lastName')}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:border-transparent transition-all duration-300"
                   placeholder="Doe"
                 />
                 {errors.lastName && (
@@ -150,7 +150,7 @@ const RegisterPage = ({ setCurrentPage }) => {
                 id="username"
                 type="text"
                 {...register('username')}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:border-transparent transition-all duration-300"
                 placeholder="johndoe"
               />
               {errors.username && (
@@ -168,7 +168,7 @@ const RegisterPage = ({ setCurrentPage }) => {
                   id="email"
                   type="email"
                   {...register('email')}
-                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:border-transparent transition-all duration-300"
                   placeholder="john@example.com"
                 />
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -191,7 +191,7 @@ const RegisterPage = ({ setCurrentPage }) => {
                 id="phone"
                 type="tel"
                 {...register('phone')}
-                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent transition-all duration-300"
+                className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:border-transparent transition-all duration-300"
                 placeholder="+1 (555) 123-4567"
               />
               {errors.phone && (
@@ -210,7 +210,7 @@ const RegisterPage = ({ setCurrentPage }) => {
                     id="password"
                     type={showPassword ? 'text' : 'password'}
                     {...register('password')}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:border-transparent transition-all duration-300"
                     placeholder="••••••••"
                   />
                   <button
@@ -239,7 +239,7 @@ const RegisterPage = ({ setCurrentPage }) => {
                     id="confirmPassword"
                     type={showConfirmPassword ? 'text' : 'password'}
                     {...register('confirmPassword')}
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:border-transparent transition-all duration-300"
                     placeholder="••••••••"
                   />
                   <button
@@ -266,20 +266,20 @@ const RegisterPage = ({ setCurrentPage }) => {
                 <input
                   type="checkbox"
                   {...register('agreeToTerms')}
-                  className="w-5 h-5 bg-gray-800 border border-gray-600 rounded focus:ring-[#D6A33E] text-[#D6A33E] mt-0.5"
+                  className="w-5 h-5 bg-gray-800 border border-gray-600 rounded focus:ring-[#B8860B] text-[#B8860B] mt-0.5"
                 />
                 <span className="ml-3 text-sm text-gray-300">
                   I agree to the{' '}
                   <button
                     type="button"
-                    className="text-[#D6A33E] hover:text-[#c1922f] transition-colors"
+                    className="text-[#B8860B] hover:text-[#DAA520] transition-colors"
                   >
                     Terms and Conditions
                   </button>{' '}
                   and{' '}
                   <button
                     type="button"
-                    className="text-[#D6A33E] hover:text-[#c1922f] transition-colors"
+                    className="text-[#B8860B] hover:text-[#DAA520] transition-colors"
                   >
                     Privacy Policy
                   </button>
@@ -294,7 +294,7 @@ const RegisterPage = ({ setCurrentPage }) => {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-[#D6A33E] to-[#c1922f] text-black font-semibold py-3 px-4 rounded-lg hover:from-[#c1922f] hover:to-[#b8872b] focus:outline-none focus:ring-2 focus:ring-[#D6A33E] focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02]"
+              className="w-full bg-gradient-to-r from-[#B8860B] to-[#DAA520] text-black font-semibold py-3 px-4 rounded-lg hover:from-[#DAA520] hover:to-[#CD853F] focus:outline-none focus:ring-2 focus:ring-[#B8860B] focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02]"
             >
               {isLoading ? (
                 <div className="flex items-center justify-center">
@@ -308,8 +308,8 @@ const RegisterPage = ({ setCurrentPage }) => {
           </form>
 
           {/* Account Types Info */}
-          <div className="mt-6 p-4 bg-[#D6A33E]/10 border border-[#D6A33E]/30 rounded-lg">
-            <h4 className="text-[#D6A33E] font-medium mb-2">Account Types:</h4>
+          <div className="mt-6 p-4 bg-[#B8860B]/10 border border-[#B8860B]/30 rounded-lg">
+            <h4 className="text-[#B8860B] font-medium mb-2">Account Types:</h4>
             <ul className="text-sm text-gray-300 space-y-1">
               <li>• <strong>Client:</strong> View and interact with photos</li>
               <li>• <strong>Photographer:</strong> Contact admin for upgrade to upload photos</li>
@@ -330,7 +330,7 @@ const RegisterPage = ({ setCurrentPage }) => {
               Already have an account?{' '}
               <button
                 onClick={() => setCurrentPage('login')}
-                className="text-[#D6A33E] hover:text-[#c1922f] font-medium transition-colors"
+                className="text-[#B8860B] hover:text-[#DAA520] font-medium transition-colors"
               >
                 Sign in here
               </button>
