@@ -90,6 +90,14 @@ class VideoController {
         });
       }
 
+      // Check if user is authenticated
+      if (!req.user) {
+        return res.status(401).json({
+          success: false,
+          message: 'User authentication required'
+        });
+      }
+
       const { category, locationName } = req.body;
       const isVideo = req.file.mimetype.startsWith('video/');
 
@@ -98,33 +106,49 @@ class VideoController {
       if (isVideo) {
         // Create video document
         const Video = require('../models/Video');
+        
+        // Extract format from mimetype (e.g., "video/mp4" -> "mp4")
+        const format = req.file.mimetype.split('/')[1] || 'mp4';
+        
+        // Ensure category is valid for the enum
+        const validCategories = ['wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'];
+        const validCategory = validCategories.includes(category) ? category : 'traditional';
+        
         mediaDocument = new Video({
-          title: `Video - ${category || 'general'}`, // Auto-generate title from category
+          title: `Video - ${validCategory}`, // Auto-generate title from category
           description: '', // Default empty description
-          category: category || 'general',
+          category: validCategory,
           tags: [], // Default empty tags
           location: locationName ? { name: locationName } : {},
           cloudinaryId: req.file.filename,
           url: req.file.path,
           fileSize: req.file.size,
-          format: req.file.format,
-          uploadedBy: req.user.userId,
+          format: format,
+          uploadedBy: req.user._id, // Use the user's MongoDB _id
           isPrivate: false // Default to public since private option was removed
         });
       } else {
         // Create photo document
         const Photo = require('../models/Photo');
+        
+        // Extract format from mimetype (e.g., "image/jpeg" -> "jpeg")
+        const format = req.file.mimetype.split('/')[1] || 'jpeg';
+        
+        // Ensure category is valid for the enum (photos might have different valid categories)
+        const validCategories = ['wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'];
+        const validCategory = validCategories.includes(category) ? category : 'traditional';
+        
         mediaDocument = new Photo({
-          title: `Photo - ${category || 'general'}`, // Auto-generate title from category
+          title: `Photo - ${validCategory}`, // Auto-generate title from category
           description: '', // Default empty description
-          category: category || 'general',
+          category: validCategory,
           tags: [], // Default empty tags
           location: locationName ? { name: locationName } : {},
           cloudinaryId: req.file.filename,
           url: req.file.path,
           fileSize: req.file.size,
-          format: req.file.format,
-          uploadedBy: req.user.userId,
+          format: format,
+          uploadedBy: req.user._id, // Use the user's MongoDB _id
           isPrivate: false // Default to public since private option was removed
         });
       }

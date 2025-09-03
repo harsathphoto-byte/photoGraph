@@ -119,9 +119,14 @@ const ServicesPage = () => {
                   </p>
                   
                   <div className="text-center">
-                    <button className="glass-golden px-8 py-3 rounded-full font-light tracking-wider hover-lift transition-all duration-300">
-                      Enquire Now
-                    </button>
+                    <a 
+                      href={`https://wa.me/919894969187?text=Hi! I'm interested in your ${service.title.toLowerCase()} services. ${service.title === 'Wedding Photography' ? "I'd love to discuss capturing our special day with elegant and timeless photography." : service.title === 'Portrait Photography' ? "I need professional portraits - could be individual, family, or corporate headshots." : service.title === 'Event Photography' ? "I have an upcoming event and would like professional photography coverage." : service.title === 'Fashion Photography' ? "I'm looking for creative fashion photography with modern aesthetics." : service.title === 'Video Production' ? "I need professional video production and editing services." : "I'm interested in photo editing and enhancement services."} Can you share more details and pricing?`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="glass-golden px-8 py-3 rounded-full font-light tracking-wider hover-lift transition-all duration-300 inline-block"
+                    >
+                      WhatsApp Now
+                    </a>
                   </div>
                 </div>
               </div>
@@ -187,19 +192,25 @@ const ServicesPage = () => {
                     ))}
                   </div>
                   
-                  <button className="group w-full bg-gradient-to-br from-[#B8860B] to-[#CD853F] text-[#111111] py-3 lg:py-4 rounded-full font-medium text-base lg:text-lg hover:from-[#DAA520] hover:to-[#B8860B] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#B8860B]/30 hover:shadow-xl hover:shadow-[#B8860B]/50 border border-[#B8860B]/30 hover-lift relative overflow-hidden tracking-wider"
-                    style={{
-                      boxShadow: `
-                        0 4px 15px rgba(214, 163, 62, 0.3),
-                        0 2px 10px rgba(214, 163, 62, 0.2),
-                        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                        inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-                      `
-                    }}
-                  >
-                    <span className="relative z-10">SELECT PACKAGE</span>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                  </button>
+                  <div className="flex justify-center">
+                    <a 
+                      href={`https://wa.me/919894969187?text=Hi! I'm interested in the ${pkg.name} photography package${pkg.name === 'Essential' ? ' for intimate celebrations' : pkg.name === 'Premium' ? ' (your most popular choice)' : ' - the complete luxury experience'}. The ${pkg.price} package includes ${pkg.features.slice(0,2).join(', ')} and more. Can you provide more details and check availability?`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group bg-gradient-to-br from-[#B8860B] to-[#CD853F] text-[#111111] px-6 py-2 lg:py-3 rounded-full font-medium text-sm lg:text-base hover:from-[#DAA520] hover:to-[#B8860B] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#B8860B]/30 hover:shadow-xl hover:shadow-[#B8860B]/50 border border-[#B8860B]/30 hover-lift relative overflow-hidden tracking-wider inline-block text-center"
+                      style={{
+                        boxShadow: `
+                          0 4px 15px rgba(214, 163, 62, 0.3),
+                          0 2px 10px rgba(214, 163, 62, 0.2),
+                          inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                          inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                        `
+                      }}
+                    >
+                      <span className="relative z-10">BOOK NOW</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                    </a>
+                  </div>
                 </div>
               ))}
             </div>
@@ -266,13 +277,15 @@ const ServicesPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a 
-                href="#contact" 
+                href="https://wa.me/919894969187?text=Hi! I'd like to get a quote for your photography services. Can you help me?"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="glass-golden px-12 py-4 rounded-full font-light tracking-wider hover-lift transition-all duration-300"
               >
-                Get Quote
+                WhatsApp Quote
               </a>
               <a 
-                href="tel:+91XXXXXXXXX" 
+                href="tel:+919894969187" 
                 className="glass-dark px-12 py-4 rounded-full font-light tracking-wider hover-lift transition-all duration-300 border border-[#B8860B]/30"
               >
                 Call Now

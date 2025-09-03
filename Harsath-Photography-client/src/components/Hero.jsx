@@ -121,11 +121,11 @@ const TestimonialCarousel = () => {
       case 'center':
         return 'translateX(0) scale(1) rotateY(0deg)'
       case 'right':
-        return 'translateX(280px) scale(0.85) rotateY(-25deg)'
+        return window.innerWidth < 768 ? 'translateX(200px) scale(0.8) rotateY(-15deg)' : 'translateX(280px) scale(0.85) rotateY(-25deg)'
       case 'left':
-        return 'translateX(-280px) scale(0.85) rotateY(25deg)'
+        return window.innerWidth < 768 ? 'translateX(-200px) scale(0.8) rotateY(15deg)' : 'translateX(-280px) scale(0.85) rotateY(25deg)'
       default:
-        return 'translateX(600px) scale(0.7) rotateY(-45deg)'
+        return window.innerWidth < 768 ? 'translateX(400px) scale(0.6) rotateY(-30deg)' : 'translateX(600px) scale(0.7) rotateY(-45deg)'
     }
   }
 
@@ -148,19 +148,19 @@ const TestimonialCarousel = () => {
   }
 
   return (
-    <div className="bg-gradient-to-br from-[#1a1a1a]/90 to-[#2a2a2a]/90 rounded-3xl p-8 lg:p-12 border border-[#B8860B]/30 shadow-2xl max-w-7xl mx-auto mb-12">
-      <h4 className="text-[#B8860B] text-2xl lg:text-3xl xl:text-4xl font-bold mb-8 text-center">
+    <div className="bg-gradient-to-br from-[#1a1a1a]/90 to-[#2a2a2a]/90 rounded-3xl p-4 sm:p-6 lg:p-8 xl:p-12 border border-[#B8860B]/30 shadow-2xl max-w-7xl mx-auto mb-12">
+      <h4 className="text-[#B8860B] text-xl sm:text-2xl lg:text-3xl xl:text-4xl font-bold mb-6 sm:mb-8 text-center">
         What Our Clients Say
       </h4>
       
-      <div className="relative h-96 lg:h-80 flex items-center justify-center overflow-visible" style={{ perspective: '1200px' }}>
+      <div className="relative h-80 sm:h-96 lg:h-80 flex items-center justify-center overflow-hidden" style={{ perspective: '1200px' }}>
         {testimonials.map((testimonial, index) => {
           const position = getCardPosition(index)
           
           return (
             <div
               key={testimonial.id}
-              className="absolute w-80 lg:w-96 h-64 lg:h-72 transition-all duration-700 ease-out cursor-pointer"
+              className="absolute w-64 sm:w-72 md:w-80 lg:w-96 h-56 sm:h-64 lg:h-72 transition-all duration-700 ease-out cursor-pointer"
               style={{
                 transform: getTransform(position, index),
                 zIndex: getZIndex(position),
@@ -169,39 +169,39 @@ const TestimonialCarousel = () => {
               }}
               onClick={() => position !== 'center' && goToSlide(index)}
             >
-              <div className={`w-full h-full rounded-2xl p-6 lg:p-8 border-2 backdrop-blur-sm shadow-2xl transition-all duration-700 ${
+              <div className={`w-full h-full rounded-2xl p-4 sm:p-6 lg:p-8 border-2 backdrop-blur-sm shadow-2xl transition-all duration-700 ${
                 position === 'center' 
                   ? 'bg-gradient-to-br from-[#B8860B]/30 to-[#DAA520]/30 border-[#B8860B]/60 shadow-[#B8860B]/30' 
                   : 'bg-gradient-to-br from-[#B8860B]/15 to-[#DAA520]/15 border-[#B8860B]/30 shadow-black/40'
               }`}>
-                <div className="flex flex-col items-center space-y-4 h-full">
+                <div className="flex flex-col items-center space-y-3 sm:space-y-4 h-full">
                   {/* Client Image */}
                   <div className="flex-shrink-0">
                     <img 
                       src={testimonial.image}
                       alt={testimonial.name}
-                      className="w-16 h-16 lg:w-20 lg:h-20 rounded-full object-cover border-3 border-[#B8860B] shadow-lg"
+                      className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-full object-cover border-3 border-[#B8860B] shadow-lg"
                     />
                   </div>
                   
                   {/* Rating Stars */}
                   <div className="flex space-x-1">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <HiStar key={i} className="w-4 h-4 lg:w-5 lg:h-5 text-[#B8860B]" />
+                      <HiStar key={i} className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-[#B8860B]" />
                     ))}
                   </div>
                   
                   {/* Testimonial Text */}
-                  <p className="text-gray-300 text-sm lg:text-base leading-relaxed text-center italic flex-1 overflow-hidden line-clamp-4">
+                  <p className="text-gray-300 text-xs sm:text-sm lg:text-base leading-relaxed text-center italic flex-1 overflow-hidden line-clamp-3 sm:line-clamp-4">
                     "{testimonial.text}"
                   </p>
                   
                   {/* Client Info */}
                   <div className="text-center">
-                    <h5 className="text-[#B8860B] font-bold text-base lg:text-lg">
+                    <h5 className="text-[#B8860B] font-bold text-sm sm:text-base lg:text-lg">
                       {testimonial.name}
                     </h5>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-gray-400 text-xs sm:text-sm">
                       {testimonial.event}
                     </p>
                   </div>
@@ -215,41 +215,34 @@ const TestimonialCarousel = () => {
         <button 
           onClick={prevSlide}
           disabled={isTransitioning}
-          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-[#B8860B]/80 hover:bg-[#B8860B] text-[#111111] p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-40 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-[#B8860B]/80 hover:bg-[#B8860B] text-[#111111] p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-40 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <HiChevronLeft className="w-6 h-6" />
+          <HiChevronLeft className="w-4 h-4 sm:w-6 sm:h-6" />
         </button>
         
         <button 
           onClick={nextSlide}
           disabled={isTransitioning}
-          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-[#B8860B]/80 hover:bg-[#B8860B] text-[#111111] p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-40 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-[#B8860B]/80 hover:bg-[#B8860B] text-[#111111] p-2 sm:p-3 rounded-full transition-all duration-300 hover:scale-110 shadow-lg z-40 disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <HiChevronRight className="w-6 h-6" />
+          <HiChevronRight className="w-4 h-4 sm:w-6 sm:h-6" />
         </button>
       </div>
 
       {/* Dots Indicator */}
-      <div className="flex justify-center space-x-3 mt-8">
+      <div className="flex justify-center space-x-2 sm:space-x-3 mt-6 sm:mt-8">
         {testimonials.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
             disabled={isTransitioning}
-            className={`w-3 h-3 rounded-full transition-all duration-300 disabled:cursor-not-allowed ${
+            className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 disabled:cursor-not-allowed ${
               index === currentIndex 
                 ? 'bg-[#B8860B] scale-125 shadow-lg shadow-[#B8860B]/50' 
                 : 'bg-gray-600 hover:bg-gray-500 hover:scale-110'
             }`}
           />
         ))}
-      </div>
-
-      {/* Auto-play indicator */}
-      <div className="text-center mt-4">
-        <div className="text-gray-500 text-xs">
-          {isAutoPlaying ? '🔄 Auto-rotating' : '⏸️ Paused'} • Click side cards or arrows to navigate
-        </div>
       </div>
     </div>
   )
@@ -667,19 +660,25 @@ const Hero = ({ setCurrentPage }) => {
                       ))}
                     </div>
                     
-                    <button className="group w-full bg-gradient-to-br from-[#B8860B] to-[#CD853F] text-[#111111] py-3 lg:py-4 rounded-full font-medium text-base lg:text-lg hover:from-[#DAA520] hover:to-[#B8860B] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#B8860B]/30 hover:shadow-xl hover:shadow-[#B8860B]/50 border border-[#B8860B]/30 hover-lift relative overflow-hidden tracking-wider"
-                      style={{
-                        boxShadow: `
-                          0 4px 15px rgba(214, 163, 62, 0.3),
-                          0 2px 10px rgba(214, 163, 62, 0.2),
-                          inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                          inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-                        `
-                      }}
-                    >
-                      <span className="relative z-10">SELECT PACKAGE</span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-                    </button>
+                    <div className="flex justify-center">
+                      <a 
+                        href={`https://wa.me/919894969187?text=Hi! I'm interested in the ${pkg.name} photography package${pkg.name === 'Essential' ? ' for intimate celebrations' : pkg.name === 'Premium' ? ' (your most popular choice)' : ' - the complete luxury experience'}. The ${pkg.price} package includes ${pkg.features.slice(0,2).join(', ')} and more. Can you provide more details and check availability?`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group bg-gradient-to-br from-[#B8860B] to-[#CD853F] text-[#111111] px-6 py-2 lg:py-3 rounded-full font-medium text-sm lg:text-base hover:from-[#DAA520] hover:to-[#B8860B] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#B8860B]/30 hover:shadow-xl hover:shadow-[#B8860B]/50 border border-[#B8860B]/30 hover-lift relative overflow-hidden tracking-wider inline-block text-center"
+                        style={{
+                          boxShadow: `
+                            0 4px 15px rgba(214, 163, 62, 0.3),
+                            0 2px 10px rgba(214, 163, 62, 0.2),
+                            inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                            inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                          `
+                        }}
+                      >
+                        <span className="relative z-10">BOOK NOW</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                      </a>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -735,7 +734,7 @@ const Hero = ({ setCurrentPage }) => {
                   <HiPhone className="w-6 h-6 text-[#B8860B] flex-shrink-0 mt-1 group-hover:scale-110 transition-transform duration-300" />
                   <div>
                     <h5 className="text-[#B8860B] font-light text-lg mb-1">PHONE</h5>
-                    <span className="text-gray-300 font-light">+91 9876543210</span>
+                    <span className="text-gray-300 font-light">+91 9894969187</span>
                   </div>
                 </div>
                 

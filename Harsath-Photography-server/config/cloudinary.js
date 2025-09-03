@@ -82,11 +82,11 @@ const uploadVideo = multer({
 
 // Configure multer for both images and videos
 const uploadMedia = multer({
-  storage: (req, file, cb) => {
-    if (file.mimetype.startsWith('image/')) {
-      const storage = new CloudinaryStorage({
-        cloudinary: cloudinary,
-        params: {
+  storage: new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: async (req, file) => {
+      if (file.mimetype.startsWith('image/')) {
+        return {
           folder: 'harsath-photography/images',
           allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'tiff'],
           transformation: [
@@ -95,18 +95,10 @@ const uploadMedia = multer({
               fetch_format: 'auto'
             }
           ],
-          public_id: (req, file) => {
-            const timestamp = Date.now();
-            const randomString = Math.random().toString(36).substring(2, 15);
-            return `photo_${timestamp}_${randomString}`;
-          }
-        }
-      });
-      cb(null, storage);
-    } else if (file.mimetype.startsWith('video/')) {
-      const storage = new CloudinaryStorage({
-        cloudinary: cloudinary,
-        params: {
+          public_id: `photo_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`
+        };
+      } else if (file.mimetype.startsWith('video/')) {
+        return {
           folder: 'harsath-photography/videos',
           resource_type: 'video',
           allowed_formats: ['mp4', 'mov', 'avi', 'mkv', 'webm', 'flv', 'm4v', '3gp'],
@@ -116,18 +108,13 @@ const uploadMedia = multer({
               video_codec: 'auto'
             }
           ],
-          public_id: (req, file) => {
-            const timestamp = Date.now();
-            const randomString = Math.random().toString(36).substring(2, 15);
-            return `video_${timestamp}_${randomString}`;
-          }
-        }
-      });
-      cb(null, storage);
-    } else {
-      cb(new Error('Only image and video files are allowed!'));
+          public_id: `video_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`
+        };
+      } else {
+        throw new Error('Only image and video files are allowed!');
+      }
     }
-  },
+  }),
   fileFilter: (req, file, cb) => {
     // Check file type
     if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {

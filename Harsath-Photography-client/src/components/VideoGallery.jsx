@@ -169,34 +169,10 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
 
                 {/* Video Info */}
                 <div className="p-4">
-                  <h3 className="font-semibold text-lg truncate mb-1 text-white">{video.title}</h3>
-                  <p className="text-sm text-gray-400 mb-2">
-                    by {video.uploadedBy?.firstName} {video.uploadedBy?.lastName}
-                  </p>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-center">
                     <span className="text-xs bg-[#B8860B] text-black px-2 py-1 rounded font-medium">
                       {video.category}
                     </span>
-                    <div className="flex items-center space-x-3 text-sm">
-                      <span className="flex items-center space-x-1 text-gray-300">
-                        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                        <span>{video.views || 0}</span>
-                      </span>
-                      <span className="flex items-center space-x-1 text-gray-300">
-                        <svg 
-                          className="h-4 w-4" 
-                          viewBox="0 0 24 24" 
-                          fill="none"
-                          stroke="currentColor"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                        <span>{video.likeCount || 0}</span>
-                      </span>
-                    </div>
                   </div>
                 </div>
               </div>

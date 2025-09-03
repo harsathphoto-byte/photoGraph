@@ -127,25 +127,25 @@ const Header = ({ currentPage, setCurrentPage }) => {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
       isScrolled 
-        ? 'h-20 glass-dark backdrop-blur-md border-b border-[#B8860B]/20 shadow-2xl' 
-        : 'h-24 bg-gradient-to-b from-black/50 to-transparent'
+        ? 'h-16 md:h-20 glass-dark backdrop-blur-md border-b border-[#B8860B]/20 shadow-2xl' 
+        : 'h-18 md:h-24 bg-gradient-to-b from-black/50 to-transparent'
     }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
-        <div className="flex items-center justify-between h-full py-2 gap-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-full">
+        <div className="flex items-center justify-between h-full py-1 md:py-2 gap-4 md:gap-8">
           {/* Enhanced Logo Section */}
           <div 
-            className="flex items-center space-x-3 cursor-pointer group flex-shrink-0 min-w-fit" 
+            className="flex items-center space-x-2 md:space-x-3 cursor-pointer group flex-shrink-0 min-w-fit" 
             onClick={() => handleNavClick('home')}
           >
             <div className="relative">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 glass-golden rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
-                <span className="text-black font-bold text-lg sm:text-xl tracking-wider">HP</span>
+              <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 glass-golden rounded-full flex items-center justify-center group-hover:scale-110 transition-all duration-500 shadow-lg">
+                <span className="text-black font-bold text-base sm:text-lg md:text-xl tracking-wider">HP</span>
               </div>
               <div className="absolute inset-0 rounded-full border border-[#B8860B]/40 group-hover:border-[#B8860B]/80 transition-colors duration-500"></div>
             </div>
             <div className="hidden sm:block">
-              <div className="text-white font-semibold text-lg sm:text-xl tracking-wide">HARSATH</div>
-              <div className="text-[#B8860B] font-medium text-xs sm:text-sm tracking-wider -mt-0.5">PHOTOGRAPHY</div>
+              <div className="text-white font-semibold text-base sm:text-lg md:text-xl tracking-wide">HARSATH</div>
+              <div className="text-[#B8860B] font-medium text-xs md:text-sm tracking-wider -mt-0.5">PHOTOGRAPHY</div>
             </div>
           </div>
           
@@ -352,23 +352,25 @@ const Header = ({ currentPage, setCurrentPage }) => {
           </nav>
 
           {/* Mobile Menu Button - Enhanced */}
-          <div className="flex items-center md:hidden">
-            <button 
-              className={`mobile-menu-button relative p-3 rounded-lg transition-all duration-300 ${
-                isMenuOpen 
-                  ? 'bg-[#B8860B] text-black' 
-                  : 'text-white hover:bg-white/10 hover:text-[#B8860B]'
-              }`}
-              onClick={handleMobileMenuToggle}
-              aria-label="Toggle menu"
-            >
+          <button 
+            className={`md:hidden mobile-menu-button relative p-2 rounded-lg transition-all duration-300 flex items-center justify-center ${
+              isMenuOpen 
+                ? 'bg-[#B8860B] text-black' 
+                : 'text-white hover:bg-white/10 hover:text-[#B8860B]'
+            }`}
+            onClick={handleMobileMenuToggle}
+            aria-label="Toggle menu"
+            type="button"
+            style={{ minWidth: '36px', minHeight: '36px' }}
+          >
+            <span className="flex items-center justify-center pointer-events-none">
               {isMenuOpen ? (
-                <HiX className="w-6 h-6" />
+                <HiX className="w-5 h-5 pointer-events-none" />
               ) : (
-                <HiMenu className="w-6 h-6" />
+                <HiMenu className="w-5 h-5 pointer-events-none" />
               )}
-            </button>
-          </div>
+            </span>
+          </button>
         </div>
 
         {/* Mobile Navigation Popup - Professional & Compact */}
