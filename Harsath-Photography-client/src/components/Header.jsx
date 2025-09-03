@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { HiHome } from "@react-icons/all-files/hi/HiHome"
 import { HiUser } from "@react-icons/all-files/hi/HiUser"
 import { HiCamera } from "@react-icons/all-files/hi/HiCamera"
@@ -23,6 +23,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
   const [showUploadModal, setShowUploadModal] = useState(false)
   const [showGalleryDropdown, setShowGalleryDropdown] = useState(false)
   const [showMobileGalleryDropdown, setShowMobileGalleryDropdown] = useState(false)
+  const mobileMenuRef = useRef(null)
   
   const { user, logout, isAuthenticated } = useAuth()
 
@@ -50,9 +51,15 @@ const Header = ({ currentPage, setCurrentPage }) => {
     }
 
     const handleClickOutside = (event) => {
-      // Only close desktop dropdown when clicking outside, not mobile
+      // Close desktop gallery dropdown when clicking outside
       if (!event.target.closest('.gallery-dropdown') && !event.target.closest('.md\\:hidden')) {
         setShowGalleryDropdown(false)
+      }
+      
+      // Close mobile menu when clicking outside
+      if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target) && !event.target.closest('.mobile-menu-button')) {
+        setIsMenuOpen(false)
+        setShowMobileGalleryDropdown(false)
       }
     }
 
@@ -347,7 +354,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
           {/* Mobile Menu Button - Enhanced */}
           <div className="flex items-center md:hidden">
             <button 
-              className={`relative p-3 rounded-lg transition-all duration-300 ${
+              className={`mobile-menu-button relative p-3 rounded-lg transition-all duration-300 ${
                 isMenuOpen 
                   ? 'bg-[#D6A33E] text-black' 
                   : 'text-white hover:bg-white/10 hover:text-[#D6A33E]'
@@ -365,11 +372,14 @@ const Header = ({ currentPage, setCurrentPage }) => {
         </div>
 
         {/* Mobile Navigation Popup - Professional & Compact */}
-        <div className={`md:hidden absolute right-4 top-full mt-1 w-56 bg-[#111111] rounded-lg shadow-xl border border-[#D6A33E]/20 overflow-hidden transform transition-all duration-200 origin-top-right z-50 ${
-          isMenuOpen 
-            ? 'scale-100 opacity-100 translate-y-0' 
-            : 'scale-95 opacity-0 -translate-y-1 pointer-events-none'
-        }`}>
+        <div 
+          ref={mobileMenuRef}
+          className={`md:hidden absolute right-4 top-full mt-1 w-56 bg-[#111111] rounded-lg shadow-xl border border-[#D6A33E]/20 overflow-hidden transform transition-all duration-200 origin-top-right z-50 ${
+            isMenuOpen 
+              ? 'scale-100 opacity-100 translate-y-0' 
+              : 'scale-95 opacity-0 -translate-y-1 pointer-events-none'
+          }`}
+        >
           {/* Popup Arrow */}
           <div className="absolute -top-1 right-5 w-3 h-3 bg-[#111111] border-l border-t border-[#D6A33E]/20 transform rotate-45"></div>
           
