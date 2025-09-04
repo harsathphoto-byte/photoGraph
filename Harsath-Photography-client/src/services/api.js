@@ -3,6 +3,12 @@ import { toast } from 'react-toastify';
 import { config } from '../config/env';
 
 // Create axios instance
+console.log('🔧 API Configuration:', {
+  API_BASE_URL: config.API_BASE_URL,
+  NODE_ENV: config.NODE_ENV,
+  IS_PRODUCTION: config.IS_PRODUCTION
+});
+
 const api = axios.create({
   baseURL: config.API_BASE_URL,
 });
@@ -52,9 +58,20 @@ export const photoAPI = {
   // Get all photos
   getPhotos: async (params = {}) => {
     try {
+      console.log('🔄 API: Making request to /photos with params:', params);
+      console.log('🔄 API: Base URL:', api.defaults.baseURL);
       const response = await api.get('/photos', { params });
+      console.log('✅ API: Received response:', response.data);
       return response.data;
     } catch (error) {
+      console.error('❌ API: Error in getPhotos:', {
+        message: error.message,
+        status: error.response?.status,
+        statusText: error.response?.statusText,
+        data: error.response?.data,
+        url: error.config?.url,
+        baseURL: error.config?.baseURL
+      });
       throw new Error(error.response?.data?.message || 'Error fetching photos');
     }
   },

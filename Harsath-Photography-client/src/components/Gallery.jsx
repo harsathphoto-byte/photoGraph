@@ -7,6 +7,7 @@ import PhotoGallery from './PhotoGallery'
 import VideoGallery from './VideoGallery'
 import PhotoModal from './PhotoModal'
 import VideoModal from './VideoModal'
+import APITestComponent from './APITestComponent'
 
 const Gallery = ({ initialSection = 'photos' }) => {
   // Check for category from home page navigation
@@ -106,7 +107,10 @@ const Gallery = ({ initialSection = 'photos' }) => {
         </div>
 
         {/* Content Section */}
-        <div className="w-full max-w-full mx-auto px-1 sm:px-2 md:px-4 lg:px-6">
+        <div className="w-full max-w-none mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
+          {/* Temporary API Test Component */}
+          <APITestComponent />
+          
           {activeSection === 'photos' ? (
             <PhotoGallery category={activeCategory} onPhotoClick={handlePhotoClick} />
           ) : (
