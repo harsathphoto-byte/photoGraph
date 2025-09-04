@@ -7,7 +7,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://your-backend-url.vercel.app/api/:path*"
+      "destination": "https://photo-graph-livid.vercel.app/api/:path*"
     },
     {
       "source": "/:path*",
@@ -35,6 +35,8 @@
     }
   ],
   "env": {
-    "NODE_ENV": "production"
+    "NODE_ENV": "production",
+    "VITE_API_BASE_URL": "https://photo-graph-livid.vercel.app/api",
+    "VITE_NODE_ENV": "production"
   }
 }

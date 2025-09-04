@@ -9,8 +9,15 @@ class PhotoController {
    */
   static async uploadPhoto(req, res) {
     try {
+      console.log('=== PHOTO UPLOAD REQUEST ===');
+      console.log('Headers:', req.headers);
+      console.log('User:', req.user ? req.user._id : 'No user');
+      console.log('File:', req.file ? 'File present' : 'No file');
+      console.log('Body:', req.body);
+
       // Validate authentication
       if (!req.user) {
+        console.log('❌ User not authenticated');
         return res.status(401).json({
           success: false,
           message: 'User not authenticated'
@@ -19,6 +26,7 @@ class PhotoController {
 
       // Check admin role
       if (req.user.role !== 'admin') {
+        console.log('❌ User not admin, role:', req.user.role);
         return res.status(403).json({
           success: false,
           message: 'Admin access required'
@@ -27,15 +35,24 @@ class PhotoController {
 
       // Validate file upload
       if (!req.file) {
+        console.log('❌ No file provided');
         return res.status(400).json({
           success: false,
           message: 'No photo file provided'
         });
       }
 
+      console.log('✅ File upload details:', {
+        filename: req.file.filename,
+        originalname: req.file.originalname,
+        mimetype: req.file.mimetype,
+        size: req.file.size
+      });
+
       // Check validation errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
+        console.log('❌ Validation errors:', errors.array());
         // Delete uploaded file if validation fails
         const publicId = req.file.public_id || req.file.filename;
         if (publicId) {
@@ -49,8 +66,10 @@ class PhotoController {
       }
 
       // Create photo using service
+      console.log('✅ Creating photo...');
       const photo = await PhotoService.createPhoto(req.body, req.file, req.user._id);
 
+      console.log('✅ Photo created successfully:', photo._id);
       res.status(201).json({
         success: true,
         message: 'Photo uploaded successfully',
@@ -58,12 +77,16 @@ class PhotoController {
       });
 
     } catch (error) {
+      console.log('❌ Photo upload error:', error.message);
+      console.log('Error stack:', error.stack);
+
       // Delete uploaded file if there's an error
       if (req.file) {
         const publicId = req.file.public_id || req.file.filename;
         if (publicId) {
           try {
             await deleteImage(publicId);
+            console.log('✅ Cleaned up uploaded file');
           } catch (deleteError) {
             console.error('Failed to delete file:', deleteError.message);
           }
