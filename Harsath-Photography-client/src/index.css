@@ -1097,27 +1097,27 @@ body, html {
   transition: transform 0.2s ease, z-index 0.2s ease;
 }
 
-/* Upload Modal z-index fix */
+/* Upload Modal z-index fix - Slightly lower to allow toast notifications above */
 .upload-modal-overlay {
-  z-index: 2147483647 !important;
+  z-index: 2147483640 !important;
   position: fixed !important;
   isolation: isolate !important;
 }
 
 .upload-modal-content {
-  z-index: 2147483647 !important;
+  z-index: 2147483640 !important;
   position: relative !important;
   isolation: isolate !important;
 }
 
 .upload-modal-content select {
-  z-index: 2147483647 !important;
+  z-index: 2147483640 !important;
   position: relative !important;
   isolation: isolate !important;
 }
 
 .upload-modal-content select option {
-  z-index: 2147483647 !important;
+  z-index: 2147483640 !important;
   background-color: #111827 !important;
   color: white !important;
 }
@@ -1140,7 +1140,7 @@ body.modal-open {
   overflow: hidden !important;
 }
 
-/* Force modal to be above all content */
+/* Force modal to be above all content but below toast notifications */
 .upload-modal-overlay::before {
   content: '';
   position: fixed;
@@ -1148,7 +1148,7 @@ body.modal-open {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 2147483646 !important;
+  z-index: 2147483639 !important;
   pointer-events: none;
 }
 
@@ -1164,6 +1164,22 @@ body.modal-open {
   break-inside: avoid !important;
   page-break-inside: avoid !important;
   -webkit-column-break-inside: avoid !important;
+}
+
+/* Toast notifications - Above all modals and popups */
+.Toastify__toast-container {
+  z-index: 2147483647 !important;
+  position: fixed !important;
+}
+
+.Toastify__toast {
+  z-index: 2147483647 !important;
+}
+
+.Toastify__toast-container--top-right {
+  top: 1rem !important;
+  right: 1rem !important;
+  z-index: 2147483647 !important;
 }
 
 /* Custom height classes for Pinterest-style masonry */

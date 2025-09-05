@@ -70,6 +70,8 @@ class PhotoService {
    * Get photos with filtering and pagination
    */
   static async getPhotos(filters, user) {
+    console.log('🔍 PhotoService.getPhotos called with filters:', filters);
+    
     const {
       page = 1,
       limit = 12,
@@ -95,7 +97,10 @@ class PhotoService {
 
     // Category filter
     if (category && category !== '') {
+      console.log('🎯 Filtering by category:', category);
       query.category = category;
+    } else {
+      console.log('⚠️ No category filter applied, category value:', category);
     }
 
     // Tags filter
@@ -120,6 +125,7 @@ class PhotoService {
     sort[sortBy] = sortOrder === 'asc' ? 1 : -1;
 
     // Execute query
+    console.log('📋 Final query:', JSON.stringify(query, null, 2));
     const [photos, total] = await Promise.all([
       Photo.find(query)
         .populate('uploadedBy', 'username firstName lastName')
@@ -129,6 +135,8 @@ class PhotoService {
         .lean(),
       Photo.countDocuments(query)
     ]);
+
+    console.log(`✅ Found ${photos.length} photos for query`);
 
     // Add transformations to each photo
     const photosWithTransformations = photos.map(photo => ({

@@ -91,6 +91,22 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
     fetchVideos(1);
   }, [category, userId, featured]);
 
+  // Listen for gallery refresh events
+  useEffect(() => {
+    const handleGalleryRefresh = (event) => {
+      console.log('🔄 Video gallery refresh event received:', event.detail);
+      if (event.detail.type === 'video') {
+        setCurrentPage(1);
+        fetchVideos(1);
+      }
+    };
+
+    window.addEventListener('galleryRefresh', handleGalleryRefresh);
+    return () => {
+      window.removeEventListener('galleryRefresh', handleGalleryRefresh);
+    };
+  }, []);
+
   // Format duration from seconds to MM:SS
   const formatDuration = (seconds) => {
     if (!seconds) return '0:00';

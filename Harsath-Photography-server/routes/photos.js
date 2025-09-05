@@ -1,6 +1,7 @@
 const express = require('express');
 const { authenticateToken, requireAdmin, optionalAuth } = require('../middleware/auth');
 const { upload } = require('../config/cloudinary');
+const { compressUpload, compressAndUpload } = require('../middleware/uploadWithCompression');
 const PhotoController = require('../controllers/photoController');
 const { 
   uploadPhotoValidation, 
@@ -11,12 +12,13 @@ const {
 const router = express.Router();
 
 // @route   POST /api/photos/upload
-// @desc    Upload a new photo
+// @desc    Upload a new photo with compression
 // @access  Private (Admin only)
 router.post('/upload', 
   authenticateToken, 
   requireAdmin, 
-  upload.single('photo'), 
+  compressUpload.single('photo'),
+  compressAndUpload,
   uploadPhotoValidation,
   PhotoController.uploadPhoto
 );

@@ -5,11 +5,17 @@ const {
   generateVideoTransformations 
 } = require('../config/cloudinary');
 const { validationResult } = require('express-validator');
+const VideoProcessor = require('../middleware/videoProcessor');
 
 class VideoController {
   // Upload a new video
   static async uploadVideo(req, res) {
     try {
+      console.log('=== VIDEO UPLOAD REQUEST ===');
+      console.log('User:', req.user ? req.user._id : 'No user');
+      console.log('File:', req.file ? 'File present' : 'No file');
+      console.log('Body:', req.body);
+
       // Check for validation errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -27,21 +33,47 @@ class VideoController {
         });
       }
 
+      // Process and validate video
+      let processedFile;
+      try {
+        processedFile = await VideoProcessor.processVideo(req.file, {
+          maxSizeInMB: 100,
+          maxDurationInSeconds: 600 // 10 minutes max
+        });
+        console.log('✅ Video processing successful');
+      } catch (processingError) {
+        console.log('❌ Video processing failed:', processingError.message);
+        return res.status(400).json({
+          success: false,
+          message: `Video processing failed: ${processingError.message}`,
+          recommendations: VideoProcessor.getCompressionRecommendations(req.file)
+        });
+      }
+
       const { category, locationName } = req.body;
 
-      // Create video document
+      // Create video document with processed metadata
       const video = new Video({
         title: `Video - ${category || 'general'}`, // Auto-generate title from category
         description: '', // Default empty description
         category: category || 'general',
         tags: [], // Default empty tags
         location: locationName ? { name: locationName } : {},
-        cloudinaryId: req.file.filename,
-        url: req.file.path,
+        cloudinaryId: req.file.filename || req.file.public_id,
+        url: req.file.path || req.file.secure_url,
         fileSize: req.file.size,
         format: req.file.format,
         uploadedBy: req.user.userId,
-        isPrivate: false // Default to public since private option was removed
+        isPrivate: false, // Default to public since private option was removed
+        // Add processed video metadata
+        metadata: processedFile.metadata || {
+          duration: null,
+          bitrate: null,
+          width: null,
+          height: null,
+          fps: null
+        },
+        processed: processedFile.processed || false
       });
 
       await video.save();

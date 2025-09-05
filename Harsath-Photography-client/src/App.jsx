@@ -188,10 +188,12 @@ function App() {
           draggable
           pauseOnHover
           theme="dark"
+          style={{ zIndex: 2147483647 }}
           toastStyle={{
             backgroundColor: '#1f1f1f',
             color: '#ffffff',
-            border: '1px solid #B8860B'
+            border: '1px solid #B8860B',
+            zIndex: 2147483647
           }}
         />
       </div>

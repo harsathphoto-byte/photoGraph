@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const PhotoService = require('../services/photoService');
 const { deleteImage } = require('../config/cloudinary');
+const ImageCompression = require('../middleware/imageCompression');
 
 class PhotoController {
   

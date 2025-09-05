@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { photoAPI } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 
-const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
+const PhotoGallery = forwardRef(({ category, userId, featured, onPhotoClick }, ref) => {
   const { user } = useAuth();
   const [photos, setPhotos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,8 +15,9 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
     search: '',
   });
 
-  // Update filters when props change
+  // Update filters when props change (without triggering additional fetch)
   useEffect(() => {
+    console.log('🔄 Category prop changed:', category);
     setFilters(prev => ({
       ...prev,
       category: category || ''
@@ -42,26 +43,33 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
   // Fetch photos
   const fetchPhotos = async (page = 1) => {
     try {
-      console.log('🔍 Fetching photos with params:', { page, filters, userId, featured });
+      console.log('🔍 Fetching photos with params:', { page, filters, category, userId, featured });
       setLoading(true);
       const params = {
         page,
         limit: 12,
         ...filters,
+        // Use the category prop directly to avoid timing issues
+        category: category || filters.category || '',
       };
 
       // Add specific filters
       if (userId) params.uploadedBy = userId;
       if (featured !== undefined) params.featured = featured;
 
-      // Clean up undefined and empty values
+      // Clean up undefined and null values, but preserve empty strings for category filter
       Object.keys(params).forEach(key => {
-        if (params[key] === undefined || params[key] === null || params[key] === '') {
+        if (params[key] === undefined || params[key] === null) {
+          delete params[key];
+        }
+        // Only delete empty strings for non-category fields
+        if (key !== 'category' && params[key] === '') {
           delete params[key];
         }
       });
 
       console.log('📤 Final API params:', params);
+      console.log('🎯 Category being sent to API:', params.category);
       const response = await photoAPI.getPhotos(params);
       console.log('📥 API Response:', response);
       
@@ -94,6 +102,15 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
       setLoading(false);
     }
   };
+
+  // Expose refresh function to parent components
+  useImperativeHandle(ref, () => ({
+    refresh: () => {
+      console.log('🔄 PhotoGallery refresh called');
+      setCurrentPage(1);
+      fetchPhotos(1);
+    }
+  }));
 
   // Load more photos
   const loadMore = () => {
@@ -158,11 +175,31 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
     }
   };
 
-  // Initial load and when filters change
+  // Initial load and when dependencies change - wait for category to be available
   useEffect(() => {
-    setCurrentPage(1);
-    fetchPhotos(1);
-  }, [filters.category, filters.sort, userId, featured]);
+    // Only fetch if we have a category or it's explicitly empty (all categories)
+    if (category !== undefined) {
+      console.log('🔄 Dependencies changed, fetching photos...', { category, filters, userId, featured });
+      setCurrentPage(1);
+      fetchPhotos(1);
+    }
+  }, [category, filters.sort, userId, featured]);
+
+  // Listen for gallery refresh events
+  useEffect(() => {
+    const handleGalleryRefresh = (event) => {
+      console.log('🔄 Gallery refresh event received:', event.detail);
+      if (event.detail.type === 'image') {
+        setCurrentPage(1);
+        fetchPhotos(1);
+      }
+    };
+
+    window.addEventListener('galleryRefresh', handleGalleryRefresh);
+    return () => {
+      window.removeEventListener('galleryRefresh', handleGalleryRefresh);
+    };
+  }, []);
 
   // Handle search separately to avoid excessive API calls
   useEffect(() => {
@@ -277,6 +314,6 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
       )}
     </div>
   );
-};
+});
 
 export default PhotoGallery;

@@ -590,10 +590,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
         isOpen={showUploadModal}
         onClose={() => setShowUploadModal(false)}
         onUploadSuccess={() => {
-          // Refresh gallery if we're on gallery page
-          if (currentPage === 'gallery') {
-            window.location.reload()
-          }
+          console.log('✅ Upload successful - gallery will auto-refresh via event');
         }}
       />
     </header>

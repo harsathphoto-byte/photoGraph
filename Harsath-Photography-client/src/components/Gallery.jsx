@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { HiHeart } from "@react-icons/all-files/hi/HiHeart"
 import { HiBadgeCheck } from "@react-icons/all-files/hi/HiBadgeCheck"
 import { HiStar } from "@react-icons/all-files/hi/HiStar"
@@ -9,19 +9,40 @@ import PhotoModal from './PhotoModal'
 import VideoModal from './VideoModal'
 
 const Gallery = ({ initialSection = 'photos' }) => {
-  // Check for category from home page navigation
+  // Check for category from home page navigation or current session
   const savedCategory = localStorage.getItem('selectedCategory')
+  const currentCategory = localStorage.getItem('currentCategory')
   const [activeSection, setActiveSection] = useState(initialSection)
-  const [activeCategory, setActiveCategory] = useState(savedCategory || 'wedding')
+  
+  // Initialize with saved category, current category, or null (to avoid premature API calls)
+  const [activeCategory, setActiveCategory] = useState(() => {
+    const category = savedCategory || currentCategory || 'wedding';
+    console.log('🏠 Gallery initializing with category:', category);
+    return category;
+  })
+  
   const [selectedPhoto, setSelectedPhoto] = useState(null)
   const [selectedVideo, setSelectedVideo] = useState(null)
 
+  // Ref for PhotoGallery to trigger refresh
+  const photoGalleryRef = useRef(null)
+
   // Clear the saved category after using it
   useEffect(() => {
+    console.log('🏠 Gallery initialized - savedCategory:', savedCategory, 'activeCategory:', activeCategory);
     if (savedCategory) {
       localStorage.removeItem('selectedCategory')
     }
   }, [])
+
+  // Debug activeCategory changes and save to localStorage
+  useEffect(() => {
+    console.log('📂 Active category changed to:', activeCategory);
+    // Save current category to localStorage for persistence
+    if (activeCategory) {
+      localStorage.setItem('currentCategory', activeCategory);
+    }
+  }, [activeCategory])
 
   // Categories for both photos and videos
   const categories = [
@@ -108,7 +129,7 @@ const Gallery = ({ initialSection = 'photos' }) => {
         {/* Content Section - Mobile-First Masonry Optimized */}
         <div className="w-full max-w-7xl mx-auto px-1 sm:px-4 lg:px-8">
           {activeSection === 'photos' ? (
-            <PhotoGallery category={activeCategory} onPhotoClick={handlePhotoClick} />
+            <PhotoGallery ref={photoGalleryRef} category={activeCategory} onPhotoClick={handlePhotoClick} />
           ) : (
             <VideoGallery category={activeCategory} onVideoClick={handleVideoClick} />
           )}

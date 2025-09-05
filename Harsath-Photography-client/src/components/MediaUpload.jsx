@@ -55,11 +55,44 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   // Get file size limit based on media type
   const getFileSizeLimit = (file) => {
     if (file.type.startsWith('image/')) {
-      return 9 * 1024 * 1024; // 9MB for images
+      return 20 * 1024 * 1024; // 20MB for images (server will compress if needed)
     } else if (file.type.startsWith('video/')) {
-      return 50 * 1024 * 1024; // 50MB for videos (Cloudinary free plan limit)
+      return 100 * 1024 * 1024; // 100MB for videos (matches server limit)
     }
     return null;
+  };
+
+  // Check if image will be compressed
+  const willBeCompressed = (file) => {
+    if (file.type.startsWith('image/')) {
+      const compressionThreshold = 5 * 1024 * 1024; // 5MB
+      return file.size > compressionThreshold;
+    }
+    return false;
+  };
+
+  // Get video processing recommendations
+  const getVideoRecommendations = (file) => {
+    if (!file.type.startsWith('video/')) return [];
+    
+    const fileSizeInMB = file.size / (1024 * 1024);
+    const recommendations = [];
+
+    if (fileSizeInMB > 50) {
+      recommendations.push('Consider reducing video resolution to 1080p or lower');
+      recommendations.push('Use a lower bitrate for compression');
+      recommendations.push('Convert to MP4 format for better compression');
+    }
+
+    if (fileSizeInMB > 25) {
+      recommendations.push('Consider trimming video length if possible');
+    }
+
+    if (fileSizeInMB > 75) {
+      recommendations.push('⚠️ Large video files may take longer to upload and process');
+    }
+
+    return recommendations;
   };
 
   // Helper function to format file size
@@ -92,6 +125,24 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
 
       setSelectedFile(file);
       setMediaType(file.type.startsWith('image/') ? 'image' : 'video');
+
+      // Show compression info if applicable
+      if (willBeCompressed(file)) {
+        toast.info(`Large image detected (${formatFileSize(file.size)}). Server will automatically compress for optimal upload.`, {
+          autoClose: 7000
+        });
+      }
+
+      // Show video recommendations if applicable
+      if (file.type.startsWith('video/')) {
+        const recommendations = getVideoRecommendations(file);
+        if (recommendations.length > 0) {
+          const message = `Video size: ${formatFileSize(file.size)}\nTips for better upload:\n• ${recommendations.join('\n• ')}`;
+          toast.info(message, {
+            autoClose: 10000
+          });
+        }
+      }
 
       // Create preview
       const reader = new FileReader();
@@ -163,6 +214,12 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
       setUploadProgress(100);
 
       toast.success(`${mediaType === 'image' ? 'Photo' : 'Video'} uploaded successfully!`);
+      
+      // Trigger gallery refresh event
+      const refreshEvent = new CustomEvent('galleryRefresh', {
+        detail: { type: mediaType, category: data.category }
+      });
+      window.dispatchEvent(refreshEvent);
       
       // Reset form and close modal
       reset();
@@ -323,6 +380,12 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                     <p className="text-xs text-gray-500">
                       Size: {(selectedFile?.size / (1024 * 1024)).toFixed(2)} MB
                     </p>
+                    {selectedFile && willBeCompressed(selectedFile) && (
+                      <p className="text-xs text-amber-400 flex items-center gap-1">
+                        <span>⚡</span>
+                        Will be automatically compressed for optimal upload
+                      </p>
+                    )}
                     <button
                       type="button"
                       onClick={(e) => {
