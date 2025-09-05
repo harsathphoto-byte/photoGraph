@@ -4,9 +4,7 @@ import { HiBadgeCheck } from "@react-icons/all-files/hi/HiBadgeCheck"
 import { HiStar } from "@react-icons/all-files/hi/HiStar"
 import { HiSparkles } from "@react-icons/all-files/hi/HiSparkles"
 import PhotoGallery from './PhotoGallery'
-import VideoGallery from './VideoGallery'
 import PhotoModal from './PhotoModal'
-import VideoModal from './VideoModal'
 
 const Gallery = ({ initialSection = 'photos' }) => {
   // Check for category from home page navigation or current session
@@ -22,7 +20,6 @@ const Gallery = ({ initialSection = 'photos' }) => {
   })
   
   const [selectedPhoto, setSelectedPhoto] = useState(null)
-  const [selectedVideo, setSelectedVideo] = useState(null)
 
   // Ref for PhotoGallery to trigger refresh
   const photoGalleryRef = useRef(null)
@@ -58,18 +55,9 @@ const Gallery = ({ initialSection = 'photos' }) => {
     setSelectedPhoto(photo)
   }
 
-  // Handle video click
-  const handleVideoClick = (video) => {
-    setSelectedVideo(video)
-  }
-
-  // Close modals
+  // Close modal
   const closePhotoModal = () => {
     setSelectedPhoto(null)
-  }
-
-  const closeVideoModal = () => {
-    setSelectedVideo(null)
   }
 
   // Update active section when initialSection prop changes
@@ -130,19 +118,12 @@ const Gallery = ({ initialSection = 'photos' }) => {
         <div className="w-full max-w-7xl mx-auto px-1 sm:px-4 lg:px-8">
           {activeSection === 'photos' ? (
             <PhotoGallery ref={photoGalleryRef} category={activeCategory} onPhotoClick={handlePhotoClick} />
-          ) : (
-            <VideoGallery category={activeCategory} onVideoClick={handleVideoClick} />
-          )}
+          ) : null}
         </div>
 
         {/* Photo Modal */}
         {selectedPhoto && (
           <PhotoModal photo={selectedPhoto} onClose={closePhotoModal} />
-        )}
-
-        {/* Video Modal */}
-        {selectedVideo && (
-          <VideoModal video={selectedVideo} onClose={closeVideoModal} />
         )}
 
       </div>

@@ -12,7 +12,6 @@ export const useGallery = () => {
 
 export const GalleryProvider = ({ children }) => {
   const photoGalleryRef = useRef(null);
-  const videoGalleryRef = useRef(null);
 
   const refreshPhotoGallery = () => {
     console.log('🔄 Refreshing photo gallery...');
@@ -21,18 +20,9 @@ export const GalleryProvider = ({ children }) => {
     }
   };
 
-  const refreshVideoGallery = () => {
-    console.log('🔄 Refreshing video gallery...');
-    if (videoGalleryRef.current && videoGalleryRef.current.refresh) {
-      videoGalleryRef.current.refresh();
-    }
-  };
-
   const value = {
     photoGalleryRef,
-    videoGalleryRef,
     refreshPhotoGallery,
-    refreshVideoGallery,
   };
 
   return (

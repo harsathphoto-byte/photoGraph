@@ -3,7 +3,6 @@ import { HiHeart } from "@react-icons/all-files/hi/HiHeart";
 import { HiChatAlt } from "@react-icons/all-files/hi/HiChatAlt";
 import { HiExternalLink } from "@react-icons/all-files/hi/HiExternalLink";
 import { HiPhotograph } from "@react-icons/all-files/hi/HiPhotograph";
-import { HiPlay } from "@react-icons/all-files/hi/HiPlay";
 import { fetchInstagramPosts, getInstagramProfileUrl, formatInstagramDate, truncateCaption } from '../utils/instagram';
 
 const InstagramPosts = ({ 
@@ -123,13 +122,6 @@ const InstagramPosts = ({
                   e.target.src = `https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?w=400&h=400&fit=crop&auto=format`;
                 }}
               />
-              
-              {/* Media type indicator */}
-              {post.media_type === 'VIDEO' && (
-                <div className="absolute top-3 right-3 bg-black/70 rounded-full p-2 backdrop-blur-sm">
-                  <HiPlay className="w-4 h-4 text-white" />
-                </div>
-              )}
               
               {/* Hover overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-between p-4">

@@ -58,12 +58,11 @@ const generateRealisticInstagramPosts = () => {
       comments_count: 15
     },
     {
-      id: 'post_video_1',
-      media_type: 'VIDEO',
-      media_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=400&fit=crop',
-      thumbnail_url: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=400&h=400&fit=crop',
-      caption: 'Behind the scenes of today\'s wedding videography 🎥✨ Watch how we capture those precious moments that become lifetime memories! #WeddingVideo #BehindTheScenes #Cinematography #WeddingFilm',
-      permalink: 'https://www.instagram.com/p/video_post_1/',
+      id: 'post_portrait_2',
+      media_type: 'IMAGE',
+      media_url: 'https://images.unsplash.com/photo-1469371670807-013ccf25f16a?w=400&h=400&fit=crop',
+      caption: 'Portrait session vibes ✨ Every face tells a unique story, and I love capturing the essence of each individual. #PortraitPhotography #PersonalBranding #Photography #CreativePortraits',
+      permalink: 'https://www.instagram.com/p/portrait_post_2/',
       timestamp: new Date(Date.now() - (6 * 24 * 60 * 60 * 1000)).toISOString(),
       like_count: 156,
       comments_count: 11

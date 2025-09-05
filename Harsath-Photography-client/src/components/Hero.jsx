@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { HiPlay } from "@react-icons/all-files/hi/HiPlay"
 import { HiCamera } from "@react-icons/all-files/hi/HiCamera"
 import { HiDesktopComputer } from "@react-icons/all-files/hi/HiDesktopComputer"
 import { HiPhotograph } from "@react-icons/all-files/hi/HiPhotograph"
