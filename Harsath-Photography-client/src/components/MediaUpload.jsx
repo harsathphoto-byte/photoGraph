@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import Portal from './Portal';
 
 // Validation schema
 const uploadSchema = yup.object({
@@ -213,24 +214,60 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   if (!isOpen) return null;
 
   return (
-    <div 
-      className="fixed inset-0 bg-black bg-opacity-90 flex items-start justify-center p-4 overflow-y-auto upload-modal-overlay"
-      onClick={(e) => {
-        if (e.target === e.currentTarget && !isUploading) {
-          handleClose();
-        }
-      }}
-      style={{ zIndex: 2147483647, position: 'fixed' }}
-      data-modal="upload"
-    >
+    <Portal>
       <div 
-        className="bg-gray-900 rounded-lg shadow-2xl max-w-2xl w-full my-8 border-2 border-amber-400 min-h-fit relative upload-modal-content"
+        className="upload-modal-overlay"
+        onClick={(e) => {
+          if (e.target === e.currentTarget && !isUploading) {
+            handleClose();
+          }
+        }}
+        style={{ 
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          zIndex: 9999999,
+          backgroundColor: 'rgba(0, 0, 0, 0.9)',
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+          padding: '1rem',
+          overflowY: 'auto',
+          isolation: 'isolate',
+          pointerEvents: 'all'
+        }}
+        data-modal="upload"
+      >
+      <div 
+        className="upload-modal-content"
         onClick={(e) => e.stopPropagation()}
-        style={{ zIndex: 2147483647, position: 'relative' }}
+        style={{ 
+          position: 'relative',
+          zIndex: 9999999,
+          backgroundColor: '#111827',
+          borderRadius: '0.5rem',
+          boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+          maxWidth: '32rem',
+          width: '100%',
+          marginTop: '2rem',
+          marginBottom: '2rem',
+          border: '2px solid #F59E0B',
+          minHeight: 'fit-content',
+          isolation: 'isolate'
+        }}
       >
         {/* Header - Fixed */}
-        <div className="flex justify-between items-center p-6 border-b border-amber-400 sticky top-0 bg-gray-900 rounded-t-lg"
-             style={{ zIndex: 2147483647 }}>
+        <div 
+          className="flex justify-between items-center p-6 border-b border-amber-400 sticky top-0 rounded-t-lg"
+          style={{ 
+            zIndex: 9999999, 
+            backgroundColor: '#111827',
+            position: 'sticky',
+            top: 0
+          }}
+        >
           <h2 className="text-2xl font-bold text-amber-400">
             Upload {mediaType ? (mediaType === 'image' ? 'Photo' : 'Video') : 'Media'}
           </h2>
@@ -244,8 +281,15 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
         </div>
 
         {/* Body - Scrollable */}
-        <div className="p-6 max-h-[calc(90vh-120px)] overflow-y-auto relative" style={{ zIndex: 2147483647 }}>
-          <form onSubmit={handleSubmit(handleUpload)} className="space-y-6 pb-20 relative upload-form" style={{ zIndex: 2147483647 }}>
+        <div 
+          className="p-6 max-h-[calc(90vh-120px)] overflow-y-auto relative" 
+          style={{ zIndex: 9999999 }}
+        >
+          <form 
+            onSubmit={handleSubmit(handleUpload)} 
+            className="space-y-6 pb-20 relative upload-form" 
+            style={{ zIndex: 9999999 }}
+          >
             {/* File Upload Area */}
             <div>
               <label className="block text-sm font-medium text-amber-400 mb-2">
@@ -392,6 +436,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
         </div>
       </div>
     </div>
+    </Portal>
   );
 };
 
