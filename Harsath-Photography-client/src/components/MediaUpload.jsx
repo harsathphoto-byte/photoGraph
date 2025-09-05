@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { photoAPI, videoAPI } from '../services/api';
+import { photoAPI } from '../services/api';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -31,7 +31,6 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   const [preview, setPreview] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [mediaType, setMediaType] = useState(null); // 'image' or 'video'
   const fileInputRef = useRef(null);
 
   const {
@@ -47,17 +46,15 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
     },
   });
 
-  // Get accepted file types based on media type
+  // Get accepted file types for images only
   const getAcceptedTypes = () => {
-    return 'image/*,video/*';
+    return 'image/*';
   };
 
-  // Get file size limit based on media type
+  // Get file size limit for images
   const getFileSizeLimit = (file) => {
     if (file.type.startsWith('image/')) {
       return 20 * 1024 * 1024; // 20MB for images (server will compress if needed)
-    } else if (file.type.startsWith('video/')) {
-      return 100 * 1024 * 1024; // 100MB for videos (matches server limit)
     }
     return null;
   };
@@ -69,30 +66,6 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
       return file.size > compressionThreshold;
     }
     return false;
-  };
-
-  // Get video processing recommendations
-  const getVideoRecommendations = (file) => {
-    if (!file.type.startsWith('video/')) return [];
-    
-    const fileSizeInMB = file.size / (1024 * 1024);
-    const recommendations = [];
-
-    if (fileSizeInMB > 50) {
-      recommendations.push('Consider reducing video resolution to 1080p or lower');
-      recommendations.push('Use a lower bitrate for compression');
-      recommendations.push('Convert to MP4 format for better compression');
-    }
-
-    if (fileSizeInMB > 25) {
-      recommendations.push('Consider trimming video length if possible');
-    }
-
-    if (fileSizeInMB > 75) {
-      recommendations.push('⚠️ Large video files may take longer to upload and process');
-    }
-
-    return recommendations;
   };
 
   // Helper function to format file size
@@ -108,9 +81,9 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Validate file type
-      if (!file.type.startsWith('image/') && !file.type.startsWith('video/')) {
-        toast.error('Please select an image or video file');
+      // Validate file type - images only
+      if (!file.type.startsWith('image/')) {
+        toast.error('Please select an image file');
         return;
       }
 
@@ -118,30 +91,17 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
       const sizeLimit = getFileSizeLimit(file);
       if (sizeLimit && file.size > sizeLimit) {
         const limitMB = sizeLimit / (1024 * 1024);
-        const fileType = file.type.startsWith('image/') ? 'image' : 'video';
-        toast.error(`${fileType} size must be less than ${limitMB}MB. Current size: ${formatFileSize(file.size)}`);
+        toast.error(`Image size must be less than ${limitMB}MB. Current size: ${formatFileSize(file.size)}`);
         return;
       }
 
       setSelectedFile(file);
-      setMediaType(file.type.startsWith('image/') ? 'image' : 'video');
 
       // Show compression info if applicable
       if (willBeCompressed(file)) {
         toast.info(`Large image detected (${formatFileSize(file.size)}). Server will automatically compress for optimal upload.`, {
           autoClose: 7000
         });
-      }
-
-      // Show video recommendations if applicable
-      if (file.type.startsWith('video/')) {
-        const recommendations = getVideoRecommendations(file);
-        if (recommendations.length > 0) {
-          const message = `Video size: ${formatFileSize(file.size)}\nTips for better upload:\n• ${recommendations.join('\n• ')}`;
-          toast.info(message, {
-            autoClose: 10000
-          });
-        }
       }
 
       // Create preview
@@ -178,13 +138,8 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
     try {
       const formData = new FormData();
       
-      // Append file with appropriate field name
-      if (mediaType === 'image') {
-        formData.append('photo', selectedFile);
-      } else {
-        formData.append('media', selectedFile);
-      }
-      
+      // Append image file
+      formData.append('photo', selectedFile);
       formData.append('category', data.category);
 
       // Handle location
@@ -203,21 +158,16 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
         });
       }, 300);
 
-      let result;
-      if (mediaType === 'image') {
-        result = await photoAPI.uploadPhoto(formData);
-      } else {
-        result = await videoAPI.uploadMedia(formData);
-      }
+      const result = await photoAPI.uploadPhoto(formData);
       
       clearInterval(progressInterval);
       setUploadProgress(100);
 
-      toast.success(`${mediaType === 'image' ? 'Photo' : 'Video'} uploaded successfully!`);
+      toast.success('Photo uploaded successfully!');
       
       // Trigger gallery refresh event
       const refreshEvent = new CustomEvent('galleryRefresh', {
-        detail: { type: mediaType, category: data.category }
+        detail: { type: 'image', category: data.category }
       });
       window.dispatchEvent(refreshEvent);
       
@@ -225,7 +175,6 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
       reset();
       setSelectedFile(null);
       setPreview(null);
-      setMediaType(null);
       setUploadProgress(0);
       onUploadSuccess && onUploadSuccess(result.data);
       onClose();
@@ -241,7 +190,6 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
       reset();
       setSelectedFile(null);
       setPreview(null);
-      setMediaType(null);
       setUploadProgress(0);
       // Remove body scroll lock
       document.body.classList.remove('modal-open');
@@ -326,7 +274,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
           }}
         >
           <h2 className="text-2xl font-bold text-amber-400">
-            Upload {mediaType ? (mediaType === 'image' ? 'Photo' : 'Video') : 'Media'}
+            Upload Photo
           </h2>
           <button
             onClick={handleClose}
@@ -350,7 +298,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
             {/* File Upload Area */}
             <div>
               <label className="block text-sm font-medium text-amber-400 mb-2">
-                Media File {mediaType && `(${mediaType.charAt(0).toUpperCase() + mediaType.slice(1)})`}
+                Photo File
               </label>
               <div
                 className="border-2 border-dashed border-amber-600 rounded-lg p-6 text-center hover:border-amber-400 transition-colors cursor-pointer bg-gray-900"
@@ -360,20 +308,11 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
               >
                 {preview ? (
                   <div className="space-y-4">
-                    {mediaType === 'image' ? (
-                      <img
-                        src={preview}
-                        alt="Preview"
-                        className="mx-auto max-h-48 rounded-lg shadow-lg border border-amber-600"
-                      />
-                    ) : (
-                      <video
-                        src={preview}
-                        className="mx-auto max-h-48 rounded-lg shadow-lg border border-amber-600"
-                        controls
-                        muted
-                      />
-                    )}
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      className="mx-auto max-h-48 rounded-lg shadow-lg border border-amber-600"
+                    />
                     <p className="text-sm text-gray-300">
                       {selectedFile?.name}
                     </p>
@@ -392,7 +331,6 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                         e.stopPropagation();
                         setSelectedFile(null);
                         setPreview(null);
-                        setMediaType(null);
                         if (fileInputRef.current) {
                           fileInputRef.current.value = '';
                         }
@@ -404,12 +342,12 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                   </div>
                 ) : (
                   <div className="space-y-2">
-                    <div className="text-amber-400 text-4xl">🎬</div>
+                    <div className="text-amber-400 text-4xl">📸</div>
                     <p className="text-gray-300">
-                      Click to select or drag and drop your media here
+                      Click to select or drag and drop your photo here
                     </p>
                     <p className="text-sm text-gray-500">
-                      Supports: Images (JPG, PNG, GIF, WebP) up to 9MB and Videos (MP4, MOV, AVI, etc.) up to 50MB
+                      Supports: Images (JPG, PNG, GIF, WebP) up to 20MB
                     </p>
                   </div>
                 )}
@@ -439,7 +377,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
               </div>
             )}
 
-            {/* Media Details */}
+            {/* Photo Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="relative" style={{ zIndex: 2147483647 }}>
                 <label className="block text-sm font-medium text-amber-400 mb-1">
@@ -492,7 +430,7 @@ const MediaUpload = ({ isOpen, onClose, onUploadSuccess }) => {
                 disabled={isUploading || !selectedFile}
                 className="px-6 py-2 bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-semibold rounded-md hover:from-amber-600 hover:to-yellow-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg"
               >
-                {isUploading ? 'Uploading...' : `Upload ${mediaType ? (mediaType === 'image' ? 'Photo' : 'Video') : 'Media'}`}
+                {isUploading ? 'Uploading...' : 'Upload Photo'}
               </button>
             </div>
           </form>
