@@ -12,8 +12,6 @@ import { HiPlus } from "@react-icons/all-files/hi/HiPlus"
 import { HiLogout } from "@react-icons/all-files/hi/HiLogout"
 import { HiChevronDown } from "@react-icons/all-files/hi/HiChevronDown"
 import { HiPhotograph } from "@react-icons/all-files/hi/HiPhotograph"
-import { HiPlay } from "@react-icons/all-files/hi/HiPlay"
-import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 import { useAuth } from '../context/AuthContext'
 import MediaUpload from './MediaUpload'
 
@@ -37,8 +35,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
       icon: HiCamera,
       hasDropdown: true,
       subItems: [
-        { key: 'photos', label: 'Photos', icon: HiPhotograph },
-        { key: 'videos', label: 'Videos', icon: HiPlay }
+        { key: 'photos', label: 'Photos', icon: HiPhotograph }
       ]
     },
     { key: 'services', label: 'Services', icon: HiLightningBolt },
@@ -160,7 +157,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                     <button 
                       onClick={() => handleNavClick(item.key)} 
                       className={`group relative px-4 py-2 rounded-lg font-medium text-sm tracking-wide transition-all duration-300 flex items-center space-x-2 ${
-                        ['gallery', 'photos', 'videos'].includes(currentPage)
+                        ['gallery', 'photos'].includes(currentPage)
                           ? 'text-[#B8860B] bg-[#B8860B]/10 border border-[#B8860B]/30' 
                           : 'text-white/90 hover:text-[#B8860B] hover:bg-white/5'
                       }`}
@@ -172,7 +169,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                       }`} />
                       
                       {/* Active indicator */}
-                      {['gallery', 'photos', 'videos'].includes(currentPage) && (
+                      {['gallery', 'photos'].includes(currentPage) && (
                         <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#B8860B] rounded-full"></div>
                       )}
                     </button>
@@ -299,7 +296,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                       <HiChevronDown className={`w-3 h-3 transition-transform duration-200 ${
                         showGalleryDropdown ? 'rotate-180' : ''
                       }`} />
-                      {['gallery', 'photos', 'videos'].includes(currentPage) && (
+                      {['gallery', 'photos'].includes(currentPage) && (
                         <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1 h-1 bg-[#B8860B] rounded-full"></div>
                       )}
                     </button>
@@ -396,14 +393,14 @@ const Header = ({ currentPage, setCurrentPage }) => {
                     <button 
                       onClick={() => handleMobileNavClick(item.key)} 
                       className={`w-full flex items-center space-x-2.5 px-3 py-2.5 text-left transition-all duration-150 hover:bg-[#B8860B]/10 group ${
-                        ['gallery', 'photos', 'videos'].includes(currentPage)
+                        ['gallery', 'photos'].includes(currentPage)
                           ? 'bg-[#B8860B]/15 text-[#B8860B] border-r-2 border-[#B8860B]' 
                           : 'text-white hover:text-[#B8860B]'
                       }`}
                     >
                       {/* Icon Container */}
                       <div className={`w-7 h-7 rounded-md flex items-center justify-center transition-all duration-150 ${
-                        ['gallery', 'photos', 'videos'].includes(currentPage)
+                        ['gallery', 'photos'].includes(currentPage)
                           ? 'bg-[#B8860B] text-[#111111]' 
                           : 'bg-[#B8860B]/20 text-[#B8860B] group-hover:bg-[#B8860B] group-hover:text-[#111111]'
                       }`}>
@@ -559,7 +556,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
               <p className="text-[#B8860B] text-xs font-medium mb-2">Quick Contact</p>
               <div className="flex space-x-1.5">
                 <a 
-                  href="tel:+91XXXXXXXXX" 
+                  href="tel:+919843535984" 
                   className="flex-1 flex items-center justify-center p-2 bg-[#B8860B]/10 rounded-md text-[#B8860B] hover:bg-[#B8860B] hover:text-[#111111] transition-all duration-150 group"
                   aria-label="Call us"
                 >
@@ -571,13 +568,6 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   aria-label="Email us"
                 >
                   <HiMail className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
-                </a>
-                <a 
-                  href="#" 
-                  className="flex-1 flex items-center justify-center p-2 bg-[#B8860B]/10 rounded-md text-[#B8860B] hover:bg-[#B8860B] hover:text-[#111111] transition-all duration-150 group"
-                  aria-label="Follow on Instagram"
-                >
-                  <FaInstagram className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                 </a>
               </div>
             </div>

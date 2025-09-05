@@ -10,6 +10,7 @@ import { HiMail } from "@react-icons/all-files/hi/HiMail"
 import { HiChevronLeft } from "@react-icons/all-files/hi/HiChevronLeft"
 import { HiChevronRight } from "@react-icons/all-files/hi/HiChevronRight"
 import { HiStar } from "@react-icons/all-files/hi/HiStar"
+import harsath from "../assets/harsath.png"
 
 // 3D Rotating Testimonial Carousel Component
 const TestimonialCarousel = () => {
@@ -23,7 +24,7 @@ const TestimonialCarousel = () => {
       name: "Priya & Rajesh",
       event: "Wedding",
       rating: 5,
-      text: "Harsath captured our wedding so beautifully! Every moment was perfectly preserved. The quality of photos and videos exceeded our expectations. Highly recommended!",
+      text: "Harsath captured our wedding so beautifully! Every moment was perfectly preserved. The quality of photos exceeded our expectations. Highly recommended!",
       image: "https://picsum.photos/80/80?random=1"
     },
     {
@@ -301,7 +302,7 @@ const Hero = ({ setCurrentPage }) => {
             <div className="perspective-container mb-8">
               <div className="w-40 h-40 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-full overflow-hidden border-4 border-[#B8860B] mb-6 hover:border-[#DAA520] transition-all duration-300 shadow-2xl hover-lift animate-float3D glass-golden">
                 <img 
-                  src="https://picsum.photos/160/160?random=6" 
+                  src={harsath} 
                   alt="Harsath - Photographer" 
                   className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                 />
@@ -330,52 +331,6 @@ const Hero = ({ setCurrentPage }) => {
           </div>
         </div>
 
-        {/* Clean Video Section */}
-        <div className="mb-10 max-w-5xl mx-auto animate-fadeInUp3D animate-delay-200">
-          <div className="relative">
-            {/* Video container with clean styling */}
-            <div className="relative rounded-2xl overflow-hidden shadow-xl">
-              <div className="aspect-video bg-black border-2 border-[#B8860B]/30">
-                <video 
-                  className="w-full h-full object-cover"
-                  controls
-                  poster="https://picsum.photos/1200/675?random=7"
-                >
-                  <source src="/path/to/your-video.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              </div>
-            </div>
-          </div>
-          
-          {/* Centered Explore Button */}
-          <div className="text-center mt-8">
-            <button 
-              onClick={() => {
-                setCurrentPage('gallery')
-                // Set a flag to show videos section
-                setTimeout(() => {
-                  const event = new CustomEvent('setGallerySection', { detail: 'videos' })
-                  window.dispatchEvent(event)
-                }, 100)
-              }}
-              className="group bg-gradient-to-br from-[#B8860B] to-[#CD853F] text-[#111111] px-8 py-3 lg:px-10 lg:py-4 rounded-full font-medium text-base lg:text-lg hover:from-[#DAA520] hover:to-[#B8860B] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#B8860B]/30 hover:shadow-xl hover:shadow-[#B8860B]/50 border border-[#B8860B]/30 hover-lift relative overflow-hidden flex items-center space-x-3 mx-auto"
-              style={{
-                boxShadow: `
-                  0 4px 15px rgba(214, 163, 62, 0.3),
-                  0 2px 10px rgba(214, 163, 62, 0.2),
-                  inset 0 1px 0 rgba(255, 255, 255, 0.1),
-                  inset 0 -1px 0 rgba(0, 0, 0, 0.1)
-                `
-              }}
-            >
-              <HiPhotograph className="w-6 h-6 lg:w-7 lg:h-7 relative z-10" />
-              <span className="relative z-10">Explore Photography</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            </button>
-          </div>
-        </div>
-
         {/* Categories Section - Full Width */}
         <div className="glass-dark rounded-3xl p-8 lg:p-12 border border-[#B8860B]/30 shadow-2xl max-w-7xl mx-auto mb-12 animate-fadeInUp3D animate-delay-300 relative">
           {/* Categories Sparkle Effects */}
@@ -397,10 +352,10 @@ const Hero = ({ setCurrentPage }) => {
             {/* First 4 categories in 2x2 grid */}
             <div className="grid grid-cols-2 gap-6 mb-6">
               {[
-                { name: 'Wedding', category: 'wedding' },
-                { name: 'Baby Shower', category: 'baby-shower' },
-                { name: 'Fashion', category: 'fashion' },
-                { name: 'New Born', category: 'newborn' }
+                { name: 'Wedding', category: 'wedding',image:"https://imgs.search.brave.com/vl_9e_AS_AYrYBA-RHYmnwtAyQEOIvkOxwS7_56GUL8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMjE2/ODcwNzg2OC9waG90/by9pbmRpYW4tY291/cGxlLWhvbGRpbmct/aGFuZC1jbG9zZS11/cC1pbi13ZWRkaW5n/LWNlcmVtb255Lndl/YnA_YT0xJmI9MSZz/PTYxMng2MTImdz0w/Jms9MjAmYz1Zb2hW/S2RtYkhsODVsNUl5/X3JldFpvN3VNRGg1/M2I3Qi1URXg1RW14/RjVjPQ" },
+                { name: 'Baby Shower', category: 'baby-shower',image:"https://imgs.search.brave.com/VKe72PFe0lEuLO5Lv_be8PjQvyc96CbnN1irt0VT6C0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vYW1yaXRh/bW11LmNvbS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMC8wNC9Q/cmUtYmFieS1zaG9v/dC1tYXRlcm5pdHkt/cGhvdG9ncmFwaGVy/LU11bWJhaS1iYWJ5/LXNob3dlci1waG90/b3Nob290LWJhYnkt/YnVtcC1zaG9vdC1t/YXRlcm5pdHktcGhv/dG9zaG9vdC1tdW1i/YWktNDYuanBnP3Jl/c2l6ZT00MDAsMjg0/JnNzbD0x" },
+                { name: 'Fashion', category: 'fashion',image:"https://imgs.search.brave.com/ZAlDC5WmYUX19EoKtLQtPhxLHPvej-nhxR1zZMOcGFY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM4/OTkwNzExMy9waG90/by9idXNpbmVzcy13/b21hbi1wb3Npbmct/aW4tc3R1ZGlvLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz1S/V1V1eWhjY2M3dGkt/MDVoaHJ0d1BmX05K/Y1pHVUtIRFV3NHBN/Z3dCTXJnPQ" },
+                { name: 'New Born', category: 'newborn',image:"https://imgs.search.brave.com/V1_QODa20xTGozP77PCfiRho-hJZYxAo_FG2t7kKpTw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc3F1YXJlc3Bh/Y2UtY2RuLmNvbS9j/b250ZW50L3YxLzVl/ZGZjNTM5NjlkOGU5/NDExZDdlMjdmNS9h/ODBjMTY5ZS1kNDdk/LTQ3MjUtYmU4My1l/MTA5ZjBmYWNlMDkv/TmV3Ym9ybi1waG90/b3Nob290LWlkZWFz/LXdpdGgtcGFyZW50/cy0wMzEuSlBH" }
               ].map((category, index) => (
                 <div 
                   key={index} 
@@ -410,7 +365,7 @@ const Hero = ({ setCurrentPage }) => {
                   <div className="aspect-square rounded-2xl overflow-hidden border-3 border-[#B8860B]/60 group-hover:border-[#B8860B] transition-all duration-500 glass-golden flex items-center justify-center group-hover:from-[#B8860B]/70 group-hover:to-[#B8860B]/90 hover-lift shadow-xl group-hover:shadow-2xl group-hover:shadow-[#B8860B]/30 perspective-container">
                     <div className="text-center transform-3d">
                       <img 
-                        src={`https://picsum.photos/120/120?random=${index + 8}`}
+                        src={category.image}
                         alt={category.name}
                         className="w-16 h-16 lg:w-20 lg:h-20 object-cover rounded-lg mx-auto mb-2 hover-tilt"
                       />
@@ -433,7 +388,7 @@ const Hero = ({ setCurrentPage }) => {
                   <div className="aspect-square rounded-2xl overflow-hidden border-3 border-[#B8860B]/60 group-hover:border-[#B8860B] transition-all duration-500 glass-golden flex items-center justify-center group-hover:from-[#B8860B]/70 group-hover:to-[#B8860B]/90 hover-lift shadow-xl group-hover:shadow-2xl group-hover:shadow-[#B8860B]/30 perspective-container">
                     <div className="text-center transform-3d">
                       <img 
-                        src={`https://picsum.photos/120/120?random=12`}
+                        src={`https://imgs.search.brave.com/FlRH1-pduHolQNAElLP7kf-ZpFDRzPtqetM6g9QXdFM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzY2LzRl/Lzg2LzY2NGU4Njlk/YTRlMzhjYTNmZDRi/MzgwNmJjNjZlMzJk/LmpwZw`}
                         alt="Traditional"
                         className="w-16 h-16 lg:w-20 lg:h-20 object-cover rounded-lg mx-auto mb-2 hover-tilt"
                       />
@@ -450,11 +405,11 @@ const Hero = ({ setCurrentPage }) => {
           {/* Tablet and Desktop Layout */}
           <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-5 gap-6">
             {[
-              { name: 'Wedding', category: 'wedding' },
-              { name: 'Baby Shower', category: 'baby-shower' },
-              { name: 'Fashion', category: 'fashion' },
-              { name: 'New Born', category: 'newborn' },
-              { name: 'Traditional', category: 'traditional' }
+             { name: 'Wedding', category: 'wedding',image:"https://imgs.search.brave.com/vl_9e_AS_AYrYBA-RHYmnwtAyQEOIvkOxwS7_56GUL8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMjE2/ODcwNzg2OC9waG90/by9pbmRpYW4tY291/cGxlLWhvbGRpbmct/aGFuZC1jbG9zZS11/cC1pbi13ZWRkaW5n/LWNlcmVtb255Lndl/YnA_YT0xJmI9MSZz/PTYxMng2MTImdz0w/Jms9MjAmYz1Zb2hW/S2RtYkhsODVsNUl5/X3JldFpvN3VNRGg1/M2I3Qi1URXg1RW14/RjVjPQ" },
+                { name: 'Baby Shower', category: 'baby-shower',image:"https://imgs.search.brave.com/VKe72PFe0lEuLO5Lv_be8PjQvyc96CbnN1irt0VT6C0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pMC53/cC5jb20vYW1yaXRh/bW11LmNvbS93cC1j/b250ZW50L3VwbG9h/ZHMvMjAyMC8wNC9Q/cmUtYmFieS1zaG9v/dC1tYXRlcm5pdHkt/cGhvdG9ncmFwaGVy/LU11bWJhaS1iYWJ5/LXNob3dlci1waG90/b3Nob290LWJhYnkt/YnVtcC1zaG9vdC1t/YXRlcm5pdHktcGhv/dG9zaG9vdC1tdW1i/YWktNDYuanBnP3Jl/c2l6ZT00MDAsMjg0/JnNzbD0x" },
+                { name: 'Fashion', category: 'fashion',image:"https://imgs.search.brave.com/ZAlDC5WmYUX19EoKtLQtPhxLHPvej-nhxR1zZMOcGFY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTM4/OTkwNzExMy9waG90/by9idXNpbmVzcy13/b21hbi1wb3Npbmct/aW4tc3R1ZGlvLmpw/Zz9zPTYxMng2MTIm/dz0wJms9MjAmYz1S/V1V1eWhjY2M3dGkt/MDVoaHJ0d1BmX05K/Y1pHVUtIRFV3NHBN/Z3dCTXJnPQ" },
+                { name: 'New Born', category: 'newborn',image:"https://imgs.search.brave.com/V1_QODa20xTGozP77PCfiRho-hJZYxAo_FG2t7kKpTw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc3F1YXJlc3Bh/Y2UtY2RuLmNvbS9j/b250ZW50L3YxLzVl/ZGZjNTM5NjlkOGU5/NDExZDdlMjdmNS9h/ODBjMTY5ZS1kNDdk/LTQ3MjUtYmU4My1l/MTA5ZjBmYWNlMDkv/TmV3Ym9ybi1waG90/b3Nob290LWlkZWFz/LXdpdGgtcGFyZW50/cy0wMzEuSlBH" },
+              { name: 'Traditional', category: 'traditional',image:"https://imgs.search.brave.com/FlRH1-pduHolQNAElLP7kf-ZpFDRzPtqetM6g9QXdFM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzY2LzRl/Lzg2LzY2NGU4Njlk/YTRlMzhjYTNmZDRi/MzgwNmJjNjZlMzJk/LmpwZw" }
             ].map((category, index) => (
               <div 
                 key={index} 
@@ -464,7 +419,7 @@ const Hero = ({ setCurrentPage }) => {
                 <div className="aspect-square rounded-2xl overflow-hidden border-3 border-[#B8860B]/60 group-hover:border-[#B8860B] transition-all duration-500 glass-golden flex items-center justify-center group-hover:from-[#B8860B]/70 group-hover:to-[#B8860B]/90 hover-lift shadow-xl group-hover:shadow-2xl group-hover:shadow-[#B8860B]/30 perspective-container">
                   <div className="text-center transform-3d">
                     <img 
-                      src={`https://picsum.photos/120/120?random=${index + 8}`}
+                      src={category?.image}
                       alt={category.name}
                       className="w-16 h-16 lg:w-20 lg:h-20 object-cover rounded-lg mx-auto mb-2 hover-tilt"
                     />
@@ -566,9 +521,9 @@ const Hero = ({ setCurrentPage }) => {
                 description: 'Timeless wedding moments captured with artistic vision and emotional depth'
               },
               { 
-                name: 'Video Production', 
+                name: 'Event Photography', 
                 icon: HiDesktopComputer,
-                description: 'Cinematic storytelling that brings your special day to life'
+                description: 'Professional coverage of your special occasions and celebrations'
               },
               { 
                 name: 'Portrait Sessions', 
@@ -620,14 +575,14 @@ const Hero = ({ setCurrentPage }) => {
                   {
                     name: 'Essential',
                     price: '₹53,000',
-                    features: ['Wedding Album', '2 Premium Frames', 'HD Video Coverage', 'Custom Calendar','Candid Photography'],
+                    features: ['Wedding Album', '2 Premium Frames', 'Professional Editing', 'Custom Calendar','Candid Photography'],
                     popular: false,
                     description: 'Perfect for intimate celebrations'
                   },
                   {
                     name: 'Premium',
                     price: '₹90,000',
-                    features: ['2 Wedding Albums', '4 Premium Frames', 'Cinematic Video', '2 Custom Calendars', 'Online Gallery'],
+                    features: ['2 Wedding Albums', '4 Premium Frames', 'Professional Photo Editing', '2 Custom Calendars', 'Online Gallery'],
                     popular: true,
                     description: 'Most popular choice for couples'
                   },
@@ -662,7 +617,7 @@ const Hero = ({ setCurrentPage }) => {
                     
                     <div className="flex justify-center">
                       <a 
-                        href={`https://wa.me/919894969187?text=Hi! I'm interested in the ${pkg.name} photography package${pkg.name === 'Essential' ? ' for intimate celebrations' : pkg.name === 'Premium' ? ' (your most popular choice)' : ' - the complete luxury experience'}. The ${pkg.price} package includes ${pkg.features.slice(0,2).join(', ')} and more. Can you provide more details and check availability?`}
+                        href={`https://wa.me/919843535984?text=Hi! I'm interested in the ${pkg.name} photography package${pkg.name === 'Essential' ? ' for intimate celebrations' : pkg.name === 'Premium' ? ' (your most popular choice)' : ' - the complete luxury experience'}. The ${pkg.price} package includes ${pkg.features.slice(0,2).join(', ')} and more. Can you provide more details and check availability?`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="group bg-gradient-to-br from-[#B8860B] to-[#CD853F] text-[#111111] px-6 py-2 lg:py-3 rounded-full font-medium text-sm lg:text-base hover:from-[#DAA520] hover:to-[#B8860B] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#B8860B]/30 hover:shadow-xl hover:shadow-[#B8860B]/50 border border-[#B8860B]/30 hover-lift relative overflow-hidden tracking-wider inline-block text-center"
@@ -734,7 +689,7 @@ const Hero = ({ setCurrentPage }) => {
                   <HiPhone className="w-6 h-6 text-[#B8860B] flex-shrink-0 mt-1 group-hover:scale-110 transition-transform duration-300" />
                   <div>
                     <h5 className="text-[#B8860B] font-light text-lg mb-1">PHONE</h5>
-                    <span className="text-gray-300 font-light">+91 9894969187</span>
+                    <span className="text-gray-300 font-light">+91 98435 35984</span>
                   </div>
                 </div>
                 

@@ -9,6 +9,12 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
+// Debug Cloudinary configuration
+console.log('=== CLOUDINARY CONFIG DEBUG ===');
+console.log('Cloud Name:', process.env.CLOUDINARY_CLOUD_NAME);
+console.log('API Key:', process.env.CLOUDINARY_API_KEY);
+console.log('API Secret:', process.env.CLOUDINARY_API_SECRET ? 'Set' : 'Missing');
+
 // Configure Cloudinary storage for multer (Images)
 const imageStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
@@ -101,7 +107,8 @@ const uploadMedia = multer({
         return {
           folder: 'harsath-photography/videos',
           resource_type: 'video',
-          allowed_formats: ['mp4', 'mov', 'avi', 'mkv', 'webm', 'flv', 'm4v', '3gp'],
+          allowed_formats: ['mp4', 'mov', 'avi', 'mkv', 'webm', 'flv', 'm4v', '3gp', 'wmv'],
+          // Removed eager_async as it might be causing issues with multer-storage-cloudinary
           transformation: [
             {
               quality: 'auto',
@@ -116,10 +123,26 @@ const uploadMedia = multer({
     }
   }),
   fileFilter: (req, file, cb) => {
-    // Check file type
-    if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
+    console.log('File filter check:', {
+      fieldname: file.fieldname,
+      originalname: file.originalname,
+      mimetype: file.mimetype
+    });
+    
+    // Check file type by MIME type or file extension
+    const isVideo = file.mimetype.startsWith('video/') || 
+                   (file.mimetype === 'application/octet-stream' && 
+                    /\.(mp4|mov|avi|mkv|webm|flv|m4v|3gp|wmv)$/i.test(file.originalname));
+    
+    const isImage = file.mimetype.startsWith('image/') ||
+                   (file.mimetype === 'application/octet-stream' && 
+                    /\.(jpg|jpeg|png|gif|webp|bmp|tiff)$/i.test(file.originalname));
+    
+    if (isVideo || isImage) {
+      console.log('✅ File accepted:', file.originalname, file.mimetype);
       cb(null, true);
     } else {
+      console.log('❌ File rejected:', file.originalname, file.mimetype);
       cb(new Error('Only image and video files are allowed!'), false);
     }
   }

@@ -119,26 +119,57 @@ const About = () => {
           <h3 className="text-2xl md:text-3xl font-light text-[#B8860B] mb-6 tracking-wide">FOLLOW US ON INSTAGRAM</h3>
           <div className="w-16 h-0.5 bg-[#B8860B] mx-auto mb-8"></div>
           
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 max-w-5xl mx-auto mb-8">
-            {[...Array(12)].map((_, index) => (
-              <div key={index} className={`aspect-square overflow-hidden rounded-lg hover-lift animate-fadeInUp3D animate-delay-${(index + 1) * 50}`}>
+          {/* Instagram Account Display */}
+          <div className="max-w-md mx-auto">
+            <div className="glass-dark rounded-2xl p-8 border border-[#B8860B]/30 shadow-2xl">
+              {/* Profile Image */}
+              <div className="w-24 h-24 mx-auto mb-6 rounded-full overflow-hidden border-4 border-[#B8860B] shadow-lg">
                 <img 
-                  src={`https://picsum.photos/300/300?random=${index + 100}`}
-                  alt={`Instagram post ${index + 1}`}
-                  className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+                  src="https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=200&h=200&fit=crop"
+                  alt="Harsath Photography"
+                  className="w-full h-full object-cover"
                 />
               </div>
-            ))}
+              
+              {/* Account Info */}
+              <h4 className="text-xl font-light text-[#B8860B] mb-2">@harsath_photography</h4>
+              <p className="text-gray-300 mb-6 text-sm">
+                Professional Wedding & Portrait Photography<br />
+                📍 Coimbatore, Tamil Nadu<br />
+                📸 Capturing timeless moments since 2016
+              </p>
+              
+              {/* Stats */}
+              <div className="grid grid-cols-3 gap-4 mb-6 text-center">
+                <div>
+                  <div className="text-lg font-light text-white">347</div>
+                  <div className="text-xs text-gray-400">Posts</div>
+                </div>
+                <div>
+                  <div className="text-lg font-light text-white">2.8K</div>
+                  <div className="text-xs text-gray-400">Followers</div>
+                </div>
+                <div>
+                  <div className="text-lg font-light text-white">15.2K</div>
+                  <div className="text-xs text-gray-400">Likes</div>
+                </div>
+              </div>
+              
+              {/* Follow Button */}
+              <a 
+                href="https://www.instagram.com/harsath_photography" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center space-x-3 bg-gradient-to-r from-[#B8860B] to-[#DAA520] text-[#111111] px-8 py-3 rounded-full font-medium tracking-wide hover:scale-105 transition-all duration-300 hover-lift shadow-lg shadow-[#B8860B]/30"
+              >
+                <span>Follow on Instagram</span>
+              </a>
+            </div>
           </div>
           
-          <a 
-            href="https://www.instagram.com/harsath_photography" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-block bg-gradient-to-r from-[#B8860B] to-[#DAA520] text-[#111111] px-8 py-3 rounded-full font-medium tracking-wide hover:scale-105 transition-all duration-300 hover-lift"
-          >
-            View on Instagram
-          </a>
+          <p className="text-gray-400 mt-6 max-w-2xl mx-auto font-light text-sm">
+            Stay updated with our latest work and behind-the-scenes moments. Follow us for daily inspiration and recent photography sessions.
+          </p>
         </div>
 
         {/* Call to Action */}

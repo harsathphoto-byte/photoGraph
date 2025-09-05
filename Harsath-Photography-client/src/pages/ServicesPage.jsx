@@ -21,11 +21,6 @@ const ServicesPage = () => {
       description: 'Creative fashion shoots for models, brands, and fashion enthusiasts with modern aesthetics.'
     },
     {
-      image: 'https://picsum.photos/400/300?random=35',
-      title: 'Video Production',
-      description: 'Professional video production and editing services for all occasions and commercial needs.'
-    },
-    {
       image: 'https://picsum.photos/400/300?random=36',
       title: 'Photo Editing',
       description: 'Advanced photo retouching and enhancement services to make your images truly exceptional.'
@@ -120,7 +115,7 @@ const ServicesPage = () => {
                   
                   <div className="text-center">
                     <a 
-                      href={`https://wa.me/919894969187?text=Hi! I'm interested in your ${service.title.toLowerCase()} services. ${service.title === 'Wedding Photography' ? "I'd love to discuss capturing our special day with elegant and timeless photography." : service.title === 'Portrait Photography' ? "I need professional portraits - could be individual, family, or corporate headshots." : service.title === 'Event Photography' ? "I have an upcoming event and would like professional photography coverage." : service.title === 'Fashion Photography' ? "I'm looking for creative fashion photography with modern aesthetics." : service.title === 'Video Production' ? "I need professional video production and editing services." : "I'm interested in photo editing and enhancement services."} Can you share more details and pricing?`}
+                      href={`https://wa.me/919843535984?text=Hi! I'm interested in your ${service.title.toLowerCase()} services. ${service.title === 'Wedding Photography' ? "I'd love to discuss capturing our special day with elegant and timeless photography." : service.title === 'Portrait Photography' ? "I need professional portraits - could be individual, family, or corporate headshots." : service.title === 'Event Photography' ? "I have an upcoming event and would like professional photography coverage." : service.title === 'Fashion Photography' ? "I'm looking for creative fashion photography with modern aesthetics." : "I'm interested in photo editing and enhancement services."} Can you share more details and pricing?`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="glass-golden px-8 py-3 rounded-full font-light tracking-wider hover-lift transition-all duration-300 inline-block"
@@ -152,21 +147,21 @@ const ServicesPage = () => {
                 {
                   name: 'Essential',
                   price: '₹53,000',
-                  features: ['Wedding Album', '2 Premium Frames', 'HD Video Coverage', 'Custom Calendar','Candid Photography'],
+                  features: ['Wedding Album', '2 Premium Frames', 'Custom Calendar','Candid Photography', 'Digital Gallery'],
                   popular: false,
                   description: 'Perfect for intimate celebrations'
                 },
                 {
                   name: 'Premium',
                   price: '₹90,000',
-                  features: ['2 Wedding Albums', '4 Premium Frames', 'Cinematic Video', '2 Custom Calendars', 'Online Gallery'],
+                  features: ['2 Wedding Albums', '4 Premium Frames', '2 Custom Calendars', 'Online Gallery', 'Extended Coverage'],
                   popular: true,
                   description: 'Most popular choice for couples'
                 },
                 {
                   name: 'Luxury',
                   price: '₹1,59,000',
-                  features: ['Premium Albums', '6 Luxury Frames', 'Cinematic Production', 'Mini Albums', 'Drone Coverage'],
+                  features: ['Premium Albums', '6 Luxury Frames', 'Professional Editing', 'Mini Albums', 'Drone Coverage'],
                   popular: false,
                   description: 'Complete luxury experience'
                 }
@@ -194,7 +189,7 @@ const ServicesPage = () => {
                   
                   <div className="flex justify-center">
                     <a 
-                      href={`https://wa.me/919894969187?text=Hi! I'm interested in the ${pkg.name} photography package${pkg.name === 'Essential' ? ' for intimate celebrations' : pkg.name === 'Premium' ? ' (your most popular choice)' : ' - the complete luxury experience'}. The ${pkg.price} package includes ${pkg.features.slice(0,2).join(', ')} and more. Can you provide more details and check availability?`}
+                      href={`https://wa.me/919843535984?text=Hi! I'm interested in the ${pkg.name} photography package${pkg.name === 'Essential' ? ' for intimate celebrations' : pkg.name === 'Premium' ? ' (your most popular choice)' : ' - the complete luxury experience'}. The ${pkg.price} package includes ${pkg.features.slice(0,2).join(', ')} and more. Can you provide more details and check availability?`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group bg-gradient-to-br from-[#B8860B] to-[#CD853F] text-[#111111] px-6 py-2 lg:py-3 rounded-full font-medium text-sm lg:text-base hover:from-[#DAA520] hover:to-[#B8860B] transition-all duration-300 hover:scale-105 shadow-lg shadow-[#B8860B]/30 hover:shadow-xl hover:shadow-[#B8860B]/50 border border-[#B8860B]/30 hover-lift relative overflow-hidden tracking-wider inline-block text-center"
@@ -277,7 +272,7 @@ const ServicesPage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <a 
-                href="https://wa.me/919894969187?text=Hi! I'd like to get a quote for your photography services. Can you help me?"
+                href="https://wa.me/919843535984?text=Hi! I'd like to get a quote for your photography services. Can you help me?"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="glass-golden px-12 py-4 rounded-full font-light tracking-wider hover-lift transition-all duration-300"
@@ -285,7 +280,7 @@ const ServicesPage = () => {
                 WhatsApp Quote
               </a>
               <a 
-                href="tel:+919894969187" 
+                href="tel:+919843535984" 
                 className="glass-dark px-12 py-4 rounded-full font-light tracking-wider hover-lift transition-all duration-300 border border-[#B8860B]/30"
               >
                 Call Now

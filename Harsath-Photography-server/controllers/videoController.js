@@ -5,17 +5,11 @@ const {
   generateVideoTransformations 
 } = require('../config/cloudinary');
 const { validationResult } = require('express-validator');
-const VideoProcessor = require('../middleware/videoProcessor');
 
 class VideoController {
   // Upload a new video
   static async uploadVideo(req, res) {
     try {
-      console.log('=== VIDEO UPLOAD REQUEST ===');
-      console.log('User:', req.user ? req.user._id : 'No user');
-      console.log('File:', req.file ? 'File present' : 'No file');
-      console.log('Body:', req.body);
-
       // Check for validation errors
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -33,47 +27,21 @@ class VideoController {
         });
       }
 
-      // Process and validate video
-      let processedFile;
-      try {
-        processedFile = await VideoProcessor.processVideo(req.file, {
-          maxSizeInMB: 100,
-          maxDurationInSeconds: 600 // 10 minutes max
-        });
-        console.log('✅ Video processing successful');
-      } catch (processingError) {
-        console.log('❌ Video processing failed:', processingError.message);
-        return res.status(400).json({
-          success: false,
-          message: `Video processing failed: ${processingError.message}`,
-          recommendations: VideoProcessor.getCompressionRecommendations(req.file)
-        });
-      }
-
       const { category, locationName } = req.body;
 
-      // Create video document with processed metadata
+      // Create video document
       const video = new Video({
         title: `Video - ${category || 'general'}`, // Auto-generate title from category
         description: '', // Default empty description
         category: category || 'general',
         tags: [], // Default empty tags
         location: locationName ? { name: locationName } : {},
-        cloudinaryId: req.file.filename || req.file.public_id,
-        url: req.file.path || req.file.secure_url,
+        cloudinaryId: req.file.filename,
+        url: req.file.path,
         fileSize: req.file.size,
         format: req.file.format,
         uploadedBy: req.user.userId,
-        isPrivate: false, // Default to public since private option was removed
-        // Add processed video metadata
-        metadata: processedFile.metadata || {
-          duration: null,
-          bitrate: null,
-          width: null,
-          height: null,
-          fps: null
-        },
-        processed: processedFile.processed || false
+        isPrivate: false // Default to public since private option was removed
       });
 
       await video.save();
@@ -115,7 +83,18 @@ class VideoController {
   // Upload media (image or video)
   static async uploadMedia(req, res) {
     try {
+      console.log('=== UPLOAD MEDIA DEBUG ===');
+      console.log('File:', req.file ? {
+        fieldname: req.file.fieldname,
+        originalname: req.file.originalname,
+        mimetype: req.file.mimetype,
+        size: req.file.size
+      } : 'No file');
+      console.log('Body:', req.body);
+      console.log('User:', req.user ? { id: req.user._id, username: req.user.username } : 'No user');
+      
       if (!req.file) {
+        console.log('Error: No file provided');
         return res.status(400).json({
           success: false,
           message: 'No media file provided'
@@ -124,14 +103,31 @@ class VideoController {
 
       // Check if user is authenticated
       if (!req.user) {
+        console.log('Error: No authenticated user');
         return res.status(401).json({
           success: false,
           message: 'User authentication required'
         });
       }
 
-      const { category, locationName } = req.body;
+      // Validate file size (100MB limit for videos, 10MB for images)
       const isVideo = req.file.mimetype.startsWith('video/');
+      const maxSize = isVideo ? 100 * 1024 * 1024 : 10 * 1024 * 1024; // 100MB for videos, 10MB for images
+      
+      if (req.file.size > maxSize) {
+        console.log('Error: File too large:', req.file.size, 'Max allowed:', maxSize);
+        return res.status(400).json({
+          success: false,
+          message: `File size too large. Maximum size is ${isVideo ? '100MB for videos' : '10MB for images'}.`
+        });
+      }
+
+      const { category, locationName } = req.body;
+      
+      console.log('File type detected:', isVideo ? 'video' : 'image');
+      console.log('MIME type:', req.file.mimetype);
+      console.log('File size:', req.file.size);
+      console.log('Category:', category);
 
       let mediaDocument;
 
@@ -146,6 +142,8 @@ class VideoController {
         const validCategories = ['wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'];
         const validCategory = validCategories.includes(category) ? category : 'traditional';
         
+        console.log('Creating video document with format:', format);
+        
         mediaDocument = new Video({
           title: `Video - ${validCategory}`, // Auto-generate title from category
           description: '', // Default empty description
@@ -156,7 +154,7 @@ class VideoController {
           url: req.file.path,
           fileSize: req.file.size,
           format: format,
-          uploadedBy: req.user._id, // Use the user's MongoDB _id
+          uploadedBy: req.user._id || req.user.userId, // Handle both possible user ID formats
           isPrivate: false // Default to public since private option was removed
         });
       } else {
@@ -170,6 +168,8 @@ class VideoController {
         const validCategories = ['wedding', 'baby-shower', 'fashion', 'newborn', 'traditional'];
         const validCategory = validCategories.includes(category) ? category : 'traditional';
         
+        console.log('Creating photo document with format:', format);
+        
         mediaDocument = new Photo({
           title: `Photo - ${validCategory}`, // Auto-generate title from category
           description: '', // Default empty description
@@ -180,42 +180,84 @@ class VideoController {
           url: req.file.path,
           fileSize: req.file.size,
           format: format,
-          uploadedBy: req.user._id, // Use the user's MongoDB _id
+          uploadedBy: req.user._id || req.user.userId, // Handle both possible user ID formats
           isPrivate: false // Default to public since private option was removed
         });
       }
 
+      console.log('Saving media document to database...');
       await mediaDocument.save();
+      
+      console.log('Media document saved successfully:', mediaDocument._id);
 
-      // Generate transformation URLs
-      const transformations = isVideo 
-        ? generateVideoTransformations(req.file.filename)
-        : require('../config/cloudinary').generateImageTransformations(req.file.filename);
+      // For videos, provide a note about processing time
+      let transformations = {};
+      try {
+        transformations = isVideo 
+          ? require('../config/cloudinary').generateVideoTransformations(req.file.filename)
+          : require('../config/cloudinary').generateImageTransformations(req.file.filename);
+      } catch (transformError) {
+        console.log('Transformations generation error:', transformError.message);
+        transformations = {
+          note: isVideo ? 'Video transformations will be available after processing.' : 'Image transformations not available.'
+        };
+      }
+
+      console.log('Upload successful, returning response');
 
       res.status(201).json({
         success: true,
-        message: `${isVideo ? 'Video' : 'Photo'} uploaded successfully`,
+        message: `${isVideo ? 'Video' : 'Photo'} uploaded successfully${isVideo ? '. Large videos may take time to process.' : ''}`,
         data: {
           [isVideo ? 'video' : 'photo']: {
             ...mediaDocument.toObject(),
-            transformations
+            transformations,
+            ...(isVideo && { 
+              processing_note: 'Large videos are processed by Cloudinary in the background. The video is immediately available but optimized versions may take a few minutes.' 
+            })
           },
           type: isVideo ? 'video' : 'photo'
         }
       });
 
     } catch (error) {
-      console.error('Media upload error:', error);
+      console.error('=== MEDIA UPLOAD ERROR ===');
+      console.error('Error message:', error.message);
+      console.error('Error stack:', error.stack);
+      console.error('File info:', req.file);
+      console.error('User info:', req.user);
+      
+      // Check for Cloudinary signature errors
+      if (error.message && error.message.includes('Invalid Signature')) {
+        console.error('CLOUDINARY CREDENTIALS ERROR: The API secret appears to be incorrect');
+        return res.status(500).json({
+          success: false,
+          message: 'Cloudinary configuration error. Please check API credentials.',
+          error: process.env.NODE_ENV === 'development' ? error.message : 'Media upload service unavailable'
+        });
+      }
+
+      // Check for Cloudinary async processing errors
+      if (error.message && error.message.includes('too large to process synchronously')) {
+        console.error('CLOUDINARY ASYNC ERROR: File too large for sync processing');
+        return res.status(400).json({
+          success: false,
+          message: 'Video file is too large. Please try with a smaller file (under 100MB) or compress the video.',
+          error: process.env.NODE_ENV === 'development' ? error.message : 'File too large for processing'
+        });
+      }
       
       // If media was uploaded to Cloudinary but DB save failed, clean up
       if (req.file && req.file.filename) {
         try {
+          console.log('Attempting to cleanup uploaded file:', req.file.filename);
           const isVideo = req.file.mimetype.startsWith('video/');
           if (isVideo) {
             await deleteVideo(req.file.filename);
           } else {
             await require('../config/cloudinary').deleteImage(req.file.filename);
           }
+          console.log('Cleanup successful');
         } catch (cleanupError) {
           console.error('Failed to cleanup media after error:', cleanupError);
         }
@@ -224,7 +266,12 @@ class VideoController {
       res.status(500).json({
         success: false,
         message: 'Failed to upload media',
-        error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error'
+        error: process.env.NODE_ENV === 'development' ? error.message : 'Internal server error',
+        details: process.env.NODE_ENV === 'development' ? {
+          stack: error.stack,
+          file: req.file,
+          user: req.user
+        } : undefined
       });
     }
   }

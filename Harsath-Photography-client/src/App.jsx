@@ -21,6 +21,7 @@ import ServicesPage from './pages/ServicesPage'
 import ContactPage from './pages/ContactPage'
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import InstagramApiTest from './components/InstagramApiTest'
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home')
@@ -30,7 +31,7 @@ function App() {
   // Function to get page from URL hash
   const getPageFromUrl = () => {
     const hash = window.location.hash.replace('#', '')
-    const validPages = ['home', 'about', 'gallery', 'photos', 'videos', 'services', 'contact', 'login', 'register']
+    const validPages = ['home', 'about', 'gallery', 'photos', 'services', 'contact', 'login', 'register', 'instagram-test']
     return validPages.includes(hash) ? hash : 'home'
   }
 
@@ -94,12 +95,12 @@ function App() {
         return <GalleryPage />
       case 'photos':
         return <GalleryPage initialSection="photos" />
-      case 'videos':
-        return <GalleryPage initialSection="videos" />
       case 'services':
         return <ServicesPage />
       case 'contact':
         return <ContactPage />
+      case 'instagram-test':
+        return <InstagramApiTest />
       case 'login':
         return <LoginPage setCurrentPage={setCurrentPageWithUrl} />
       case 'register':
@@ -165,7 +166,7 @@ function App() {
 
         {/* Floating WhatsApp Button */}
         <a 
-          href="https://wa.me/919894969187?text=Hi! I'm interested in your photography services."
+          href="https://wa.me/919843535984?text=Hi! I'm interested in your photography services."
           target="_blank"
           rel="noopener noreferrer"
           className="fixed bottom-8 right-8 z-[99999] group w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-lg hover:shadow-green-500/30 hover:scale-110 transition-all duration-300 hover:bg-green-600"

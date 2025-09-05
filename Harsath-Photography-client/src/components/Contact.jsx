@@ -25,9 +25,9 @@ const Contact = () => {
     {
       icon: HiPhone,
       title: 'Phone',
-      info: '+91 XXXXX XXXXX',
+      info: '+91 98435 35984',
       subInfo: 'Available 9 AM - 8 PM',
-      action: 'tel:+91XXXXXXXXX'
+      action: 'tel:+919843535984'
     },
     {
       icon: HiMail,
@@ -53,7 +53,7 @@ const Contact = () => {
   ]
 
   const socialLinks = [
-    { icon: FaInstagram, name: 'Instagram', link: '#', color: 'from-purple-500 to-pink-500' },
+    { icon: FaInstagram, name: 'Instagram', link: 'https://www.instagram.com/harsath_photography', color: 'from-purple-500 to-pink-500' },
     { icon: FaWhatsapp, name: 'WhatsApp', link: '#', color: 'from-green-500 to-green-600' },
     { icon: FaFacebook, name: 'Facebook', link: '#', color: 'from-blue-500 to-blue-600' }
   ]
@@ -155,7 +155,7 @@ const Contact = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     className="w-full px-4 py-3 bg-[#111111] border border-[#B8860B]/30 rounded-lg text-white placeholder-gray-400 focus:border-[#B8860B] focus:outline-none transition-colors"
-                    placeholder="+91 XXXXX XXXXX"
+                    placeholder="+91 98435 35984"
                   />
                 </div>
                 <div>

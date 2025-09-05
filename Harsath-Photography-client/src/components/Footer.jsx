@@ -22,17 +22,16 @@ const Footer = () => {
     { name: 'Contact', href: '#contact' }
   ]
 
-  const services = [
+    const services = [
     'Wedding Photography',
     'Portrait Sessions',
     'Commercial Shoots',
     'Event Coverage',
-    'Photo Editing',
-    'Video Production'
+    'Photo Editing'
   ]
 
   const socialLinks = [
-    { icon: FaInstagram, name: 'Instagram', href: '#', color: 'hover:text-pink-400' },
+    { icon: FaInstagram, name: 'Instagram', href: 'https://www.instagram.com/harsath_photography', color: 'hover:text-pink-400' },
     { icon: FaFacebook, name: 'Facebook', href: '#', color: 'hover:text-blue-400' },
     { icon: FaWhatsapp, name: 'WhatsApp', href: '#', color: 'hover:text-green-400' },
     { icon: FaTwitter, name: 'Twitter', href: '#', color: 'hover:text-blue-300' }
@@ -70,7 +69,7 @@ const Footer = () => {
                   <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
                     <HiPhone className="w-5 h-5" />
                   </div>
-                  <span className="font-light tracking-wide">+91 XXXXX XXXXX</span>
+                  <span className="font-light tracking-wide">+91 98435 35984</span>
                 </div>
                 <div className="flex items-center space-x-4 text-gray-300 hover:text-[#B8860B] transition-colors duration-500 group">
                   <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
