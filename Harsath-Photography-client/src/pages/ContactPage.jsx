@@ -230,7 +230,7 @@ const ContactPage = () => {
                     <h4 className="text-[#B8860B] font-light text-lg mb-2">Studio Address</h4>
                     <p className="text-gray-300 font-light leading-relaxed">
                       No.8, Canara Bank Opp<br />
-                      Ugur, Coimbatore<br />
+                      Irugur, Coimbatore<br />
                       Tamil Nadu - 641017
                     </p>
                   </div>

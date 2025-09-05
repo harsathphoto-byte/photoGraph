@@ -1,27 +1,29 @@
+import portrate from "../assets/portrate.jpg"
+
 const ServicesPage = () => {
   const services = [
     {
-      image: 'https://picsum.photos/400/300?random=31',
+      image: 'https://imgs.search.brave.com/vl_9e_AS_AYrYBA-RHYmnwtAyQEOIvkOxwS7_56GUL8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvMjE2/ODcwNzg2OC9waG90/by9pbmRpYW4tY291/cGxlLWhvbGRpbmct/aGFuZC1jbG9zZS11/cC1pbi13ZWRkaW5n/LWNlcmVtb255Lndl/YnA_YT0xJmI9MSZz/PTYxMng2MTImdz0w/Jms9MjAmYz1Zb2hW/S2RtYkhsODVsNUl5/X3JldFpvN3VNRGg1/M2I3Qi1URXg1RW14/RjVjPQ',
       title: 'Wedding Photography',
       description: 'Capture your special day with elegant and timeless wedding photography that tells your unique love story.'
     },
     {
-      image: 'https://picsum.photos/400/300?random=32',
+      image: "https://drop.ndtv.com/albums/NEWS/dogmnfs/soundarya_015614_205645_8484.jpg",
       title: 'Portrait Photography',
       description: 'Professional portraits for individuals, families, and corporate headshots with artistic flair.'
     },
     {
-      image: 'https://picsum.photos/400/300?random=33',
+      image: 'https://www.photo8.co.uk/wp-content/uploads/2020/01/Birmingham-event-photographer.jpg',
       title: 'Event Photography',
       description: 'Document your special events with professional event photography and candid storytelling.'
     },
     {
-      image: 'https://picsum.photos/400/300?random=34',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgWcl1tPtI5eeuTHxiTx7dGPwoDiYuEn_evw&s',
       title: 'Fashion Photography',
       description: 'Creative fashion shoots for models, brands, and fashion enthusiasts with modern aesthetics.'
     },
     {
-      image: 'https://picsum.photos/400/300?random=36',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMnqNg0X2Pi6Zld72vnhv1qL9XKcCT-ssfJw&s',
       title: 'Photo Editing',
       description: 'Advanced photo retouching and enhancement services to make your images truly exceptional.'
     }

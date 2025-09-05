@@ -1,3 +1,5 @@
+import img from "../assets/img.PNG"
+
 const About = () => {
   return (
     <div className="bg-animated page-bg-about relative px-4 pt-32 lg:pt-40 pb-12 md:pb-16 lg:pb-20 min-h-screen perspective-container">
@@ -43,7 +45,7 @@ const About = () => {
         <div className="mb-16 animate-fadeInUp3D animate-delay-300">
           <div className="relative rounded-2xl overflow-hidden glass-dark hover-lift perspective-container max-w-5xl mx-auto">
             <img 
-              src="https://picsum.photos/1200/600?random=50" 
+              src={img}
               alt="Harsath Photography - Creative Wedding Photography" 
               className="w-full h-64 md:h-80 lg:h-96 object-cover hover:scale-105 transition-transform duration-700"
             />

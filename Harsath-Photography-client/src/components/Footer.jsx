@@ -32,9 +32,7 @@ const Footer = () => {
 
   const socialLinks = [
     { icon: FaInstagram, name: 'Instagram', href: 'https://www.instagram.com/harsath_photography', color: 'hover:text-pink-400' },
-    { icon: FaFacebook, name: 'Facebook', href: '#', color: 'hover:text-blue-400' },
-    { icon: FaWhatsapp, name: 'WhatsApp', href: '#', color: 'hover:text-green-400' },
-    { icon: FaTwitter, name: 'Twitter', href: '#', color: 'hover:text-blue-300' }
+    { icon: FaWhatsapp, name: 'WhatsApp', href: 'https://wa.me/919843535984', color: 'hover:text-green-400' },
   ]
 
   return (

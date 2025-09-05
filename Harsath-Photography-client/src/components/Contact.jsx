@@ -55,7 +55,7 @@ const Contact = () => {
   const socialLinks = [
     { icon: FaInstagram, name: 'Instagram', link: 'https://www.instagram.com/harsath_photography', color: 'from-purple-500 to-pink-500' },
     { icon: FaWhatsapp, name: 'WhatsApp', link: '#', color: 'from-green-500 to-green-600' },
-    { icon: FaFacebook, name: 'Facebook', link: '#', color: 'from-blue-500 to-blue-600' }
+    
   ]
 
   const handleInputChange = (e) => {
