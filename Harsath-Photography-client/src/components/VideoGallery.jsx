@@ -114,12 +114,14 @@ const VideoGallery = ({ category, userId, featured, onVideoClick }) => {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {/* Pinterest-style Video Masonry Layout - Mobile Optimized */}
+          <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-1 sm:gap-2 md:gap-3 lg:gap-4">
             {videos.map((video) => (
               <div
                 key={video._id}
-                className="group relative bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-800"
+                className="masonry-container group relative bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-800 break-inside-avoid mb-1 sm:mb-2 md:mb-3 lg:mb-4"
                 onClick={() => onVideoClick && onVideoClick(video)}
+                style={{ breakInside: 'avoid' }}
               >
                 {/* Admin Delete Button */}
                 {user && user.role === 'admin' && (

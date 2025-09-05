@@ -176,20 +176,20 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
     }
   }, [filters.search]);
 
-  // Function to get CSS Grid item classes for variety
-  const getGridItemClass = (index) => {
-    // Create varied height pattern for Instagram-like feed
-    const patterns = [
-      'photo-grid-item', 
-      'photo-grid-item', 
-      'photo-grid-item photo-tall', 
-      'photo-grid-item',
-      'photo-grid-item',
-      'photo-grid-item',
-      'photo-grid-item photo-tall',
-      'photo-grid-item',
+  // Function to get random height classes for Pinterest-style masonry effect
+  const getMasonryItemClass = (index) => {
+    // Pinterest-style varied heights - mobile first approach
+    const heightClasses = [
+      'h-48 sm:h-56 md:h-64',    // Short
+      'h-64 sm:h-72 md:h-80',    // Medium
+      'h-80 sm:h-96 md:h-112',   // Tall
+      'h-56 sm:h-64 md:h-72',    // Medium-short
+      'h-72 sm:h-80 md:h-96',    // Medium-tall
+      'h-60 sm:h-68 md:h-76',    // Varied
+      'h-96 sm:h-112 md:h-128',  // Very tall
+      'h-52 sm:h-60 md:h-68',    // Short-medium
     ];
-    return patterns[index % patterns.length];
+    return heightClasses[index % heightClasses.length];
   };
 
   return (
@@ -207,13 +207,14 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
         </div>
       ) : (
         <>
-          {/* Custom CSS Grid Layout */}
-          <div className="photo-grid-container">
+          {/* Pinterest-style Masonry Layout - Mobile Optimized */}
+          <div className="columns-2 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 2xl:columns-6 gap-1 sm:gap-2 md:gap-3 lg:gap-4">
             {photos.map((photo, index) => (
               <div
                 key={photo._id}
-                className={`${getGridItemClass(index)} group relative bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-800`}
+                className={`${getMasonryItemClass(index)} masonry-container group relative bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-800 break-inside-avoid mb-1 sm:mb-2 md:mb-3 lg:mb-4`}
                 onClick={() => onPhotoClick && onPhotoClick(photo)}
+                style={{ breakInside: 'avoid' }}
               >
                 {/* Admin Delete Button */}
                 {user && user.role === 'admin' && (
@@ -237,6 +238,18 @@ const PhotoGallery = ({ category, userId, featured, onPhotoClick }) => {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
                   />
+                </div>
+
+                {/* Optional: Photo Info Overlay */}
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <h3 className="text-white text-sm font-medium truncate">
+                    {photo.title}
+                  </h3>
+                  {photo.locationName && (
+                    <p className="text-gray-300 text-xs truncate">
+                      📍 {photo.locationName}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
