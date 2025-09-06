@@ -680,7 +680,7 @@ const Hero = ({ setCurrentPage }) => {
                   <HiLocationMarker className="w-6 h-6 text-[#B8860B] flex-shrink-0 mt-1 group-hover:scale-110 transition-transform duration-300" />
                   <div>
                     <h5 className="text-[#B8860B] font-light text-lg mb-1">STUDIO ADDRESS</h5>
-                    <span className="text-gray-300 font-light leading-relaxed">No.8, Canara Bank Opp, Ugur, Coimbatore</span>
+                    <span className="text-gray-300 font-light leading-relaxed">No.8, Canara Bank Opp, Irugur, Coimbatore</span>
                   </div>
                 </div>
                 

@@ -6,6 +6,7 @@ import { HiArrowUp } from "@react-icons/all-files/hi/HiArrowUp"
 import { FaInstagram } from "@react-icons/all-files/fa/FaInstagram"
 import { FaWhatsapp } from "@react-icons/all-files/fa/FaWhatsapp"
 import { FaFacebook } from "@react-icons/all-files/fa/FaFacebook"
+import { FaYoutube } from "@react-icons/all-files/fa/FaYoutube"
 import { FaTwitter } from "@react-icons/all-files/fa/FaTwitter"
 import { config } from '../config/env'
 
@@ -31,8 +32,34 @@ const Footer = () => {
   ]
 
   const socialLinks = [
-    { icon: FaInstagram, name: 'Instagram', href: 'https://www.instagram.com/harsath_photography', color: 'hover:text-pink-400' },
-    { icon: FaWhatsapp, name: 'WhatsApp', href: 'https://wa.me/919843535984', color: 'hover:text-green-400' },
+    { 
+      icon: FaInstagram, 
+      name: 'Instagram', 
+      href: 'https://www.instagram.com/harsath_photography', 
+      defaultColor: 'bg-gradient-to-br from-purple-500 via-pink-500 to-orange-500',
+      hoverColor: 'hover:from-purple-600 hover:via-pink-600 hover:to-orange-600'
+    },
+    { 
+      icon: FaWhatsapp, 
+      name: 'WhatsApp', 
+      href: 'https://wa.me/919843535984', 
+      defaultColor: 'bg-green-500',
+      hoverColor: 'hover:bg-green-600'
+    },
+    { 
+      icon: FaFacebook, 
+      name: 'Facebook', 
+      href: 'https://www.facebook.com/harsathphotography', 
+      defaultColor: 'bg-blue-600',
+      hoverColor: 'hover:bg-blue-700'
+    },
+    { 
+      icon: FaYoutube, 
+      name: 'YouTube', 
+      href: 'https://www.youtube.com/@harsathphotography', 
+      defaultColor: 'bg-red-600',
+      hoverColor: 'hover:bg-red-700'
+    },
   ]
 
   return (
@@ -79,7 +106,7 @@ const Footer = () => {
                   <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
                     <HiLocationMarker className="w-5 h-5" />
                   </div>
-                  <span className="font-light tracking-wide">Chennai, Tamil Nadu, India</span>
+                  <span className="font-light tracking-wide">Coimbatore, Tamil Nadu, India</span>
                 </div>
               </div>
             </div>
@@ -130,7 +157,7 @@ const Footer = () => {
                       <a
                         key={index}
                         href={social.href}
-                        className="w-14 h-14 glass-dark rounded-full flex items-center justify-center text-gray-300 hover:glass-golden hover:text-black hover:scale-110 transition-all duration-500 hover-lift"
+                        className={`w-14 h-14 ${social.defaultColor} ${social.hoverColor} rounded-full flex items-center justify-center text-white hover:scale-110 transition-all duration-500 hover-lift border border-transparent shadow-lg`}
                         aria-label={social.name}
                       >
                         <IconComponent className="w-6 h-6" />
