@@ -20,6 +20,8 @@ const Gallery = ({ initialSection = 'photos' }) => {
   })
   
   const [selectedPhoto, setSelectedPhoto] = useState(null)
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0)
+  const [photos, setPhotos] = useState([])
 
   // Ref for PhotoGallery to trigger refresh
   const photoGalleryRef = useRef(null)
@@ -51,13 +53,17 @@ const Gallery = ({ initialSection = 'photos' }) => {
   ]
 
   // Handle photo click
-  const handlePhotoClick = (photo) => {
+  const handlePhotoClick = (photo, photoIndex, photosArray) => {
     setSelectedPhoto(photo)
+    setSelectedPhotoIndex(photoIndex)
+    setPhotos(photosArray || [])
   }
 
   // Close modal
   const closePhotoModal = () => {
     setSelectedPhoto(null)
+    setSelectedPhotoIndex(0)
+    setPhotos([])
   }
 
   // Update active section when initialSection prop changes
@@ -123,7 +129,12 @@ const Gallery = ({ initialSection = 'photos' }) => {
 
         {/* Photo Modal */}
         {selectedPhoto && (
-          <PhotoModal photo={selectedPhoto} onClose={closePhotoModal} />
+          <PhotoModal 
+            photo={selectedPhoto} 
+            photos={photos}
+            currentIndex={selectedPhotoIndex}
+            onClose={closePhotoModal} 
+          />
         )}
 
       </div>

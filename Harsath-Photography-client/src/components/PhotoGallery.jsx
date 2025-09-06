@@ -250,7 +250,7 @@ const PhotoGallery = forwardRef(({ category, userId, featured, onPhotoClick }, r
               <div
                 key={photo._id}
                 className={`${getMasonryItemClass(index)} masonry-container group relative bg-gray-900 rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border border-gray-800 break-inside-avoid mb-1 sm:mb-2 md:mb-3 lg:mb-4`}
-                onClick={() => onPhotoClick && onPhotoClick(photo)}
+                onClick={() => onPhotoClick && onPhotoClick(photo, index, photos)}
                 style={{ breakInside: 'avoid' }}
               >
                 {/* Admin Delete Button */}
@@ -260,7 +260,7 @@ const PhotoGallery = forwardRef(({ category, userId, featured, onPhotoClick }, r
                       e.stopPropagation();
                       handleDelete(photo._id, photo.title);
                     }}
-                    className="absolute top-2 right-2 z-10 w-8 h-8 bg-red-600 text-white rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center hover:bg-red-700"
+                    className="absolute top-2 right-2 z-10 w-8 h-8 bg-red-600 text-white rounded-full opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center hover:bg-red-700 shadow-lg"
                     title="Delete Photo"
                   >
                     ×
