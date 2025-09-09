@@ -310,7 +310,7 @@ const Hero = ({ setCurrentPage }) => {
             
             <div className="space-y-4">
               <h1 className="text-white text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-light mb-4 animate-slideIn3D animate-delay-100 tracking-wide">
-                HARSATH
+                Harsath Arulkumar B.sc, MBA
               </h1>
               <div className="w-24 h-0.5 bg-[#B8860B] mx-auto mb-6"></div>
               <p className="text-[#B8860B] text-lg lg:text-xl xl:text-2xl font-light mb-8 animate-slideIn3D animate-delay-200 tracking-wider">
@@ -696,7 +696,7 @@ const Hero = ({ setCurrentPage }) => {
                   <HiMail className="w-6 h-6 text-[#B8860B] flex-shrink-0 mt-1 group-hover:scale-110 transition-transform duration-300" />
                   <div>
                     <h5 className="text-[#B8860B] font-light text-lg mb-1">EMAIL</h5>
-                    <span className="text-gray-300 font-light">harsath@gmail.com</span>
+                    <span className="text-gray-300 font-light">harsathphotography@gmail.com</span>
                   </div>
                 </div>
               </div>

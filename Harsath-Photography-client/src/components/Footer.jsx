@@ -49,7 +49,7 @@ const Footer = () => {
     { 
       icon: FaFacebook, 
       name: 'Facebook', 
-      href: 'https://www.facebook.com/harsathphotography', 
+      href: 'https://www.facebook.com/share/17MLGEb5YH/?mibextid=wwXIfr', 
       defaultColor: 'bg-blue-600',
       hoverColor: 'hover:bg-blue-700'
     },
@@ -100,7 +100,7 @@ const Footer = () => {
                   <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">
                     <HiMail className="w-5 h-5" />
                   </div>
-                  <span className="font-light tracking-wide">hello@harsathphotography.com</span>
+                  <span className="font-light tracking-wide">harsathphotography@gmail.com</span>
                 </div>
                 <div className="flex items-center space-x-4 text-gray-300 hover:text-[#B8860B] transition-colors duration-500 group">
                   <div className="w-10 h-10 glass-dark rounded-full flex items-center justify-center group-hover:glass-golden transition-all duration-500">

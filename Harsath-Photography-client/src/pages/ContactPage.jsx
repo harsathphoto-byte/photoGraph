@@ -32,7 +32,7 @@ const ContactPage = () => {
     { 
       icon: FaFacebook, 
       name: 'Facebook', 
-      href: 'https://www.facebook.com/harsathphotography', 
+      href: 'https://www.facebook.com/share/17MLGEb5YH/?mibextid=wwXIfr', 
       defaultColor: 'bg-blue-600',
       hoverColor: 'hover:bg-blue-700'
     },
@@ -295,7 +295,7 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h4 className="text-[#B8860B] font-light text-lg mb-2">Email</h4>
-                    <p className="text-gray-300 font-light">harsath@photography.com</p>
+                    <p className="text-gray-300 font-light">harsathphotography@gmail.com</p>
                     <p className="text-gray-400 text-sm">We reply within 24 hours</p>
                   </div>
                 </div>

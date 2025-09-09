@@ -32,9 +32,9 @@ const Contact = () => {
     {
       icon: HiMail,
       title: 'Email',
-      info: 'hello@harsathphotography.com',
+      info: 'harsathphotography@gmail.com',
       subInfo: 'Response within 24 hours',
-      action: 'mailto:hello@harsathphotography.com'
+      action: 'mailto:harsathphotography@gmail.com'
     },
     {
       icon: HiLocationMarker,

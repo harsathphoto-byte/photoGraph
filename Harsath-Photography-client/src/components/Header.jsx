@@ -563,7 +563,7 @@ const Header = ({ currentPage, setCurrentPage }) => {
                   <HiPhone className="w-3.5 h-3.5 group-hover:scale-110 transition-transform" />
                 </a>
                 <a 
-                  href="mailto:hello@harsathphotography.com" 
+                  href="mailto:harsathphotography@gmail.com" 
                   className="flex-1 flex items-center justify-center p-2 bg-[#B8860B]/10 rounded-md text-[#B8860B] hover:bg-[#B8860B] hover:text-[#111111] transition-all duration-150 group"
                   aria-label="Email us"
                 >
